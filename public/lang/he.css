@@ -1,0 +1,13 @@
+@font-face {
+  font-family: 'HebrewFont';
+  src: url('../fonts/hebrew-font.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: 'HebrewFont', 'Rubik', sans-serif;
+  direction: rtl;
+  background-color: #fdfdfd;
+  color: #111;
+}

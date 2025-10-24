@@ -1,0 +1,13 @@
+@font-face {
+  font-family: 'CroatianFont';
+  src: url('../fonts/croatian-font.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: 'CroatianFont', 'Roboto', sans-serif;
+  direction: ltr;
+  background-color: #ffffff;
+  color: #222;
+}

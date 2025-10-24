@@ -1,0 +1,44 @@
+// src/lib/languages.ts
+
+export type LanguageCode = 'en' | 'he' | 'hr'
+
+export interface LanguageConfig {
+  css?: string
+  name: string
+  code: LanguageCode
+  direction: 'ltr' | 'rtl'
+  font: string
+  locale: string
+}
+
+export const languages: LanguageConfig[] = [
+  {
+    name: 'English',
+    code: 'en',
+    direction: 'ltr',
+    font: 'Outfit, sans-serif', // ← added fallback for safety
+    locale: 'en-US',
+    css: '/lang/en.css',
+  },
+  {
+    name: 'Croatian',
+    code: 'hr',
+    direction: 'ltr',
+    font: 'Outfit, sans-serif', // ← unless you have a real "CroatianFont", use a real one
+    locale: 'hr-HR',
+    css: '/lang/hr.css',
+  },
+  {
+    name: 'Hebrew',
+    code: 'he',
+    direction: 'rtl',
+    font: 'David Libre, sans-serif', // ← real Hebrew font
+    locale: 'he-IL',
+    css: '/lang/he.css',
+  },
+]
+
+// Helper: get config by code
+export const getLanguageConfig = (code: LanguageCode) => {
+  return languages.find((lang) => lang.code === code) || languages[0]
+}
