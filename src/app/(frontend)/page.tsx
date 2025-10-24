@@ -8,7 +8,7 @@ import MostViewedPosts from './components/MostViewedPosts'
 import PinnedPosts from './components/PinnedPosts'
 import LatestPosts from './components/LatestPosts'
 import CategoryCards from './components/CategoryCards'
-// import TagsCloud from './components/TagsCloud'
+import CategoryFilterBar from './components/CategoryFilterBar' // 👈 Re-add this
 import Sidebar from './components/Sidebar'
 import { languages } from '@/config/languages'
 import { useState } from 'react'
@@ -18,29 +18,28 @@ export default function HomePage() {
 
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      {/* Main Layout: Two Columns */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Left Column: Main Content */}
+      {/* ✅ ONLY ON HOME PAGE */}
+      <CategoryFilterBar />
+
+      {/* Main Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
+        {/* Left Column */}
         <div className="lg:col-span-2 space-y-12">
-          {/* Featured Post */}
           <section>
             <h2 className="text-2xl font-bold text-gray-800 mb-6">✨ Featured Post</h2>
             <FeaturedPost />
           </section>
 
-          {/* Most Viewed */}
           <section>
             <h2 className="text-2xl font-bold text-gray-800 mb-6">🔥 Most Viewed</h2>
             <MostViewedPosts />
           </section>
 
-          {/* Pinned Posts */}
           <section>
             <h2 className="text-2xl font-bold text-gray-800 mb-6">📌 Pinned Posts</h2>
             <PinnedPosts />
           </section>
 
-          {/* Explore Topics */}
           <section>
             <CategoryCards />
           </section>
@@ -48,19 +47,10 @@ export default function HomePage() {
 
         {/* Right Sidebar */}
         <div className="space-y-8">
-          {/* Latest Posts */}
           <section>
             <h2 className="text-xl font-bold text-gray-800 mb-4">📰 Latest Posts</h2>
             <LatestPosts />
           </section>
-
-          {/* Tags Cloud
-          <section>
-            <h2 className="text-xl font-bold text-gray-800 mb-4">🏷️ Tags Cloud</h2>
-            <TagsCloud />
-          </section> */}
-
-          {/* Sidebar Widgets */}
           <Sidebar />
         </div>
       </div>
@@ -75,11 +65,6 @@ export default function HomePage() {
           View All Articles
         </Link>
       </section>
-
-      {/* Footer Note */}
-      <footer className="mt-16 text-center text-gray-500 text-sm">
-        Built with Next.js 14 + Payload CMS • © {new Date().getFullYear()}
-      </footer>
     </main>
   )
 }

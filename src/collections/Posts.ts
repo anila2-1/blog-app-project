@@ -93,6 +93,7 @@ export const Posts: CollectionConfig = {
       type: 'relationship',
       relationTo: 'categories', // ← you'll need to create this collection
       hasMany: false,
+      required: true,
       admin: {
         position: 'sidebar',
       },

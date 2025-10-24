@@ -8,11 +8,9 @@ import { getLanguageConfig, LanguageCode } from './../../../config/languages'
 
 // Get language code from .env (build-time constant)
 const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || 'en'
-
-// Use shared config for direction, font, locale
 const langConfig = getLanguageConfig(LANG_CODE)
 
-// Translations (UI text only — not in shared config, which is correct)
+// Translations
 const translations = {
   en: {
     exploreTopics: 'EXPLORE TOPICS',
@@ -33,7 +31,6 @@ const translations = {
 
 const t = translations[LANG_CODE] || translations.en
 
-// ===== COMPONENT =====
 interface Category {
   id: string
   name: string
@@ -50,7 +47,6 @@ export default function CategoryCards() {
   useEffect(() => {
     async function fetchCategories() {
       try {
-        // Use langConfig.locale for API (e.g., 'he-IL', not just 'he')
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/categories?limit=6&locale=${langConfig.locale}`,
         )
@@ -62,23 +58,24 @@ export default function CategoryCards() {
         setLoading(false)
       }
     }
-
     fetchCategories()
   }, [])
 
   if (loading) {
     return (
-      <div
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-        dir={langConfig.direction}
-        style={{ fontFamily: langConfig.font }}
-      >
-        {[1, 2, 3].map((i) => (
-          <div key={i} className="bg-gray-50 p-4 rounded animate-pulse">
-            <div className="h-48 bg-gray-300 rounded mb-4"></div>
-            <div className="h-4 bg-gray-300 rounded w-3/4 mx-auto"></div>
-          </div>
-        ))}
+      <div className="space-y-8" dir={langConfig.direction} style={{ fontFamily: langConfig.font }}>
+        <div className="flex justify-between items-center">
+          <div className="h-6 bg-gray-300 rounded w-1/4"></div>
+          <div className="h-6 bg-gray-300 rounded w-1/6"></div>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="bg-gray-50 p-4 rounded animate-pulse">
+              <div className="h-48 bg-gray-300 rounded mb-4"></div>
+              <div className="h-4 bg-gray-300 rounded w-3/4 mx-auto"></div>
+            </div>
+          ))}
+        </div>
       </div>
     )
   }
@@ -116,8 +113,14 @@ export default function CategoryCards() {
         </Link>
       </div>
 
-      {/* Category Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* Category Cards - ✅ RTL-safe grid */}
+      <div
+        className={`grid gap-6 ${
+          langConfig.direction === 'rtl'
+            ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'
+            : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'
+        }`}
+      >
         {categories.map((category) => (
           <Link key={category.id} href={`/categories/${category.slug}`} className="block group">
             <div className="relative overflow-hidden rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
@@ -129,7 +132,6 @@ export default function CategoryCards() {
             </div>
           </Link>
         ))}
-        z
       </div>
     </div>
   )

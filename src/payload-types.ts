@@ -188,7 +188,7 @@ export interface Post {
   publishedAt?: string | null;
   featured?: boolean | null;
   pinned?: boolean | null;
-  category?: (string | null) | Category;
+  category: string | Category;
   updatedAt: string;
   createdAt: string;
 }

@@ -1,17 +1,15 @@
+// components/Navbar.tsx
 'use client'
 
 import React, { useState } from 'react'
 import { Home, Search, Menu, X, Facebook, Twitter, Instagram } from 'lucide-react'
+import { getLanguageConfig, LanguageCode } from '@/config/languages'
 
-// Mock language configuration
-const LANG_CODE = 'en' // Default language
+// Get language from .env (build-time constant)
+const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || 'en'
+const langConfig = getLanguageConfig(LANG_CODE)
 
-const langConfig = {
-  direction: 'ltr',
-  font: 'Inter, system-ui, sans-serif',
-}
-
-// Translations
+// Translations for static UI text
 const translations = {
   en: {
     home: 'Home',
@@ -32,11 +30,11 @@ const translations = {
 
 const t = translations[LANG_CODE] || translations.en
 
-export default function App() {
+export default function Navbar() {
   const [search, setSearch] = useState('')
   const [menuOpen, setMenuOpen] = useState(false)
 
-  const handleSearch = (e: { preventDefault: () => void }) => {
+  const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
     if (search.trim()) {
       alert(`Searching for: ${search}`)
