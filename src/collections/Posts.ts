@@ -78,6 +78,7 @@ export const Posts: CollectionConfig = {
       defaultValue: 0,
       admin: {
         position: 'sidebar',
+        readOnly: true,
       },
     },
     {

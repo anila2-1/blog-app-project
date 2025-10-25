@@ -1,16 +1,14 @@
-// src/app/(frontend)/posts/page.tsx
 'use client'
 
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { Post } from '../../../payload-types'
 import { getLanguageConfig, LanguageCode } from '@/config/languages'
+import RichTextPreview from '@/components/RichTextPreview'
 
-// Get language from .env (build-time constant)
 const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || 'en'
 const langConfig = getLanguageConfig(LANG_CODE)
 
-// Translations
 const translations = {
   en: {
     pageTitle: 'Posts',
@@ -40,13 +38,18 @@ export default function PostsPage() {
       try {
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/posts?locale=${langConfig.locale}`,
+          { cache: 'no-store' },
         )
         const data = await res.json()
 
         const validPosts = (data.docs || []).filter(
           (p: any) =>
-            p?.title?.trim() !== '' &&
-            (p.excerpt?.trim() !== '' || (p.content && p.content.length > 0)),
+            p?.title?.trim() &&
+            (p.excerpt?.trim() ||
+              (p.content?.root?.children &&
+                p.content.root.children.some((child: any) =>
+                  child.children?.some((c: any) => c.text?.trim()),
+                ))),
         )
 
         setPosts(validPosts)
@@ -58,7 +61,7 @@ export default function PostsPage() {
     }
 
     fetchPosts()
-  }, []) // Runs once — no dependency
+  }, [])
 
   if (loading) {
     return (
@@ -107,26 +110,38 @@ export default function PostsPage() {
       </h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {posts.map((post) => (
-          <Link
-            href={`/posts/${post.slug}`}
-            key={post.id}
-            className="border rounded-lg p-5 hover:shadow-lg transition"
-          >
-            <h2 className="text-xl font-bold mb-2">{post.title}</h2>
-            <p className="text-gray-600 text-sm mb-2">
-              {post.publishedAt
-                ? new Date(post.publishedAt).toLocaleDateString(langConfig.locale)
-                : ''}
-            </p>
-            <p className="text-gray-700 line-clamp-3">
-              {post.excerpt ||
-                (post.content?.[0] as { children?: Array<{ text?: string }> })?.children?.[0]
-                  ?.text ||
-                ''}
-            </p>
-          </Link>
-        ))}
+        {posts.map((post) => {
+          const hasContent =
+            post.excerpt?.trim() ||
+            (post.content?.root?.children &&
+              post.content.root.children.some((child: any) =>
+                child.children?.some((c: any) => c.text?.trim()),
+              ))
+
+          if (!hasContent) return null // ✅ skip empty posts completely
+
+          return (
+            <Link
+              href={`/posts/${post.slug}`}
+              key={post.id}
+              className="border rounded-lg p-5 hover:shadow-lg transition"
+            >
+              <h2 className="text-xl font-bold mb-2">{post.title}</h2>
+              <p className="text-gray-600 text-sm mb-2">
+                {post.publishedAt
+                  ? new Date(post.publishedAt).toLocaleDateString(langConfig.locale)
+                  : ''}
+              </p>
+              <p className="text-gray-700 line-clamp-3">
+                {post.excerpt ? (
+                  post.excerpt
+                ) : (
+                  <RichTextPreview content={post.content} maxLength={120} />
+                )}
+              </p>
+            </Link>
+          )
+        })}
       </div>
     </main>
   )

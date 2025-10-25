@@ -2,6 +2,7 @@
 
 import { Post } from '../../../../payload-types'
 import { getLanguageConfig, LanguageCode } from '@/config/languages'
+import PostContent from '@/components/PostContent'
 
 const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || 'en'
 const langConfig = getLanguageConfig(LANG_CODE)
@@ -55,7 +56,11 @@ export default async function SinglePostPage(props: { params: Promise<{ slug: st
 
   if (!post) {
     return (
-      <main className="max-w-3xl mx-auto p-6 text-center">
+      <main
+        className="max-w-3xl mx-auto p-6 text-center"
+        dir={langConfig.direction}
+        style={{ fontFamily: langConfig.font }}
+      >
         <p className="text-gray-600">Post not found.</p>
       </main>
     )
@@ -75,48 +80,8 @@ export default async function SinglePostPage(props: { params: Promise<{ slug: st
             : 'N/A'}
         </p>
 
-        {typeof post.image === 'object' && post.image?.url && (
-          <img
-            src={post.image.url}
-            alt={post.title}
-            className="rounded-xl mb-6 w-full object-cover"
-          />
-        )}
-
-        <div className="space-y-4">
-          {post.content?.root?.children?.map((block: any, i: number) => {
-            if (!block.children?.length) return null
-
-            const firstChild = block.children[0]
-            const firstChildText = firstChild?.text || ''
-
-            if (firstChildText.endsWith(':') || /^Section \d+/.test(firstChildText)) {
-              const headingText = firstChildText.replace(/:$/, '')
-              return (
-                <h2 key={i} className="text-2xl font-bold mt-8 mb-4">
-                  {headingText}
-                </h2>
-              )
-            }
-
-            return (
-              <p key={i} className="mb-4 leading-relaxed text-gray-800">
-                {block.children.map((child: any, j: number) => {
-                  if (!child?.text) return null
-                  if (child.bold && child.italic)
-                    return (
-                      <strong key={j}>
-                        <em>{child.text}</em>
-                      </strong>
-                    )
-                  if (child.bold) return <strong key={j}>{child.text}</strong>
-                  if (child.italic) return <em key={j}>{child.text}</em>
-                  return <span key={j}>{child.text}</span>
-                })}
-              </p>
-            )
-          })}
-        </div>
+        {/* ✅ Client Component for RichText + View Tracking */}
+        <PostContent post={post} />
       </article>
     </main>
   )
