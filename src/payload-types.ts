@@ -188,7 +188,18 @@ export interface Post {
   publishedAt?: string | null;
   featured?: boolean | null;
   pinned?: boolean | null;
+  views?: number | null;
   category: string | Category;
+  seo?: {
+    /**
+     * Recommended under 60 characters
+     */
+    metaTitle?: string | null;
+    /**
+     * Recommended under 160 characters
+     */
+    metaDescription?: string | null;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -321,7 +332,14 @@ export interface PostsSelect<T extends boolean = true> {
   publishedAt?: T;
   featured?: T;
   pinned?: T;
+  views?: T;
   category?: T;
+  seo?:
+    | T
+    | {
+        metaTitle?: T;
+        metaDescription?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }

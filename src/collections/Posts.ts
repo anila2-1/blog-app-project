@@ -22,7 +22,6 @@ export const Posts: CollectionConfig = {
       required: true,
       localized: true,
     },
-
     {
       name: 'slug',
       type: 'text',
@@ -42,7 +41,6 @@ export const Posts: CollectionConfig = {
       required: true,
       localized: true,
     },
-
     {
       name: 'image',
       type: 'upload',
@@ -58,7 +56,6 @@ export const Posts: CollectionConfig = {
       localized: true,
       admin: { position: 'sidebar' },
     },
-
     {
       name: 'featured',
       type: 'checkbox',
@@ -67,7 +64,6 @@ export const Posts: CollectionConfig = {
         position: 'sidebar',
       },
     },
-
     {
       name: 'pinned',
       type: 'checkbox',
@@ -76,29 +72,56 @@ export const Posts: CollectionConfig = {
         position: 'sidebar',
       },
     },
-
-    // // For "Most Viewed" — optional, but useful for analytics
-    // {
-    //   name: 'views',
-    //   type: 'number',
-    //   defaultValue: 0,
-    //   admin: {
-    //     position: 'sidebar',
-    //   },
-    // },
-
-    // Categories"
+    {
+      name: 'views',
+      type: 'number',
+      defaultValue: 0,
+      admin: {
+        position: 'sidebar',
+      },
+    },
     {
       name: 'category',
       type: 'relationship',
-      relationTo: 'categories', // ← you'll need to create this collection
+      relationTo: 'categories',
       hasMany: false,
       required: true,
       admin: {
         position: 'sidebar',
       },
     },
+
+    {
+      name: 'seo',
+      type: 'group',
+      label: 'SEO',
+      localized: true,
+      admin: {
+        position: 'sidebar',
+      },
+      fields: [
+        {
+          name: 'metaTitle',
+          label: 'Meta Title',
+          type: 'text',
+          required: false,
+          maxLength: 60,
+          admin: {
+            description: 'Recommended under 60 characters',
+          },
+        },
+        {
+          name: 'metaDescription',
+          label: 'Meta Description',
+          type: 'textarea',
+          required: false,
+          maxLength: 160,
+          admin: {
+            description: 'Recommended under 160 characters',
+          },
+        },
+      ],
+    },
   ],
 }
-
 export default Posts
