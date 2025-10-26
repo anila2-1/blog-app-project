@@ -43,8 +43,6 @@ export default function PostCard({ post, locale }: PostCardProps) {
             fill
             style={{ objectFit: 'cover' }}
             className="transition-transform duration-700 group-hover:scale-110"
-            placeholder="blur"
-            blurDataURL="/placeholder-blur.jpg"
           />
           {/* Dark vignette overlay for text contrast */}
           <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent" />

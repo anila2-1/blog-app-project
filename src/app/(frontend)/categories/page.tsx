@@ -124,21 +124,6 @@ export default function CategoriesPage() {
           {categories.map((category) => (
             <Link key={category.id} href={`/categories/${category.slug}`} className="group block">
               <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-1.5 hover:border-gray-200 flex flex-col">
-                {category.image?.url ? (
-                  <div className="relative h-40 w-full overflow-hidden">
-                    <img
-                      src={category.image.url}
-                      alt={category.name}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent"></div>
-                  </div>
-                ) : (
-                  <div className="h-40 w-full bg-linear-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                    <span className="text-gray-400 text-4xl">📁</span>
-                  </div>
-                )}
-
                 <div className="p-5 grow flex items-center justify-center">
                   <h3 className="text-lg font-semibold text-gray-800 text-center group-hover:text-blue-600 transition-colors duration-200 line-clamp-2 px-2">
                     {category.name}
