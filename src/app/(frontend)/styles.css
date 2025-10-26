@@ -10,6 +10,7 @@ body {
   line-height: 1.6;
   color: #181818;
 }
+
 * {
   font-size: 1.125rem !important; /* 20px */
   font-weight: 400;
@@ -42,6 +43,13 @@ h1, h2, h3, h4, h5, h6 {
 .prose li {
   @apply leading-relaxed;
 }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease forwards;
+}
 
 /* Shared direction rules */
 [dir='rtl'] {
@@ -51,4 +59,80 @@ h1, h2, h3, h4, h5, h6 {
 [dir='ltr'] {
   direction: ltr;
   text-align: left;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInSlow {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn { animation: fadeIn 0.6s ease forwards; }
+.animate-fadeUp { animation: fadeUp 0.8s ease forwards; }
+.animate-fadeInSlow { animation: fadeInSlow 1s ease forwards; }
+
+
+/* styles/globals.css */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+/* Custom Gradient for Glassmorphism */
+.bg-glass {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+}
+
+/* For smoother transitions */
+* {
+  scroll-behavior: smooth;
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
 }

@@ -1,4 +1,5 @@
 // src/app/(frontend)/components/CategoryFilterBar.tsx
+
 'use client'
 
 import { useEffect, useState } from 'react'
@@ -8,7 +9,6 @@ import { getLanguageConfig, LanguageCode } from '@/config/languages'
 const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || 'en'
 const langConfig = getLanguageConfig(LANG_CODE)
 
-// ✅ Add translation for "All"
 const translations = {
   en: { all: 'All' },
   he: { all: 'הכול' },
@@ -45,47 +45,63 @@ export default function CategoryFilterBar() {
     fetchCategories()
   }, [])
 
+  // 🔄 Skeleton while loading
   if (loading) {
     return (
       <div
-        className={`flex ${
-          langConfig.direction === 'rtl' ? 'space-x-reverse' : ''
-        } space-x-4 px-6 py-3 bg-gray-50 animate-pulse`}
         dir={langConfig.direction}
         style={{ fontFamily: langConfig.font }}
+        className="flex justify-center flex-wrap gap-3 px-6 py-4 bg-white/70 backdrop-blur-sm rounded-xl animate-pulse"
       >
-        {[1, 2, 3].map((i) => (
-          <div key={i} className="h-8 bg-gray-300 rounded-full w-20"></div>
+        {[1, 2, 3, 4].map((i) => (
+          <div key={i} className="h-8 bg-gray-200 rounded-full w-24"></div>
         ))}
       </div>
     )
   }
 
+  // 🎨 Actual content — Centered, glassy, borderless
   return (
     <div
-      className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm"
       dir={langConfig.direction}
       style={{ fontFamily: langConfig.font }}
+      className="relative mx-auto max-w-7xl px-6 py-4"
     >
-      <div
-        className={`flex flex-wrap ${langConfig.direction === 'rtl' ? 'gap-x-reverse' : ''} gap-4`}
-      >
-        {/* All Categories - ✅ Translated */}
+      <div className={`flex justify-center flex-wrap gap-3`}>
+        {/* 🏷 All Button */}
         <Link
           href="/posts"
-          className="px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-md transition-colors"
+          className="group relative px-5 py-2.5 text-sm font-semibold text-gray-700 
+                     bg-white/90 backdrop-blur-sm rounded-full
+                     hover:bg-linear-to-r hover:from-purple-50 hover:to-indigo-50
+                     hover:text-purple-700
+                     transition-all duration-300 ease-out
+                     shadow-sm hover:shadow-md
+                     before:absolute before:inset-0 before:rounded-full before:bg-linear-to-r before:from-purple-500/10 before:to-indigo-500/10 before:opacity-0 before:transition-opacity before:duration-300
+                     before:group-hover:opacity-100"
         >
-          {t.all}
+          <span className="relative z-10">{t.all}</span>
         </Link>
 
-        {/* Dynamic Categories (from CMS, already localized) */}
-        {categories.map((category) => (
+        {/* 🌈 Category Buttons */}
+        {categories.map((category, index) => (
           <Link
             key={category.id}
             href={`/categories/${category.slug}`}
-            className="px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-md transition-colors"
+            className={`
+              group relative px-5 py-2.5 text-sm font-medium rounded-full
+              bg-white/90 backdrop-blur-sm text-gray-700
+              hover:bg-linear-to-r hover:from-pink-50 hover:to-purple-50
+              hover:text-purple-700
+              transition-all duration-300 ease-out
+              shadow-sm hover:shadow-md
+              before:absolute before:inset-0 before:rounded-full before:bg-linear-to-r before:from-pink-500/10 before:to-purple-500/10 before:opacity-0 before:transition-opacity before:duration-300
+              before:group-hover:opacity-100
+              animate-fadeIn
+            `}
+            style={{ animationDelay: `${index * 0.05}s` }}
           >
-            {category.name}
+            <span className="relative z-10">{category.name}</span>
           </Link>
         ))}
       </div>

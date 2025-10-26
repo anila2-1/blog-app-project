@@ -1,4 +1,5 @@
 // src/app/(frontend)/components/PinnedPosts.tsx
+
 'use client'
 
 import { useEffect, useState } from 'react'
@@ -6,13 +7,9 @@ import { Post } from '../../../payload-types'
 import PostCard from './PostCard'
 import { getLanguageConfig, LanguageCode } from './../../../config/languages'
 
-// Get language from .env (build-time constant)
 const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || 'en'
-
-// Use shared config for direction, font, and full locale (e.g., 'he-IL')
 const langConfig = getLanguageConfig(LANG_CODE)
 
-// Translations for static UI text
 const translations = {
   en: { noPosts: 'No pinned posts found.' },
   he: { noPosts: 'לא נמצאו פוסטים מוצמדים.' },
@@ -28,11 +25,19 @@ export default function PinnedPosts() {
   useEffect(() => {
     async function fetchPosts() {
       try {
+        // ✅ Fetch ALL pinned posts (no limit)
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/posts?where[pinned][equals]=true&limit=3&locale=${langConfig.locale}`,
+          `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/posts?where[pinned][equals]=true&locale=${langConfig.locale}&fallback-locale=none`,
         )
         const data = await res.json()
-        setPosts(data.docs || [])
+
+        // ✅ Filter: Only posts with required fields in current locale
+        const validPosts = (data.docs || []).filter(
+          (p: Post) => p?.title && p?.publishedAt && p?.excerpt,
+        )
+
+        // Optional: Limit to max 3 (but only valid ones)
+        setPosts(validPosts.slice(0, 3))
       } catch (err) {
         console.error('Error fetching pinned posts:', err)
       } finally {
@@ -41,15 +46,17 @@ export default function PinnedPosts() {
     }
 
     fetchPosts()
-  }, []) // Runs once — no dependency
+  }, [])
 
   if (loading) {
+    // ✅ Show dynamic skeleton count (max 3, but not fixed layout)
     return (
       <div
         className="grid grid-cols-1 sm:grid-cols-3 gap-6"
         dir={langConfig.direction}
         style={{ fontFamily: langConfig.font }}
       >
+        {/* Show up to 3 skeletons, but they'll collapse if fewer posts exist */}
         {[1, 2, 3].map((i) => (
           <div key={i} className="bg-gray-50 p-4 rounded animate-pulse">
             <div className="h-32 bg-gray-300 rounded mb-4"></div>
@@ -75,16 +82,18 @@ export default function PinnedPosts() {
 
   return (
     <div
-      className="grid grid-cols-1 sm:grid-cols-3 gap-6"
+      className={`grid gap-6 mt-5 ${
+        posts.length === 1
+          ? 'grid-cols-1'
+          : posts.length === 2
+            ? 'grid-cols-1 sm:grid-cols-2'
+            : 'grid-cols-1 sm:grid-cols-3'
+      }`}
       dir={langConfig.direction}
       style={{ fontFamily: langConfig.font }}
     >
       {posts.map((post) => (
-        <PostCard
-          key={post.id}
-          post={post}
-          locale={langConfig.locale} // Pass full locale like 'he-IL'
-        />
+        <PostCard key={post.id} post={post} locale={langConfig.locale} />
       ))}
     </div>
   )

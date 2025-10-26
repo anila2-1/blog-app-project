@@ -38,7 +38,7 @@ export default buildConfig({
   i18n: {
     supportedLanguages: { en },
   },
-  editor: lexicalEditor(),
+  editor: lexicalEditor({ features: ({ defaultFeatures }) => [...defaultFeatures] }),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),

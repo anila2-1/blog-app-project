@@ -14,6 +14,7 @@ export const Posts: CollectionConfig = {
   },
   access: {
     read: () => true,
+    update: () => true,
   },
   fields: [
     {

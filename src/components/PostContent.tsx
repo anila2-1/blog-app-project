@@ -1,4 +1,3 @@
-// src/components/PostContent.tsx
 'use client'
 
 import { useEffect } from 'react'
@@ -9,13 +8,12 @@ import { getLanguageConfig, LanguageCode } from '@/config/languages'
 const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || 'en'
 const langConfig = getLanguageConfig(LANG_CODE)
 
-// Helper: Check if user already viewed this post
+// ✅ Prevent double count using cookies
 const hasViewed = (slug: string): boolean => {
   if (typeof window === 'undefined') return false
   return document.cookie.split(';').some((c) => c.trim().startsWith(`viewed_post_${slug}=`))
 }
 
-// Helper: Set cookie for 24 hours
 const setViewed = (slug: string) => {
   if (typeof window === 'undefined') return
   const expiry = new Date()
@@ -29,7 +27,6 @@ interface PostContentProps {
 
 export default function PostContent({ post }: PostContentProps) {
   useEffect(() => {
-    // Increment view count (only once per user per 24h)
     if (hasViewed(post.slug)) return
 
     const incrementView = async () => {
@@ -39,9 +36,7 @@ export default function PostContent({ post }: PostContentProps) {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ slug: post.slug, locale: langConfig.locale }),
         })
-        if (res.ok) {
-          setViewed(post.slug)
-        }
+        if (res.ok) setViewed(post.slug)
       } catch (err) {
         console.warn('Failed to increment view count:', err)
       }
@@ -59,9 +54,7 @@ export default function PostContent({ post }: PostContentProps) {
           className="rounded-xl mb-6 w-full object-cover"
         />
       )}
-
-      {/* ✅ Perfect RichText */}
-      <RichText data={post.content} enableProse />
+      <RichText content={post.content} />
     </>
   )
 }

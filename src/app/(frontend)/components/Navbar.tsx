@@ -1,43 +1,66 @@
-// components/Navbar.tsx
+// src/app/(frontend)/components/Navbar.tsx
+
 'use client'
 
 import React, { useState } from 'react'
-import { Home, Search, Menu, X, Facebook, Twitter, Instagram } from 'lucide-react'
+import { Home, Search, Menu, X, Facebook, Twitter, Instagram, X as CloseIcon } from 'lucide-react'
 import { getLanguageConfig, LanguageCode } from '@/config/languages'
 
-// Get language from .env (build-time constant)
 const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || 'en'
 const langConfig = getLanguageConfig(LANG_CODE)
 
-// Translations for static UI text
 const translations = {
   en: {
     home: 'Home',
     search: 'Search...',
     siteName: 'BlogSite',
+    searchModalTitle: 'Type to start your search',
+    searchButton: 'Search',
+    close: 'Close',
+    pressEsc: 'Press ESC to close',
   },
   he: {
     home: 'דף הבית',
     search: 'חפש...',
     siteName: 'BlogSite',
+    searchModalTitle: 'הקלד כדי להתחיל חיפוש',
+    searchButton: 'חיפוש',
+    close: 'סגור',
+    pressEsc: 'לחץ ESC לסגור',
   },
   hr: {
     home: 'Početna',
     search: 'Pretraži...',
     siteName: 'BlogSite',
+    searchModalTitle: 'Upišite da biste započeli pretragu',
+    searchButton: 'Pretraži',
+    close: 'Zatvori',
+    pressEsc: 'Pritisnite ESC za zatvaranje',
   },
 }
 
 const t = translations[LANG_CODE] || translations.en
 
 export default function Navbar() {
-  const [search, setSearch] = useState('')
+  const [searchQuery, setSearchQuery] = useState('')
   const [menuOpen, setMenuOpen] = useState(false)
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
 
-  const handleSearch = (e: React.FormEvent) => {
+  // Handle Escape Key
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsSearchOpen(false)
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [])
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    if (search.trim()) {
-      alert(`Searching for: ${search}`)
+    if (searchQuery.trim()) {
+      window.location.href = `/search?q=${encodeURIComponent(searchQuery)}`
     }
   }
 
@@ -61,19 +84,13 @@ export default function Navbar() {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-6">
-          {/* Search */}
-          <form onSubmit={handleSearch} className="relative">
-            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <Search className="text-indigo-400 w-4 h-4" />
-            </div>
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder={t.search}
-              className="border border-indigo-200 rounded-full pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 bg-white/80 backdrop-blur-sm"
-            />
-          </form>
+          {/* Search Icon - Opens Modal */}
+          <button
+            onClick={() => setIsSearchOpen(true)}
+            className="p-2 rounded-full bg-indigo-100 text-indigo-600 hover:bg-indigo-200 hover:text-indigo-800 transition-all duration-300 group"
+          >
+            <Search className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
+          </button>
 
           {/* Home Link */}
           <a
@@ -115,7 +132,12 @@ export default function Navbar() {
 
         {/* Mobile Buttons */}
         <div className="flex items-center gap-3 md:hidden">
-          <Search className="text-indigo-600 w-5 h-5 cursor-pointer hover:scale-110 transition-transform duration-300" />
+          <button
+            onClick={() => setIsSearchOpen(true)}
+            className="p-2 rounded-full bg-indigo-100 text-indigo-600 hover:bg-indigo-200 hover:text-indigo-800 transition-all duration-300 group"
+          >
+            <Search className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
+          </button>
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="text-indigo-700 focus:outline-none hover:text-indigo-900 transition-colors duration-300"
@@ -134,18 +156,13 @@ export default function Navbar() {
         >
           <div className="flex flex-col items-start px-6 py-6 space-y-5">
             {/* Mobile Search */}
-            <form onSubmit={handleSearch} className="relative w-full">
-              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                <Search className="text-indigo-400 w-4 h-4" />
-              </div>
-              <input
-                type="text"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder={t.search}
-                className="w-full border border-indigo-200 rounded-full pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 bg-white/80 backdrop-blur-sm"
-              />
-            </form>
+            <button
+              onClick={() => setIsSearchOpen(true)}
+              className="flex items-center gap-2 w-full p-2 text-indigo-700 hover:text-indigo-900 transition-all duration-300 group"
+            >
+              <Search className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
+              <span className="font-medium">{t.search}</span>
+            </button>
 
             {/* Home Link */}
             <a
@@ -185,6 +202,45 @@ export default function Navbar() {
               </a>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* 🔥 FULLSCREEN SEARCH MODAL — Exactly like TheCozyGamer.com */}
+      {isSearchOpen && (
+        <div
+          className="fixed inset-0 z-50 bg-linear-to-br from-yellow-50 via-orange-50 to-red-50 flex flex-col items-center justify-center p-4"
+          style={{ fontFamily: langConfig.font }}
+        >
+          {/* Close Button */}
+          <button
+            onClick={() => setIsSearchOpen(false)}
+            className="absolute top-4 right-4 p-2 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 transition-colors"
+          >
+            <CloseIcon className="w-5 h-5" />
+          </button>
+
+          {/* ESC Hint */}
+          <p className="text-gray-700 mb-6 text-xl font-semibold">{t.pressEsc}</p>
+
+          {/* Search Form */}
+          <form onSubmit={handleSearchSubmit} className="w-full max-w-md">
+            <div className="relative">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder={t.searchModalTitle}
+                className="w-full pl-4 pr-12 py-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 bg-white shadow-sm"
+                autoFocus
+              />
+              <button
+                type="submit"
+                className="absolute right-1 top-1/2 transform -translate-y-1/2 px-4 py-1.5 bg-linear-to-r from-purple-600 to-indigo-600 text-white rounded-full text-sm font-medium hover:from-purple-700 hover:to-indigo-700 transition-all"
+              >
+                {t.searchButton}
+              </button>
+            </div>
+          </form>
         </div>
       )}
     </nav>
