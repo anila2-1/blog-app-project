@@ -177,16 +177,31 @@ function SectionCard({
 }) {
   return (
     <section
-      className={`relative bg-violet-100 ${padding} rounded-3xl border border-purple-400 shadow-sm 
-                 transition-all duration-200 ease-out
-                 ${isPressed ? 'scale-[0.98] shadow-inner ring-2 ring-purple-300' : 'hover:shadow-xl'}
-                 ${customClasses}`}
+      className={`
+    relative overflow-hidden
+    bg-linear-to-br from-[#f6e5ff]/80 via-[#f9f0ff]/80 to-[#e7f5ff]/80
+    backdrop-blur-lg
+    border border-blue-300 shadow-sm
+    rounded-3xl p-6 sm:p-8 transition-all duration-300 ease-out
+    ${
+      isPressed
+        ? 'scale-[0.97] shadow-inner ring-2 ring-purple-300/40'
+        : 'hover:shadow-2xl hover:-translate-y-1 hover:border-purple-200/70'
+    }
+    ${customClasses}
+  `}
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}
       onMouseLeave={onMouseUp}
       onTouchStart={onMouseDown}
       onTouchEnd={onMouseUp}
     >
+      {/* Optional Floating Glow Decoration */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-0 left-0 w-40 h-40 bg-purple-300/20 blur-3xl rounded-full"></div>
+        <div className="absolute bottom-0 right-0 w-48 h-48 bg-pink-200/30 blur-3xl rounded-full"></div>
+      </div>
+
       {/* Corner Label */}
       <div
         className={`absolute ${labelPosition} px-3 py-1 bg-purple-500 text-white text-xs font-bold 
