@@ -1,4 +1,3 @@
-// src/components/RichText.tsx
 'use client'
 
 import React from 'react'
