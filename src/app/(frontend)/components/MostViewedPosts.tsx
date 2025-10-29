@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react'
 import { Post } from '../../../payload-types'
-import PostCard from './PostCard'
 import { getLanguageConfig, LanguageCode } from '@/config/languages'
 
 const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || 'en'
@@ -23,19 +22,15 @@ export default function MostViewedPosts() {
   useEffect(() => {
     async function fetchPosts() {
       try {
-        // ✅ Fetch all posts sorted by views
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/posts?sort=-views&locale=${langConfig.locale}&fallback-locale=none`,
           { cache: 'no-store' },
         )
         const data = await res.json()
-
-        // ✅ Only valid posts with required fields
         const validPosts = (data.docs || []).filter(
           (p: Post) => p?.title && p?.slug && typeof p.image !== 'string' && p.image?.url,
         )
-
-        setPosts(validPosts.slice(0, 3)) // top 3 most viewed
+        setPosts(validPosts.slice(0, 4)) // top 4 popular posts
       } catch (err) {
         console.error('Error fetching most viewed posts:', err)
       } finally {
@@ -46,25 +41,28 @@ export default function MostViewedPosts() {
     fetchPosts()
   }, [])
 
-  // ✅ Loading skeleton (like pinned posts)
+  // 🔄 Loading skeleton
   if (loading) {
     return (
       <div
-        className="grid grid-cols-1 sm:grid-cols-3 gap-6"
+        className="flex flex-col gap-5"
         dir={langConfig.direction}
         style={{ fontFamily: langConfig.font }}
       >
         {[1, 2, 3].map((i) => (
-          <div key={i} className="bg-gray-50 p-4 rounded animate-pulse">
-            <div className="h-32 bg-gray-300 rounded mb-4"></div>
-            <div className="h-4 bg-gray-300 rounded w-3/4 mb-2"></div>
-            <div className="h-4 bg-gray-300 rounded w-full"></div>
+          <div key={i} className="flex gap-4 p-3 bg-gray-50 rounded-xl animate-pulse">
+            <div className="h-20 w-28 bg-gray-300 rounded-lg"></div>
+            <div className="flex-1 space-y-2">
+              <div className="h-4 bg-gray-300 rounded w-3/4"></div>
+              <div className="h-4 bg-gray-300 rounded w-1/2"></div>
+            </div>
           </div>
         ))}
       </div>
     )
   }
 
+  // 🚫 No posts
   if (!posts.length) {
     return (
       <p
@@ -77,31 +75,46 @@ export default function MostViewedPosts() {
     )
   }
 
-  // ✅ Adaptive grid
-  const gridClass =
-    posts.length === 1
-      ? 'grid-cols-1'
-      : posts.length === 2
-        ? 'grid-cols-1 sm:grid-cols-2'
-        : 'grid-cols-1 sm:grid-cols-3'
-
+  // ✅ Final layout with Excerpt
   return (
     <div
-      className={`grid gap-6 mt-5 ${gridClass}`}
+      className="flex flex-col gap-5 mt-5 "
       dir={langConfig.direction}
       style={{ fontFamily: langConfig.font }}
     >
       {posts.map((post, i) => (
-        <div
+        <a
+          href={`/posts/${post.slug}`}
           key={post.id}
-          className="opacity-0 animate-fadeIn"
+          className="flex gap-4 items-center p-3 bg-white/90 border border-gray-100 rounded-2xl shadow-sm hover:bg-linear-to-r from-indigo-400/20 via-purple-400/20 to-pink-400/20 hover:-translate-y-0.5 transition-all duration-300 opacity-0 animate-fadeIn"
           style={{
-            animationDelay: `${i * 150}ms`,
+            animationDelay: `${i * 120}ms`,
             animationFillMode: 'forwards',
           }}
         >
-          <PostCard post={post} locale={langConfig.locale} />
-        </div>
+          {/* Thumbnail */}
+          {typeof post.image !== 'string' && post.image?.url && (
+            <img
+              src={post.image.url}
+              alt={post.title}
+              className="w-28 h-20 object-cover rounded-xl shrink-0"
+            />
+          )}
+
+          {/* Title + Excerpt + Views */}
+          <div className="flex-1">
+            <p className="text-xs text-gray-400 mt-1"> {post.views || 0} views</p>
+
+            <h3 className="text-[15px] font-semibold text-gray-800 leading-snug line-clamp-2 hover:text-indigo-600 transition-colors duration-300">
+              {post.title}
+            </h3>
+
+            {/* Excerpt */}
+            {post.excerpt && (
+              <p className="text-sm text-gray-600 mt-1 line-clamp-2">{post.excerpt}</p>
+            )}
+          </div>
+        </a>
       ))}
     </div>
   )

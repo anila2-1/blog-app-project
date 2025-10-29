@@ -128,17 +128,21 @@ export default function Footer() {
               <button
                 onClick={handleScrollTop}
                 className="
-            fixed bottom-8 right-8 z-50 
-            flex items-center gap-2
-            bg-white shadow-lg border border-gray-200
-            hover:bg-indigo-600 hover:text-white
-            text-gray-700 font-medium 
-            px-4 py-2 rounded-full
-            transition-all duration-300
-          "
+    fixed bottom-8 right-8 z-50 
+    flex items-center gap-2
+    bg-white/80 backdrop-blur-md
+    border border-gray-200
+    text-gray-800 font-medium 
+    px-5 py-2.5 rounded-full
+    shadow-lg hover:shadow-[0_0_25px_rgba(56,189,248,0.6)]
+    hover:bg-linear-to-r hover:from-sky-500 hover:to-blue-600
+    hover:text-white
+    transition-all duration-500 ease-out
+    hover:scale-110 active:scale-95
+    animate-float
+  "
               >
-                <ArrowUp className="w-5 h-5" />
-                Back to Top
+                <ArrowUp className="w-5 h-5 transition-transform duration-300 group-hover:-translate-y-1" />
               </button>
             )}
           </div>

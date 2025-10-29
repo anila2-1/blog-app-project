@@ -82,7 +82,7 @@ export default function PinnedPosts() {
 
   return (
     <div
-      className={`grid gap-6 mt-5 ${
+      className={`grid gap-5 mt-5 ${
         posts.length === 1
           ? 'grid-cols-1'
           : posts.length === 2

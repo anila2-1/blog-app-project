@@ -38,23 +38,28 @@ export default function HomePage() {
       <div className="mb-8 animate-fadeIn">
         <CategoryFilterBar />
       </div>
+      {/* 🌟 Featured Post Section */}
+      <div className="mb-10">
+        <SectionCard
+          label="Featured"
+          isPressed={pressedSections.featured}
+          onMouseDown={handleMouseDown('featured')}
+          onMouseUp={handleMouseUp('featured')}
+          padding="p-4"
+          labelPosition="top-3 left-3"
+          customClasses="relative overflow-hidden"
+        >
+          {/* Optional Glow Background */}
+          <div className="absolute inset-0 bg-linear-to-tr from-purple-100 via-pink-50 to-blue-100 blur-3xl opacity-60 -z-10"></div>
+
+          <FeaturedPost />
+        </SectionCard>
+      </div>
 
       {/* 📰 Main Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 animate-fadeUp">
         {/* Left Content */}
         <div className="lg:col-span-2 space-y-8">
-          {/* ✨ Featured Post */}
-          <SectionCard
-            label="Featured"
-            isPressed={pressedSections.featured}
-            onMouseDown={handleMouseDown('featured')}
-            onMouseUp={handleMouseUp('featured')}
-            padding="p-4"
-            labelPosition="top-3 left-3"
-          >
-            <FeaturedPost />
-          </SectionCard>
-
           {/* 🔥 Popular Articles */}
           <SectionCard
             label="Popular"
@@ -156,6 +161,7 @@ export default function HomePage() {
 }
 
 // 🔧 Reusable SectionCard Component
+
 function SectionCard({
   label,
   children,
@@ -178,48 +184,34 @@ function SectionCard({
   return (
     <section
       className={`
-    relative overflow-hidden
-    bg-linear-to-br from-[#f6e5ff]/80 via-[#f9f0ff]/80 to-[#e7f5ff]/80
-    backdrop-blur-lg
-    border border-blue-300 shadow-sm
-    rounded-3xl p-6 sm:p-8 transition-all duration-300 ease-out
-    ${
-      isPressed
-        ? 'scale-[0.97] shadow-inner ring-2 ring-purple-300/40'
-        : 'hover:shadow-2xl hover:-translate-y-1 hover:border-purple-200/70'
-    }
-    ${customClasses}
-  `}
+        relative overflow-hidden
+        bg-white/70
+        border-2 border-blue-800
+        rounded-2xl ${padding}
+        transition-all duration-300 ease-out
+
+        ${
+          isPressed
+            ? 'scale-[0.99] ring-2 ring-cyan-500 shadow-inner'
+            : 'hover:shadow-lg hover:border-gray-400'
+        }
+        ${customClasses}
+      `}
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}
       onMouseLeave={onMouseUp}
       onTouchStart={onMouseDown}
       onTouchEnd={onMouseUp}
     >
-      {/* Optional Floating Glow Decoration */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-0 left-0 w-40 h-40 bg-purple-300/20 blur-3xl rounded-full"></div>
-        <div className="absolute bottom-0 right-0 w-48 h-48 bg-pink-200/30 blur-3xl rounded-full"></div>
-      </div>
-
       {/* Corner Label */}
       <div
-        className={`absolute ${labelPosition} px-3 py-1 bg-purple-500 text-white text-xs font-bold 
-                     rounded-r-lg rounded-t-lg shadow-md z-10`}
+        className={`absolute ${labelPosition} px-3 py-1 bg-sky-900 text-white text-xs font-bold rounded-tl-md rounded-br-md shadow-sm z-10`}
       >
         {label}
       </div>
 
-      {/* Content with top padding */}
+      {/* Content */}
       <div className="pt-8">{children}</div>
-
-      {/* Bottom Glow */}
-      <div
-        className={`absolute bottom-0 left-0 right-0 h-1 
-                    bg-linear-to-r from-transparent via-purple-300 to-transparent 
-                    transition-all duration-300
-                    ${isPressed ? 'opacity-70' : 'opacity-0 group-hover:opacity-40'}`}
-      ></div>
     </section>
   )
 }

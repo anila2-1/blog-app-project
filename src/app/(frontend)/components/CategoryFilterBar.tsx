@@ -76,6 +76,7 @@ export default function CategoryFilterBar() {
                      hover:bg-linear-to-r hover:from-purple-50 hover:to-indigo-50
                      hover:text-purple-700
                      transition-all duration-300 ease-out
+                     border-2 border-cyan-700 
                      shadow-sm hover:shadow-md
                      before:absolute before:inset-0 before:rounded-full before:bg-linear-to-r before:from-purple-500/10 before:to-indigo-500/10 before:opacity-0 before:transition-opacity before:duration-300
                      before:group-hover:opacity-100"
@@ -89,7 +90,7 @@ export default function CategoryFilterBar() {
             key={category.id}
             href={`/categories/${category.slug}`}
             className={`
-              group relative px-5 py-2.5 text-sm font-medium rounded-full
+              group border-2 border-cyan-700 relative px-5 py-2.5 text-sm font-medium rounded-full
               bg-white/90 backdrop-blur-sm text-gray-700
               hover:bg-linear-to-r hover:from-pink-50 hover:to-purple-50
               hover:text-purple-700

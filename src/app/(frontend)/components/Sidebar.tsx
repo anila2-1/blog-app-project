@@ -28,7 +28,6 @@ export default function Sidebar() {
     <div className="space-y-8" dir={langConfig.direction} style={{ fontFamily: langConfig.font }}>
       {/* 🖼️ Advertisement Card */}
       <div className="relative group rounded-2xl overflow-hidden bg-linear-to-tr from-gray-100 via-gray-50 to-white p-6 shadow-lg hover:shadow-2xl transition-all duration-500">
-        {/* Animated gradient border */}
         <div className="absolute inset-0 rounded-2xl bg-linear-to-r from-pink-400 via-purple-400 to-indigo-400 opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-700 -z-10"></div>
 
         <div className="h-40 bg-linear-to-br from-gray-200 via-gray-300 to-gray-200 rounded-xl mb-5 flex items-center justify-center relative overflow-hidden">
@@ -44,38 +43,73 @@ export default function Sidebar() {
       </div>
 
       {/* 🌐 Follow Us Card */}
-      <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl border border-gray-100 transition-all duration-500">
+      <div className="bg-linear-to-tr from-gray-100 via-gray-50 to-white rounded-2xl p-6 shadow-lg hover:shadow-2xl border border-gray-100 transition-all duration-500">
         <h3 className="font-bold text-gray-900 text-lg mb-5 text-center relative">
           <span className="relative z-10">{t.followUs}</span>
           <span className="absolute left-1/2 -translate-x-1/2 bottom-0 w-12 h-1 bg-linear-to-r from-pink-500 to-purple-500 rounded-full"></span>
         </h3>
 
-        {/* Animated Social Icons */}
+        {/* ✨ Modern Glowing Social Icons */}
         <div
           className={`flex justify-center ${
             langConfig.direction === 'rtl' ? 'space-x-reverse' : ''
-          } space-x-5`}
+          } space-x-6`}
         >
-          <SocialIcon Icon={LucideFacebook} color="hover:text-blue-600" bg="hover:bg-blue-50" />
-          <SocialIcon Icon={LucideTwitter} color="hover:text-sky-500" bg="hover:bg-sky-50" />
-          <SocialIcon Icon={LucideInstagram} color="hover:text-pink-600" bg="hover:bg-pink-50" />
-          <SocialIcon Icon={LucideYoutube} color="hover:text-red-600" bg="hover:bg-red-50" />
+          <SocialIcon
+            Icon={LucideFacebook}
+            hoverColor="from-blue-500 to-blue-700"
+            glow="shadow-blue-400/50"
+          />
+          <SocialIcon
+            Icon={LucideTwitter}
+            hoverColor="from-sky-400 to-sky-600"
+            glow="shadow-sky-400/50"
+          />
+          <SocialIcon
+            Icon={LucideInstagram}
+            hoverColor="from-pink-500 via-purple-500 to-orange-400"
+            glow="shadow-pink-400/60"
+          />
+          <SocialIcon
+            Icon={LucideYoutube}
+            hoverColor="from-red-500 to-red-700"
+            glow="shadow-red-400/50"
+          />
         </div>
       </div>
     </div>
   )
 }
 
-/* 🎨 Small reusable icon component with animation */
-function SocialIcon({ Icon, color, bg }: { Icon: React.ElementType; color: string; bg: string }) {
+/* 🎨 Modern Social Icon Component */
+function SocialIcon({
+  Icon,
+  hoverColor,
+  glow,
+}: {
+  Icon: React.ElementType
+  hoverColor: string
+  glow: string
+}) {
   return (
     <a
       href="#"
       target="_blank"
       rel="noopener noreferrer"
-      className={`transition-all duration-500 transform hover:scale-110 ${bg} rounded-full p-3 shadow-sm hover:shadow-md`}
+      className={`group relative transition-all duration-500 transform hover:scale-110 active:scale-95`}
     >
-      <Icon size={22} className={`text-gray-600 transition-colors duration-500 ${color}`} />
+      {/* Glowing Background Circle */}
+      <div
+        className={`absolute inset-0 rounded-full bg-linear-to-tr ${hoverColor} opacity-0 group-hover:opacity-100 blur-md ${glow} transition-all duration-500`}
+      ></div>
+
+      {/* Icon Button */}
+      <div className="relative z-10 flex items-center justify-center w-12 h-12 rounded-full bg-white shadow-md group-hover:shadow-xl transition-all duration-500 border border-gray-100">
+        <Icon
+          size={22}
+          className="text-gray-600 group-hover:text-black transition-all duration-500 group-hover:scale-110"
+        />
+      </div>
     </a>
   )
 }

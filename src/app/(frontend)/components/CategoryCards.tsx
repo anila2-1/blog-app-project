@@ -96,13 +96,10 @@ export default function CategoryCards() {
     <div className="space-y-8" dir={langConfig.direction} style={{ fontFamily: langConfig.font }}>
       {/* Header */}
       <div className="flex justify-between items-center">
-        <h2 className="text-lg font-bold text-gray-800 flex items-center">
-          <span className="w-3 h-3 bg-red-500 rounded-full mr-2"></span>
-          {t.exploreTopics}
-        </h2>
+        <h2 className="text-lg font-bold text-gray-800 flex items-center"></h2>
         <Link
           href="/categories"
-          className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-full text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+          className="inline-flex items-center px-4 py-2 bg-sky-900 border border-gray-300 rounded-full text-sm font-medium text-gray-100 hover:bg-sky-800 transition-colors"
         >
           {t.allCategories}
           {langConfig.direction === 'rtl' ? (
@@ -123,8 +120,8 @@ export default function CategoryCards() {
       >
         {categories.map((category) => (
           <Link key={category.id} href={`/categories/${category.slug}`} className="block group">
-            <div className="relative overflow-hidden rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
-              <div className="p-4 bg-white">
+            <div className="relative overflow-hidden bg-sky-700 rounded-xl shadow-lg hover:shadow-lg transition-shadow duration-300">
+              <div className="p-4 bg-white/90">
                 <h3 className="text-center font-medium text-gray-900 line-clamp-2">
                   {category.name}
                 </h3>

@@ -72,6 +72,9 @@ export default function RelatedPosts({ categorySlug, currentPostId }: RelatedPos
                 <h4 className="font-semibold text-lg text-gray-800 group-hover:text-violet-600 transition-colors line-clamp-2">
                   {post.title}
                 </h4>
+                <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed line-clamp-3">
+                  {post.excerpt}
+                </p>
               </div>
 
               <div className="mt-4 flex items-center text-violet-600 font-medium text-sm opacity-0 group-hover:opacity-100 transition-all duration-300">

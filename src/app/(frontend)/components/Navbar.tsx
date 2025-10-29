@@ -1,5 +1,4 @@
 // src/app/(frontend)/components/Navbar.tsx
-
 'use client'
 
 import React, { useState } from 'react'
@@ -66,7 +65,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className="w-full bg-linear-to-r from-indigo-50 to-purple-50 border-b border-indigo-100 shadow-lg sticky top-0 z-50 backdrop-blur-sm bg-opacity-90"
+      className="w-full bg-white border-b border-purple-200 shadow-lg sticky top-0 z-50 backdrop-blur-sm"
       dir={langConfig.direction}
       style={{ fontFamily: langConfig.font }}
     >
@@ -74,9 +73,9 @@ export default function Navbar() {
         {/* Logo */}
         <a
           href="/"
-          className="text-2xl font-bold bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent flex items-center gap-2"
+          className="text-2xl font-bold bg-linear-to-r from-purple-900 to-indigo-950 bg-clip-text text-transparent flex items-center gap-2"
         >
-          <div className="w-8 h-8 rounded-full bg-linear-to-r from-indigo-500 to-purple-500 flex items-center justify-center">
+          <div className="w-8 h-8 rounded-full bg-linear-to-r from-purple-700 to-indigo-700 flex items-center justify-center">
             <span className="text-white font-bold text-sm">B</span>
           </div>
           {t.siteName}
@@ -87,7 +86,7 @@ export default function Navbar() {
           {/* Search Icon - Opens Modal */}
           <button
             onClick={() => setIsSearchOpen(true)}
-            className="p-2 rounded-full bg-indigo-100 text-indigo-600 hover:bg-indigo-200 hover:text-indigo-800 transition-all duration-300 group"
+            className="p-2 rounded-full bg-purple-700 text-white hover:bg-purple-400 hover:text-purple-800 transition-all duration-300 group"
           >
             <Search className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
           </button>
@@ -95,37 +94,51 @@ export default function Navbar() {
           {/* Home Link */}
           <a
             href="/"
-            className="flex items-center gap-2 text-indigo-700 hover:text-indigo-900 transition-all duration-300 group"
+            className="flex items-center gap-2 text-gray-800 hover:text-gray-900 transition-all duration-300 group"
           >
             <Home className="text-lg group-hover:scale-110 transition-transform duration-300" />
-            <span className="font-medium">{t.home}</span>
+            <span className="font-medium"></span>
           </a>
 
           {/* Social Icons */}
           <div className="flex items-center gap-3">
+            {/* Facebook */}
             <a
               href="#"
-              className="p-2 rounded-full bg-indigo-100 text-indigo-600 hover:bg-indigo-200 hover:text-indigo-800 transition-all duration-300 group"
+              className="relative group p-2 rounded-full bg-linear-to-br from-indigo-700 to-purple-700
+               text-white backdrop-blur-sm shadow-sm 
+               hover:from-indigo-500 hover:to-purple-500 hover:text-white
+               hover:shadow-lg transition-all duration-500 transform hover:-translate-y-1"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Facebook className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
+              <Facebook className="w-4 h-4 group-hover:scale-125 transition-transform duration-500" />
             </a>
+
+            {/* Twitter */}
             <a
               href="#"
-              className="p-2 rounded-full bg-sky-100 text-sky-600 hover:bg-sky-200 hover:text-sky-800 transition-all duration-300 group"
+              className="relative group p-2 rounded-full bg-linear-to-br from-indigo-400/40 to-sky-400/40
+               text-sky-900 backdrop-blur-sm shadow-sm
+               hover:from-sky-400 hover:to-blue-500 hover:text-white
+               hover:shadow-lg transition-all duration-500 transform hover:-translate-y-1"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Twitter className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
+              <Twitter className="w-4 h-4 group-hover:scale-125 transition-transform duration-500" />
             </a>
+
+            {/* Instagram */}
             <a
               href="#"
-              className="p-2 rounded-full bg-pink-100 text-pink-600 hover:bg-pink-200 hover:text-pink-800 transition-all duration-300 group"
+              className="relative group p-2 rounded-full bg-linear-to-br from-purple-600/30 to-pink-600/30
+               text-pink-900 backdrop-blur-sm shadow-sm
+               hover:from-pink-500 hover:via-orange-400 hover:to-purple-500 hover:text-white
+               hover:shadow-lg transition-all duration-500 transform hover:-translate-y-1"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Instagram className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
+              <Instagram className="w-4 h-4 group-hover:scale-125 transition-transform duration-500" />
             </a>
           </div>
         </div>
@@ -133,14 +146,8 @@ export default function Navbar() {
         {/* Mobile Buttons */}
         <div className="flex items-center gap-3 md:hidden">
           <button
-            onClick={() => setIsSearchOpen(true)}
-            className="p-2 rounded-full bg-indigo-100 text-indigo-600 hover:bg-indigo-200 hover:text-indigo-800 transition-all duration-300 group"
-          >
-            <Search className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
-          </button>
-          <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="text-indigo-700 focus:outline-none hover:text-indigo-900 transition-colors duration-300"
+            className="text-gray-700 focus:outline-none hover:text-gray-900 transition-colors duration-300"
           >
             {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -150,7 +157,7 @@ export default function Navbar() {
       {/* Mobile Dropdown */}
       {menuOpen && (
         <div
-          className={`md:hidden bg-linear-to-r from-indigo-50 to-purple-50 border-t border-indigo-100 animate-fadeIn ${
+          className={`md:hidden bg-linear-to-r from-purple-50 via-indigo-50 to-blue-50 border-t border-purple-200 animate-fadeIn ${
             langConfig.direction === 'rtl' ? 'text-right' : 'text-left'
           }`}
         >
@@ -158,7 +165,7 @@ export default function Navbar() {
             {/* Mobile Search */}
             <button
               onClick={() => setIsSearchOpen(true)}
-              className="flex items-center gap-2 w-full p-2 text-indigo-700 hover:text-indigo-900 transition-all duration-300 group"
+              className="flex items-center gap-2 w-full p-2 text-gray-700 hover:text-gray-900 transition-all duration-300 group"
             >
               <Search className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
               <span className="font-medium">{t.search}</span>
@@ -167,7 +174,7 @@ export default function Navbar() {
             {/* Home Link */}
             <a
               href="/"
-              className="flex items-center gap-2 text-indigo-700 hover:text-indigo-900 transition-all duration-300 group"
+              className="flex items-center gap-2 text-gray-700 hover:text-gray-900 transition-all duration-300 group"
               onClick={() => setMenuOpen(false)}
             >
               <Home className="text-lg group-hover:scale-110 transition-transform duration-300" />
@@ -175,10 +182,10 @@ export default function Navbar() {
             </a>
 
             {/* Social Icons - Mobile */}
-            <div className="flex items-center gap-4 pt-4 border-t border-indigo-100 w-full">
+            <div className="flex items-center gap-4 pt-4 border-t border-purple-200 w-full">
               <a
                 href="#"
-                className="p-2 rounded-full bg-indigo-100 text-indigo-600 hover:bg-indigo-200 hover:text-indigo-800 transition-all duration-300 group"
+                className="p-2 rounded-full bg-purple-100 text-purple-600 hover:bg-purple-200 hover:text-purple-800 transition-all duration-300 group"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -186,7 +193,7 @@ export default function Navbar() {
               </a>
               <a
                 href="#"
-                className="p-2 rounded-full bg-sky-100 text-sky-600 hover:bg-sky-200 hover:text-sky-800 transition-all duration-300 group"
+                className="p-2 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 hover:text-blue-800 transition-all duration-300 group"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -205,10 +212,10 @@ export default function Navbar() {
         </div>
       )}
 
-      {/* 🔥 FULLSCREEN SEARCH MODAL — Exactly like TheCozyGamer.com */}
+      {/* 🔥 FULLSCREEN SEARCH MODAL — Styled to Match Your Design */}
       {isSearchOpen && (
         <div
-          className="fixed inset-0 z-50 bg-linear-to-br from-yellow-50 via-orange-50 to-red-50 flex flex-col items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-linear-to-br from-purple-50 via-indigo-50 to-blue-50 flex flex-col items-center justify-center p-4"
           style={{ fontFamily: langConfig.font }}
         >
           {/* Close Button */}
@@ -230,7 +237,7 @@ export default function Navbar() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder={t.searchModalTitle}
-                className="w-full pl-4 pr-12 py-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 bg-white shadow-sm"
+                className="w-full pl-4 pr-12 py-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 bg-white shadow-sm"
                 autoFocus
               />
               <button

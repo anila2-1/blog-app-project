@@ -25,10 +25,10 @@ export default function PostCard({ post, locale }: PostCardProps) {
   return (
     <Link
       href={`/posts/${post.slug}`}
-      className="group block rounded-3xl overflow-hidden shadow-none transition-all duration-500 hover:shadow-2xl hover:-translate-y-1.5"
+      className="group block rounded-2xl overflow-hidden shadow-none transition-all duration-500 hover:shadow-2xl hover:-translate-y-1.5"
     >
       {/* Glassmorphic Card Base */}
-      <div className="relative bg-white/70 dark:bg-gray-900/60 backdrop-blur-xl border border-white/30 dark:border-gray-800/50 rounded-3xl overflow-hidden transition-all duration-500">
+      <div className="relative bg-white/90 dark:bg-gray-900/60 backdrop-blur-xl border border-white/30 dark:border-gray-800/50 rounded-3xl overflow-hidden transition-all duration-500">
         {/* Gradient Border Glow (on hover) */}
         <div
           className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none
@@ -51,7 +51,7 @@ export default function PostCard({ post, locale }: PostCardProps) {
         {/* Content */}
         <div className="relative z-10 p-6 pt-4">
           {/* Date Badge */}
-          <div className="inline-block mb-3 px-3 py-1 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 text-xs font-semibold rounded-full backdrop-blur-sm border border-indigo-100 dark:border-indigo-800/50">
+          <div className="inline-block mb-3 px-3 py-1 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 text-xs font-semibold rounded-full backdrop-blur-sm border border-indigo-100 dark:border-indigo-800/50">
             {formattedDate}
           </div>
 
