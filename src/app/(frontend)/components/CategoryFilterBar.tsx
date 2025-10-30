@@ -60,24 +60,22 @@ export default function CategoryFilterBar() {
     )
   }
 
-  // 🎨 Actual content — Centered, glassy, borderless
+  // ✅ No post-loading animation — clean & static
   return (
     <div
       dir={langConfig.direction}
       style={{ fontFamily: langConfig.font }}
       className="relative mx-auto max-w-7xl px-6 py-4"
     >
-      <div className={`flex justify-center flex-wrap gap-3`}>
+      <div className="flex justify-center flex-wrap gap-3">
         {/* 🏷 All Button */}
         <Link
-          href="/posts"
+          href="/"
           className="group relative px-5 py-2.5 text-sm font-semibold text-gray-700 
                      bg-white/90 backdrop-blur-sm rounded-full
                      hover:bg-linear-to-r hover:from-purple-50 hover:to-indigo-50
                      hover:text-purple-700
                      transition-all duration-300 ease-out
-                     border-2 border-cyan-700 
-                     shadow-sm hover:shadow-md
                      before:absolute before:inset-0 before:rounded-full before:bg-linear-to-r before:from-purple-500/10 before:to-indigo-500/10 before:opacity-0 before:transition-opacity before:duration-300
                      before:group-hover:opacity-100"
         >
@@ -85,22 +83,18 @@ export default function CategoryFilterBar() {
         </Link>
 
         {/* 🌈 Category Buttons */}
-        {categories.map((category, index) => (
+        {categories.map((category) => (
           <Link
             key={category.id}
             href={`/categories/${category.slug}`}
-            className={`
-              group border-2 border-cyan-700 relative px-5 py-2.5 text-sm font-medium rounded-full
-              bg-white/90 backdrop-blur-sm text-gray-700
-              hover:bg-linear-to-r hover:from-pink-50 hover:to-purple-50
-              hover:text-purple-700
-              transition-all duration-300 ease-out
-              shadow-sm hover:shadow-md
-              before:absolute before:inset-0 before:rounded-full before:bg-linear-to-r before:from-pink-500/10 before:to-purple-500/10 before:opacity-0 before:transition-opacity before:duration-300
-              before:group-hover:opacity-100
-              animate-fadeIn
-            `}
-            style={{ animationDelay: `${index * 0.05}s` }}
+            className="group relative px-5 py-2.5 text-sm font-medium rounded-full
+                       bg-white  text-gray-700
+                       hover:bg-linear-to-r hover:from-pink-50 hover:to-purple-50
+                       hover:text-purple-700
+                       transition-all duration-300 ease-out
+                       
+                       before:absolute before:inset-0 before:rounded-full before:bg-linear-to-r before:from-pink-500/10 before:to-purple-500/10 before:opacity-0 before:transition-opacity before:duration-300
+                       before:group-hover:opacity-100"
           >
             <span className="relative z-10">{category.name}</span>
           </Link>

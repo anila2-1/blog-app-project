@@ -4,6 +4,7 @@
 import React, { useState } from 'react'
 import { Home, Search, Menu, X, Facebook, Twitter, Instagram, X as CloseIcon } from 'lucide-react'
 import { getLanguageConfig, LanguageCode } from '@/config/languages'
+import CategoryFilterBar from './CategoryFilterBar'
 
 const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || 'en'
 const langConfig = getLanguageConfig(LANG_CODE)
@@ -65,7 +66,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className="w-full bg-white border-b border-purple-200 shadow-lg sticky top-0 z-50 backdrop-blur-sm"
+      className="w-full mb-6 bg-white border-b border-purple-200 shadow-lg sticky top-0 z-50 backdrop-blur-sm"
       dir={langConfig.direction}
       style={{ fontFamily: langConfig.font }}
     >
@@ -80,7 +81,9 @@ export default function Navbar() {
           </div>
           {t.siteName}
         </a>
-
+        <div className="hidden lg:block">
+          <CategoryFilterBar />
+        </div>
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-6">
           {/* Search Icon - Opens Modal */}
@@ -178,8 +181,11 @@ export default function Navbar() {
               onClick={() => setMenuOpen(false)}
             >
               <Home className="text-lg group-hover:scale-110 transition-transform duration-300" />
-              <span className="font-medium">{t.home}</span>
             </a>
+            {/* Mobile Category Bar */}
+            <div className="pt-3 border-t border-purple-200">
+              <CategoryFilterBar />
+            </div>
 
             {/* Social Icons - Mobile */}
             <div className="flex items-center gap-4 pt-4 border-t border-purple-200 w-full">

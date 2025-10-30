@@ -67,9 +67,10 @@ export default function CategoryPostsPage() {
 
         // ✅ FIXED FILTER: Handle both object and string category ID
         const filteredPosts = (postsData.docs || []).filter((post: Post) => {
-          const categoryId = typeof post.category === 'object' ? post.category?.id : post.category
-
-          return categoryId === cat.id
+          const categories = post.category
+          if (!Array.isArray(categories)) return false
+          const categoryIds = categories.map((cat) => (typeof cat === 'object' ? cat.id : cat))
+          return categoryIds.includes(cat.id)
         })
 
         setPosts(filteredPosts)

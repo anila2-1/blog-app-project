@@ -8,7 +8,7 @@ import MostViewedPosts from './components/MostViewedPosts'
 import PinnedPosts from './components/PinnedPosts'
 import LatestPosts from './components/LatestPosts'
 import CategoryCards from './components/CategoryCards'
-import CategoryFilterBar from './components/CategoryFilterBar'
+// import CategoryFilterBar from './components/CategoryFilterBar'
 import Sidebar from './components/Sidebar'
 import { languages } from '@/config/languages'
 import { useState } from 'react'
@@ -35,9 +35,7 @@ export default function HomePage() {
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       {/* 🌈 Animated Category Bar */}
-      <div className="mb-8 animate-fadeIn">
-        <CategoryFilterBar />
-      </div>
+
       {/* 🌟 Featured Post Section */}
       <div className="mb-10">
         <SectionCard
