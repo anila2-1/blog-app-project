@@ -1,10 +1,11 @@
-import type { Config } from 'src/payload-types'
-
 import { cn } from '@/utilities/ui'
 import React from 'react'
 import RichText from '@/components/RichText'
 
-type BannerBlockProps = Config['blocks']['banner']
+type BannerBlockProps = {
+  style: 'info' | 'warning' | 'error' | 'success'
+  content: any // RichText content
+}
 
 type Props = {
   className?: string

@@ -1,67 +1,50 @@
-import type { StaticImageData } from 'next/image'
-
-import { cn } from '@/utilities/ui'
 import React from 'react'
-import RichText from '@/components/RichText'
+import { Media } from '@/components/Media'
 
-import type { MediaBlock as MediaBlockProps } from '@/payload-types'
-
-import { Media } from '../../components/Media'
-
-type Props = MediaBlockProps & {
-  breakout?: boolean
-  captionClassName?: string
+export interface MediaBlockProps {
+  content: {
+    url: string
+    alt?: string
+    caption?: string
+  }
   className?: string
   enableGutter?: boolean
   imgClassName?: string
-  staticImage?: StaticImageData
-  disableInnerContainer?: boolean
 }
 
-export const MediaBlock: React.FC<Props> = (props) => {
-  const {
-    captionClassName,
-    className,
-    enableGutter = true,
-    imgClassName,
-    media,
-    staticImage,
-    disableInnerContainer,
-  } = props
+export const MediaBlock = React.forwardRef<HTMLDivElement, MediaBlockProps>(
+  ({ content, className = '', enableGutter = true, imgClassName = '' }, ref) => {
+    if (!content?.url) return null
 
-  let caption
-  if (media && typeof media === 'object') caption = media.caption
-
-  return (
-    <div
-      className={cn(
-        '',
-        {
-          container: enableGutter,
-        },
-        className,
-      )}
-    >
-      {(media || staticImage) && (
-        <Media
-          imgClassName={cn('border border-border rounded-[0.8rem]', imgClassName)}
-          resource={media}
-          src={staticImage}
-        />
-      )}
-      {caption && (
-        <div
-          className={cn(
-            'mt-6',
-            {
-              container: !disableInnerContainer,
-            },
-            captionClassName,
+    return (
+      <div
+        ref={ref}
+        className={`relative w-full ${enableGutter ? 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8' : ''} ${className}`}
+      >
+        <figure className="group w-full">
+          <div className="relative overflow-hidden rounded-xl bg-gray-100 shadow-lg hover:shadow-xl transition-all duration-300">
+            <div className="aspect-w-16 aspect-h-9">
+              <Media
+                resource={{
+                  url: content.url,
+                  alt: content.alt || '',
+                }}
+                className="w-full h-full"
+                imgClassName={`w-full h-full object-contain object-center transition-transform duration-300 group-hover:scale-105 ${imgClassName}`}
+              />
+            </div>
+          </div>
+          {content.caption && (
+            <figcaption className="mt-4 text-center text-sm text-gray-600 font-medium italic px-4">
+              {content.caption}
+            </figcaption>
           )}
-        >
-          <RichText data={caption} enableGutter={false} />
-        </div>
-      )}
-    </div>
-  )
-}
+        </figure>
+      </div>
+    )
+  },
+)
+
+MediaBlock.displayName = 'MediaBlock'
+
+export default MediaBlock

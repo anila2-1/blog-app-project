@@ -202,9 +202,7 @@ export default function FeaturedPost() {
               disabled={isAnimating}
               aria-label={`Go to slide ${i + 1}`}
               className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
-                i === currentIndex
-                  ? 'bg-purple-600 w-6 rounded-full'
-                  : 'bg-gray-300 hover:bg-gray-400'
+                i === currentIndex ? 'bg-sky-600 w-6 rounded-full' : 'bg-gray-300 hover:bg-gray-400'
               } ${isAnimating ? 'opacity-50' : ''}`}
             />
           ))}

@@ -70,7 +70,7 @@ export default function CategoryFilterBar() {
       <div className="flex justify-center flex-wrap gap-3">
         {/* 🏷 All Button */}
         <Link
-          href="/"
+          href="/categories"
           className="group relative px-5 py-2.5 text-sm font-semibold text-gray-700 
                      bg-white/90 backdrop-blur-sm rounded-full
                      hover:bg-linear-to-r hover:from-purple-50 hover:to-indigo-50

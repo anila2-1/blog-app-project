@@ -66,7 +66,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className="w-full mb-6 bg-white border-b border-purple-200 shadow-lg sticky top-0 z-50 backdrop-blur-sm"
+      className="w-full mb-6 h-22 bg-white border-b border-purple-200 shadow-lg sticky top-0 z-50 backdrop-blur-sm"
       dir={langConfig.direction}
       style={{ fontFamily: langConfig.font }}
     >
@@ -76,7 +76,7 @@ export default function Navbar() {
           href="/"
           className="text-2xl font-bold bg-linear-to-r from-purple-900 to-indigo-950 bg-clip-text text-transparent flex items-center gap-2"
         >
-          <div className="w-8 h-8 rounded-full bg-linear-to-r from-purple-700 to-indigo-700 flex items-center justify-center">
+          <div className="w-8 h-8 rounded-full bg-linear-to-r from-sky-700 to-indigo-700 flex items-center justify-center">
             <span className="text-white font-bold text-sm">B</span>
           </div>
           {t.siteName}
@@ -89,7 +89,7 @@ export default function Navbar() {
           {/* Search Icon - Opens Modal */}
           <button
             onClick={() => setIsSearchOpen(true)}
-            className="p-2 rounded-full bg-purple-700 text-white hover:bg-purple-400 hover:text-purple-800 transition-all duration-300 group"
+            className="p-2 rounded-full bg-sky-700 text-white hover:bg-sky-400 hover:text-sky-200 transition-all duration-300 group"
           >
             <Search className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
           </button>
@@ -108,7 +108,7 @@ export default function Navbar() {
             {/* Facebook */}
             <a
               href="#"
-              className="relative group p-2 rounded-full bg-linear-to-br from-indigo-700 to-purple-700
+              className="relative group p-2 rounded-full bg-linear-to-br from-sky-700 to-blue-700
                text-white backdrop-blur-sm shadow-sm 
                hover:from-indigo-500 hover:to-purple-500 hover:text-white
                hover:shadow-lg transition-all duration-500 transform hover:-translate-y-1"

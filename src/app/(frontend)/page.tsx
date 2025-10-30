@@ -137,19 +137,20 @@ export default function HomePage() {
 
           <Link
             href="/posts"
-            className="inline-block group relative px-8 py-4 rounded-full text-lg font-bold text-white
-                 bg-linear-to-r from-purple-600 to-indigo-700
-                 shadow-lg hover:shadow-purple-500/30
-                 transition-all duration-300
-                 hover:scale-105 hover:shadow-xl
-                 before:absolute before:inset-0 before:rounded-full before:bg-white/70 before:opacity-0 before:transition-opacity before:duration-300
-                 before:group-hover:opacity-100
-                 after:absolute after:-inset-1 after:rounded-full after:bg-linear-to-r after:from-purple-400 after:to-pink-400 after:opacity-0 after:transition-opacity after:duration-500
-                 after:group-hover:opacity-30 after:animate-pulse"
+            className="inline-block group relative px-8 py-4 rounded-full text-lg font-semibold text-white
+    bg-linear-to-r from-sky-700 via-sky-600 to-sky-700
+    shadow-lg shadow-sky-500/40 backdrop-blur-sm
+    transition-all duration-300 ease-out
+    hover:scale-105 hover:shadow-xl hover:shadow-blue-500/50
+    hover:from-sky-500 hover:via-blue-500 hover:to-indigo-500
+    before:absolute before:inset-0 before:rounded-full before:bg-white/30 before:blur-md before:opacity-0 before:transition-opacity before:duration-300
+    before:group-hover:opacity-50
+    after:absolute after:-inset-0.5 after:rounded-full after:bg-linear-to-r after:from-sky-300 after:to-blue-500 after:opacity-0 after:transition-opacity after:duration-500
+    after:group-hover:opacity-30"
           >
-            View All Articles
-            <span className="ml-2 inline-block transition-transform group-hover:translate-x-1">
-              →
+            <span className="relative z-10 flex items-center gap-2">
+              View All Articles
+              <span className="text-xl transition-transform group-hover:translate-x-1">→</span>
             </span>
           </Link>
         </div>
@@ -183,15 +184,16 @@ function SectionCard({
     <section
       className={`
         relative overflow-hidden
-        bg-white/70
-        border-2 border-blue-800
+        bg-linear-to-br from-sky-50 via-blue-50 to-cyan-50
+        border-2 border-sky-200
         rounded-2xl ${padding}
-        transition-all duration-300 ease-out
+        backdrop-blur-sm
+        transition-all duration-300 ease-out shadow-sm
 
         ${
           isPressed
-            ? 'scale-[0.99] ring-2 ring-cyan-500 shadow-inner'
-            : 'hover:shadow-lg hover:border-gray-400'
+            ? 'scale-[0.98] ring-2 ring-sky-300 shadow-inner'
+            : 'hover:shadow-md hover:border-sky-300'
         }
         ${customClasses}
       `}
@@ -201,9 +203,12 @@ function SectionCard({
       onTouchStart={onMouseDown}
       onTouchEnd={onMouseUp}
     >
+      {/* Floating gradient glow */}
+      <div className="absolute inset-0 bg-linear-to-tr from-sky-100/40 to-cyan-100/30 blur-3xl opacity-50 -z-10"></div>
+
       {/* Corner Label */}
       <div
-        className={`absolute ${labelPosition} px-3 py-1 bg-sky-900 text-white text-xs font-bold rounded-tl-md rounded-br-md shadow-sm z-10`}
+        className={`absolute ${labelPosition} px-3 py-1 bg-sky-800 text-white text-xs font-semibold rounded-tl-md rounded-br-md shadow-sm z-10`}
       >
         {label}
       </div>

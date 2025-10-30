@@ -49,22 +49,44 @@ export default function PostContent({ post }: PostContentProps) {
   }, [post.slug])
 
   return (
-    <article className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+    <article className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
       {/* ✅ Featured Image */}
-      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 sm:p-8">
+      <div
+        className="bg-white rounded-3xl border border-gray-200 shadow-lg p-8 sm:p-12 
+                      transition-all duration-300 hover:shadow-2xl hover:border-sky-200"
+      >
+        <h1 className="text-3xl font-bold mb-2">{post.title}</h1>
+
+        <p className="text-gray-600 text-sm mb-10">
+          {post.publishedAt
+            ? new Date(post.publishedAt).toLocaleDateString(langConfig.locale)
+            : 'N/A'}
+        </p>
+
         {typeof post.image === 'object' && post.image?.url && (
-          <div className="relative mb-10 overflow-hidden rounded-2xl shadow-md">
+          // constrain the image height responsively and let object-cover crop
+          <div className="relative w-full max-w-3xl mx-auto mb-10 overflow-hidden rounded-4xl shadow-lg border border-sky-100 bg-white/10 backdrop-blur-sm group">
+            {/* 🖼️ Blog Image */}
             <img
-              src={post.image.url}
+              src={post.image?.url}
               alt={post.title}
-              className="w-full h-auto object-cover transition-transform duration-500 hover:scale-105"
+              className="w-full h-[450px] object-cover transition-all duration-700 ease-out group-hover:scale-105 group-hover:brightness-110"
             />
+
+            {/* 🌈 Soft Gradient Overlay */}
+            <div className="absolute inset-0 bg-linear-to-t from-black/50 via-sky-900/10 to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-500"></div>
+
+            {/* ✨ Glow Border on Hover */}
+            <div className="absolute inset-0 rounded-4xl border border-transparent group-hover:border-sky-300/60 transition-all duration-500"></div>
+
+            {/* 💫 Floating Light Accent */}
+            <div className="absolute -top-10 -right-10 w-40 h-40 bg-sky-400/30 rounded-full blur-3xl opacity-0 group-hover:opacity-70 transition-opacity duration-700"></div>
           </div>
         )}
 
         {/* ✅ Content Card with Border & Background */}
         <div className="prose max-w-none prose-violet prose-headings:font-semibold prose-p:text-gray-700 leading-relaxed">
-          <RichText content={post.content} />
+          <RichText data={post.content as any} />
         </div>
       </div>
       <div />
