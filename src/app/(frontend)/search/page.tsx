@@ -2,12 +2,12 @@
 
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { Post } from '@/payload-types' // adjust if your path is different
 
-export default function SearchResultsPage() {
+function SearchResultsPageContent() {
   const searchParams = useSearchParams()
   const query = searchParams.get('q') || ''
   const [results, setResults] = useState<Post[]>([])
@@ -76,5 +76,13 @@ export default function SearchResultsPage() {
         <p className="text-gray-600">No posts found matching your query.</p>
       )}
     </div>
+  )
+}
+
+export default function SearchResultsPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SearchResultsPageContent />
+    </Suspense>
   )
 }

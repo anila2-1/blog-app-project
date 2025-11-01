@@ -4,7 +4,7 @@
 
 import Link from 'next/link'
 import { useSearchParams, useRouter, usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import { Post } from '../../../payload-types'
 import { getLanguageConfig, LanguageCode } from '@/config/languages'
 import RichTextPreview from '@/components/RichTextPreview'
@@ -40,7 +40,7 @@ const translations = {
 const t = translations[LANG_CODE] || translations.en
 const POSTS_PER_PAGE = 6
 
-export default function PostsPage() {
+function PostsPageContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const pathname = usePathname()
@@ -247,5 +247,13 @@ export default function PostsPage() {
         </div>
       )}
     </main>
+  )
+}
+
+export default function PostsPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <PostsPageContent />
+    </Suspense>
   )
 }
