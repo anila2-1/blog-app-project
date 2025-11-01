@@ -23,6 +23,9 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, Posts, Categories],
+  blocks: [
+    // Add your blocks here
+  ],
   localization: {
     locales: [
       {

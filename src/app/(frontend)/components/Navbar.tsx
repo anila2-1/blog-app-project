@@ -2,6 +2,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import Link from 'next/link'
 import { Home, Search, Menu, X, Facebook, Twitter, Instagram, X as CloseIcon } from 'lucide-react'
 import { getLanguageConfig, LanguageCode } from '@/config/languages'
 import CategoryFilterBar from './CategoryFilterBar'
@@ -72,7 +73,7 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3">
         {/* Logo */}
-        <a href="/" className="flex items-center gap-2 text-purple-800 font-medium">
+        <Link href="/" className="flex items-center gap-2 text-purple-800 font-medium">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center border-2 border-black">
               <span className="text-white font-bold text-sm">B</span>
@@ -81,7 +82,7 @@ export default function Navbar() {
               {t.siteName}
             </span>
           </div>
-        </a>
+        </Link>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-6">
@@ -161,14 +162,14 @@ export default function Navbar() {
               <span className="text-gray-800">{t.search}</span>
             </div>
 
-            <a
+            <Link
               href="/"
               className="flex items-center gap-2 text-gray-800 hover:text-black transition-colors"
               onClick={() => setMenuOpen(false)}
             >
               <Home className="w-5 h-5" />
               <span>{t.home}</span>
-            </a>
+            </Link>
 
             <div className="pt-3 border-t border-black/20">
               <CategoryFilterBar />
