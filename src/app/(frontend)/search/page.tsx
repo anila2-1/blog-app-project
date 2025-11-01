@@ -50,7 +50,7 @@ export default function SearchResultsPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
       <h1 className="text-2xl font-bold mb-6">
-        Results for: <span className="text-indigo-600">"{query}"</span>
+        Results for: <span className="text-indigo-600">&ldquo;{query}&ldquo;</span>
       </h1>
 
       {loading ? (
