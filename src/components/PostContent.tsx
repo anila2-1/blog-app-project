@@ -49,15 +49,15 @@ export default function PostContent({ post }: PostContentProps) {
   }, [post.slug])
 
   return (
-    <article className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
+    <article className="max-w-6xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
       {/* ✅ Featured Image */}
       <div
-        className="bg-white rounded-3xl border border-gray-200 shadow-lg p-8 sm:p-12 
+        className="bg-[#fff0da] rounded-3xl border border-gray-200 shadow-[7px_7px_0px_#000000] p-8 sm:p-12
                       transition-all duration-300 hover:shadow-2xl hover:border-sky-200"
       >
         <h1 className="text-3xl font-bold mb-2">{post.title}</h1>
 
-        <p className="text-gray-600 text-sm mb-10">
+        <p className="text-black text-sm mb-10">
           {post.publishedAt
             ? new Date(post.publishedAt).toLocaleDateString(langConfig.locale)
             : 'N/A'}
@@ -85,7 +85,7 @@ export default function PostContent({ post }: PostContentProps) {
         )}
 
         {/* ✅ Content Card with Border & Background */}
-        <div className="prose max-w-none prose-violet prose-headings:font-semibold prose-p:text-gray-700 leading-relaxed">
+        <div className="prose max-w-none prose-violet prose-headings:font-extrabold prose-p:text-white leading-relaxed">
           <RichText data={post.content as any} />
         </div>
       </div>

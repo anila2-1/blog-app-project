@@ -34,8 +34,6 @@ export default function HomePage() {
 
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      {/* 🌈 Animated Category Bar */}
-
       {/* 🌟 Featured Post Section */}
       <div className="mb-10">
         <SectionCard
@@ -47,9 +45,7 @@ export default function HomePage() {
           labelPosition="top-3 left-3"
           customClasses="relative overflow-hidden"
         >
-          {/* Optional Glow Background */}
           <div className="absolute inset-0 bg-linear-to-tr from-purple-100 via-pink-50 to-blue-100 blur-3xl opacity-60 -z-10"></div>
-
           <FeaturedPost />
         </SectionCard>
       </div>
@@ -76,7 +72,7 @@ export default function HomePage() {
             isPressed={pressedSections.pinned}
             onMouseDown={handleMouseDown('pinned')}
             onMouseUp={handleMouseUp('pinned')}
-            padding="p-6"
+            padding="p-3"
             labelPosition="top-4 left-4"
           >
             <PinnedPosts />
@@ -121,32 +117,36 @@ export default function HomePage() {
         onMouseUp={handleMouseUp('cta')}
         padding="py-12 px-6"
         labelPosition="top-4 left-6"
-        customClasses="mt-16 text-center rounded-3xl relative overflow-hidden group animate-fadeUp bg-linear-to-br from-violet-50/70 to-purple-50/50 border-2 border-purple-200 backdrop-blur-sm"
+        customClasses="mt-16 text-center rounded-3xl relative overflow-hidden group animate-fadeUp bg-gradient-to-br from-[#1a1a1a] via-[#2a1a1f] to-[#3a1f25] border-2 border-[#F16363]/30"
       >
-        {/* Decorative Floating Orbs (Optional) */}
-        <div className="absolute top-10 -left-6 w-24 h-24 bg-purple-300/20 rounded-full blur-xl animate-float-slow"></div>
-        <div className="absolute bottom-10 -right-6 w-32 h-32 bg-violet-300/20 rounded-full blur-xl animate-float-slow animation-delay-2000"></div>
+        {/* Decorative Floating Orbs — Updated to #F16363 tone */}
+        <div className="absolute top-10 -left-6 w-24 h-24 bg-[#F16363]/10 rounded-full blur-xl animate-float-slow"></div>
+        <div className="absolute bottom-10 -right-6 w-32 h-32 bg-[#F16363]/15 rounded-full blur-xl animate-float-slow animation-delay-2000"></div>
 
         <div className="relative z-10 max-w-2xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl font-extrabold bg-linear-to-r from-gray-800 to-purple-700 bg-clip-text text-transparent mb-4 tracking-tight">
+          {/* Heading — Gradient from dark red to #F16363 */}
+          <h2 className="text-3xl sm:text-4xl font-extrabold bg-linear-to-r from-[#F16363] to-[#ff8a8a] bg-clip-text text-white mb-4 tracking-tight">
             Discover More Inspiring Posts
           </h2>
-          <p className="text-gray-600 mb-10 text-lg leading-relaxed">
+
+          {/* Description — Light text for dark bg */}
+          <p className="text-gray-200 mb-10 text-lg leading-relaxed">
             Stay inspired and explore our full collection of articles.
           </p>
 
+          {/* Button — #F16363 based gradient */}
           <Link
             href="/posts"
-            className="inline-block group relative px-8 py-4 rounded-full text-lg font-semibold text-white
-    bg-linear-to-r from-sky-700 via-sky-600 to-sky-700
-    shadow-lg shadow-sky-500/40 backdrop-blur-sm
-    transition-all duration-300 ease-out
-    hover:scale-105 hover:shadow-xl hover:shadow-blue-500/50
-    hover:from-sky-500 hover:via-blue-500 hover:to-indigo-500
-    before:absolute before:inset-0 before:rounded-full before:bg-white/30 before:blur-md before:opacity-0 before:transition-opacity before:duration-300
-    before:group-hover:opacity-50
-    after:absolute after:-inset-0.5 after:rounded-full after:bg-linear-to-r after:from-sky-300 after:to-blue-500 after:opacity-0 after:transition-opacity after:duration-500
-    after:group-hover:opacity-30"
+            className="inline-block group relative px-8 py-4 rounded-full text-lg font-semibold text-black
+        bg-linear-to-r from-[#ffe3e3] to-[#ffe3e3]
+        shadow-lg shadow-[#F16363]/30 backdrop-blur-sm
+        transition-all duration-300 ease-out
+        hover:scale-105 hover:shadow-xl hover:shadow-[#F16363]/40
+        hover:from-[#ffdada] hover:to-[#ffdada]
+        before:absolute before:inset-0 before:rounded-full before:bg-white/20 before:blur-md before:opacity-0 before:transition-opacity before:duration-300
+        before:group-hover:opacity-40
+        after:absolute after:-inset-0.5 after:rounded-full after:bg-linear-to-r after:from-[#F16363]/30 after:to-[#ff8a8a]/30 after:opacity-0 after:transition-opacity after:duration-500
+        after:group-hover:opacity-50"
           >
             <span className="relative z-10 flex items-center gap-2">
               View All Articles
@@ -160,6 +160,8 @@ export default function HomePage() {
 }
 
 // 🔧 Reusable SectionCard Component
+
+// 🔧 Reusable SectionCard Component — Updated with #F16363 Theme
 
 function SectionCard({
   label,
@@ -184,37 +186,38 @@ function SectionCard({
     <section
       className={`
         relative overflow-hidden
-        bg-linear-to-br from-sky-50 via-blue-50 to-cyan-50
-        border-2 border-sky-200
+        bg-linear-to-br from-[#F16363] via-[#F16363] to-[#F16363]
+        border-2 border-[#F16363]/30
         rounded-2xl ${padding}
-        backdrop-blur-sm
-        transition-all duration-300 ease-out shadow-sm
-
+        transition-all duration-300 ease-out
         ${
           isPressed
-            ? 'scale-[0.98] ring-2 ring-sky-300 shadow-inner'
-            : 'hover:shadow-md hover:border-sky-300'
+            ? 'scale-[0.98] ring-2 ring-[#F16363]/50 shadow-inner'
+            : 'hover:shadow-lg hover:border-[#F16363]/50'
         }
         ${customClasses}
       `}
+      style={{
+        boxShadow: '7px 7px 0px #000000',
+      }}
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}
       onMouseLeave={onMouseUp}
       onTouchStart={onMouseDown}
       onTouchEnd={onMouseUp}
     >
-      {/* Floating gradient glow */}
-      <div className="absolute inset-0 bg-linear-to-tr from-sky-100/40 to-cyan-100/30 blur-3xl opacity-50 -z-10"></div>
+      {/* Floating glow in #F16363 tone */}
+      <div className="absolute inset-0 bg-linear-to-tr from-[#F16363]/10 via-transparent to-[#F16363]/5 blur-3xl opacity-70 -z-10"></div>
 
-      {/* Corner Label */}
+      {/* Corner Label — Now in #F16363 */}
       <div
-        className={`absolute ${labelPosition} px-3 py-1 bg-sky-800 text-white text-xs font-semibold rounded-tl-md rounded-br-md shadow-sm z-10`}
+        className={`absolute ${labelPosition} px-3 py-1 bg-[#ffffff] text-black text-xs font-semibold rounded-tl-md rounded-br-md shadow-sm z-10`}
       >
         {label}
       </div>
 
       {/* Content */}
-      <div className="pt-8">{children}</div>
+      <div className="pt-8 text-white">{children}</div>
     </section>
   )
 }

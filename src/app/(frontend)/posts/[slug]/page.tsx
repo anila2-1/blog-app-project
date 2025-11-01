@@ -61,15 +61,33 @@ export default async function SinglePostPage(props: { params: Promise<{ slug: st
   const post: Post = data.docs?.[0]
 
   // safe category object: only keep it if the relationship returned an object
-  const category = (() => {
+  let category: any = (() => {
     const rawCat = (post as any)?.category ?? (post as any)?.categories?.[0]
     return typeof rawCat === 'object' && rawCat ? rawCat : undefined
   })()
 
+  // If we don't have a populated category object but we do have an id, fetch it server-side.
+  if (!category) {
+    try {
+      const rawCatId = (post as any)?.category ?? (post as any)?.categories?.[0]
+      if (rawCatId && (typeof rawCatId === 'string' || typeof rawCatId === 'number')) {
+        const catRes = await fetch(
+          `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/categories?where[id][equals]=${rawCatId}&locale=${langConfig.locale}&fallback-locale=none`,
+          { cache: 'no-store' },
+        )
+        const catData = await catRes.json()
+        category = catData.docs?.[0]
+      }
+    } catch (err) {
+      // ignore — we'll just not render the category pill if this fails
+      console.error('Failed to fetch category by id', err)
+    }
+  }
+
   if (!post) {
     return (
       <main
-        className="max-w-3xl mx-auto p-6 text-center"
+        className="max-w-4xl mx-auto p-6 text-center"
         dir={langConfig.direction}
         style={{ fontFamily: langConfig.font }}
       >
@@ -97,7 +115,7 @@ export default async function SinglePostPage(props: { params: Promise<{ slug: st
                 style={{ backgroundColor: category.color || '#4F46E5' }}
               ></span>
               <span className="text-sm font-medium text-gray-700 group-hover:text-indigo-800 transition-colors">
-                {category.title}
+                {category.name || category.title}
               </span>
               <svg
                 className="w-4 h-4 text-gray-500 group-hover:text-indigo-600 transition-colors"
@@ -115,13 +133,6 @@ export default async function SinglePostPage(props: { params: Promise<{ slug: st
             </Link>
           </div>
         )}
-        <h1 className="text-3xl font-bold mb-2">{post.title}</h1>
-
-        <p className="text-gray-600 text-sm mb-6">
-          {post.publishedAt
-            ? new Date(post.publishedAt).toLocaleDateString(langConfig.locale)
-            : 'N/A'}
-        </p>
 
         {/* ✅ Client Component for RichText + View Tracking */}
 

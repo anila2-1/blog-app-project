@@ -105,13 +105,13 @@ export default function MostViewedPosts() {
           <div className="flex-1">
             <p className="text-xs text-gray-400 mt-1"> {post.views || 0} views</p>
 
-            <h3 className="text-[15px] font-semibold text-gray-800 leading-snug line-clamp-2 hover:text-indigo-600 transition-colors duration-300">
+            <h3 className="text-[25px] font-semibold text-gray-900 leading-snug line-clamp-2 hover:text-indigo-600 transition-colors duration-300">
               {post.title}
             </h3>
 
             {/* Excerpt */}
             {post.excerpt && (
-              <p className="text-sm text-gray-600 mt-1 line-clamp-2">{post.excerpt}</p>
+              <p className="text-[15px] text-gray-600 mt-1 line-clamp-2">{post.excerpt}</p>
             )}
           </div>
         </a>

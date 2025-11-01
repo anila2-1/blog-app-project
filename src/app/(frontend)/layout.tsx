@@ -21,23 +21,33 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <head>
           <link rel="stylesheet" href={activeLang.css} />
         </head>
-        <body className="bg-transparent text-gray-800 relative min-h-screen">
-          {/* 🌈 Modern Floating Gradient Background */}
+        <body className="bg-[#fff5cf] text-gray-800 relative min-h-screen">
+          {/* 🌸 Warm Cream Background with Subtle Decorations */}
           <div className="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-            {/* Layer 1 - Main Soft Glow */}
-            <div className="absolute top-1/4 left-1/5 w-72 h-72 bg-linear-to-r from-purple-400/40 via-pink-300/40 to-orange-200/40 rounded-full blur-3xl animate-float-slow" />
+            {/* Base Layer — Solid #fff5cf already set in body */}
 
-            {/* Layer 2 - Cool Blue Tone */}
-            <div className="absolute bottom-1/4 right-1/5 w-96 h-96 bg-linear-to-br from-sky-300/40 via-indigo-400/30 to-violet-500/30 rounded-full blur-[100px] animate-float-medium" />
+            {/* Floating Orb 1 — Soft Peach Glow */}
+            <div className="absolute top-1/4 -left-16 w-80 h-80 bg-linear-to-r from-[#ffd166]/20 via-[#ff9e6d]/10 to-transparent rounded-full blur-3xl animate-float-slow" />
 
-            {/* Layer 3 - Mint Accent */}
-            <div className="absolute top-1/3 right-1/3 w-64 h-64 bg-linear-to-tr from-emerald-200/40 via-teal-200/40 to-cyan-100/30 rounded-full blur-[80px] animate-float-fast" />
+            {/* Floating Orb 2 — Warm Pink */}
+            <div className="absolute bottom-1/3 right-0 w-96 h-96 bg-linear-to-br from-[#f16363]/10 via-[#ff8a8a]/5 to-transparent rounded-full blur-[100px] animate-float-medium animation-delay-1000" />
 
-            {/* Layer 4 - Subtle White Mist */}
-            <div className="absolute bottom-1/3 left-1/4 w-md h-112 bg-linear-to-bl from-white/10 to-gray-200/5 rounded-full blur-[120px] animate-float-slow" />
+            {/* Floating Orb 3 — Cream Highlight */}
+            <div className="absolute top-1/2 right-1/4 w-72 h-72 bg-linear-to-tr from-[#fff5cf]/30 via-white/20 to-transparent rounded-full blur-[90px] animate-float-fast animation-delay-2000" />
 
-            {/* Optional Glass Overlay */}
-            <div className="absolute inset-0 bg-linear-to-t from-white/10 via-transparent to-white/5 backdrop-blur-[2px]" />
+            {/* Subtle Paper Texture Overlay (Optional) */}
+            <div
+              className="absolute inset-0 opacity-5"
+              style={{
+                backgroundImage: `
+                  radial-gradient(circle at 10% 20%, rgba(0,0,0,0.03) 0%, transparent 20%),
+                  radial-gradient(circle at 90% 80%, rgba(0,0,0,0.02) 0%, transparent 25%)
+                `,
+              }}
+            />
+
+            {/* Very Light Gradient Overlay for Depth */}
+            <div className="absolute inset-0 bg-linear-to-b from-white/30 via-transparent to-[#fff5cf]/20 backdrop-blur-[1px]" />
           </div>
 
           <Navbar />

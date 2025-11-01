@@ -11,29 +11,29 @@ const langConfig = getLanguageConfig(LANG_CODE)
 
 const translations = {
   en: {
-    home: 'Home',
+    home: 'HOME',
     search: 'Search...',
-    siteName: 'BlogSite',
+    siteName: 'BLOGSITE',
     searchModalTitle: 'Type to start your search',
-    searchButton: 'Search',
+    searchButton: 'SEARCH',
     close: 'Close',
     pressEsc: 'Press ESC to close',
   },
   he: {
-    home: 'דף הבית',
+    home: 'בית',
     search: 'חפש...',
-    siteName: 'BlogSite',
+    siteName: 'BLOGSITE',
     searchModalTitle: 'הקלד כדי להתחיל חיפוש',
     searchButton: 'חיפוש',
     close: 'סגור',
     pressEsc: 'לחץ ESC לסגור',
   },
   hr: {
-    home: 'Početna',
+    home: 'POČETNA',
     search: 'Pretraži...',
-    siteName: 'BlogSite',
+    siteName: 'BLOGSITE',
     searchModalTitle: 'Upišite da biste započeli pretragu',
-    searchButton: 'Pretraži',
+    searchButton: 'PRETRAŽI',
     close: 'Zatvori',
     pressEsc: 'Pritisnite ESC za zatvaranje',
   },
@@ -66,174 +66,161 @@ export default function Navbar() {
 
   return (
     <nav
-      className="w-full mb-6 h-22 bg-white border-b border-purple-200 shadow-lg sticky top-0 z-50 backdrop-blur-sm"
+      className="w-full mb-6 bg-yellow-50 sticky top-0 z-50"
       dir={langConfig.direction}
       style={{ fontFamily: langConfig.font }}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3">
         {/* Logo */}
-        <a
-          href="/"
-          className="text-2xl font-bold bg-linear-to-r from-purple-900 to-indigo-950 bg-clip-text text-transparent flex items-center gap-2"
-        >
-          <div className="w-8 h-8 rounded-full bg-linear-to-r from-sky-700 to-indigo-700 flex items-center justify-center">
-            <span className="text-white font-bold text-sm">B</span>
+        <a href="/" className="flex items-center gap-2 text-purple-800 font-medium">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center border-2 border-black">
+              <span className="text-white font-bold text-sm">B</span>
+            </div>
+            <span className="text-xl font-extrabold text-purple-900 uppercase tracking-wider">
+              {t.siteName}
+            </span>
           </div>
-          {t.siteName}
         </a>
-        <div className="hidden lg:block">
-          <CategoryFilterBar />
-        </div>
+
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-6">
-          {/* Search Icon - Opens Modal */}
-          <button
-            onClick={() => setIsSearchOpen(true)}
-            className="p-2 rounded-full bg-sky-700 text-white hover:bg-sky-400 hover:text-sky-200 transition-all duration-300 group"
-          >
-            <Search className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
-          </button>
+          <CategoryFilterBar />
+        </div>
 
-          {/* Home Link */}
-          <a
-            href="/"
-            className="flex items-center gap-2 text-gray-800 hover:text-gray-900 transition-all duration-300 group"
-          >
-            <Home className="text-lg group-hover:scale-110 transition-transform duration-300" />
-            <span className="font-medium"></span>
-          </a>
-
-          {/* Social Icons */}
+        {/* Desktop Right Icons */}
+        <div className="hidden md:flex items-center gap-4">
+          {/* Social Icons - Animated */}
           <div className="flex items-center gap-3">
-            {/* Facebook */}
             <a
               href="#"
-              className="relative group p-2 rounded-full bg-linear-to-br from-sky-700 to-blue-700
-               text-white backdrop-blur-sm shadow-sm 
-               hover:from-indigo-500 hover:to-purple-500 hover:text-white
-               hover:shadow-lg transition-all duration-500 transform hover:-translate-y-1"
+              className="p-1 text-gray-800 hover:text-blue-600 transition-colors duration-300 transform hover:scale-110 hover:-translate-y-0.5 active:scale-95"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Facebook className="w-4 h-4 group-hover:scale-125 transition-transform duration-500" />
+              <Facebook className="w-4 h-4 transition-transform duration-300" />
             </a>
-
-            {/* Twitter */}
             <a
               href="#"
-              className="relative group p-2 rounded-full bg-linear-to-br from-indigo-400/40 to-sky-400/40
-               text-sky-900 backdrop-blur-sm shadow-sm
-               hover:from-sky-400 hover:to-blue-500 hover:text-white
-               hover:shadow-lg transition-all duration-500 transform hover:-translate-y-1"
+              className="p-1 text-gray-800 hover:text-sky-500 transition-colors duration-300 transform hover:scale-110 hover:-translate-y-0.5 active:scale-95"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Twitter className="w-4 h-4 group-hover:scale-125 transition-transform duration-500" />
+              <Twitter className="w-4 h-4 transition-transform duration-300" />
             </a>
-
-            {/* Instagram */}
             <a
               href="#"
-              className="relative group p-2 rounded-full bg-linear-to-br from-purple-600/30 to-pink-600/30
-               text-pink-900 backdrop-blur-sm shadow-sm
-               hover:from-pink-500 hover:via-orange-400 hover:to-purple-500 hover:text-white
-               hover:shadow-lg transition-all duration-500 transform hover:-translate-y-1"
+              className="p-1 text-gray-800 hover:text-pink-600 transition-colors duration-300 transform hover:scale-110 hover:-translate-y-0.5 active:scale-95"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Instagram className="w-4 h-4 group-hover:scale-125 transition-transform duration-500" />
+              <Instagram className="w-4 h-4 transition-transform duration-300" />
             </a>
           </div>
+
+          {/* Search Icon */}
+          <button
+            onClick={() => setIsSearchOpen(true)}
+            className="p-2 text-gray-800 hover:text-purple-700 transition-colors duration-300 transform hover:scale-110 hover:-translate-y-0.5 active:scale-95"
+          >
+            <Search className="w-5 h-5 transition-transform duration-300" />
+          </button>
         </div>
 
         {/* Mobile Buttons */}
         <div className="flex items-center gap-3 md:hidden">
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="text-gray-700 focus:outline-none hover:text-gray-900 transition-colors duration-300"
+            className="text-gray-700 focus:outline-none hover:text-black transition-colors"
           >
             {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
       </div>
 
+      {/* Wavy Line Under Logo */}
+      <div
+        className="border-t-3 border-black w-full mx-auto my-2"
+        style={{
+          background:
+            'repeating-linear-gradient(45deg, transparent, transparent 10px, black 10px, black 20px)',
+        }}
+      ></div>
+
       {/* Mobile Dropdown */}
       {menuOpen && (
-        <div
-          className={`md:hidden bg-linear-to-r from-purple-50 via-indigo-50 to-blue-50 border-t border-purple-200 animate-fadeIn ${
-            langConfig.direction === 'rtl' ? 'text-right' : 'text-left'
-          }`}
-        >
-          <div className="flex flex-col items-start px-6 py-6 space-y-5">
-            {/* Mobile Search */}
-            <button
-              onClick={() => setIsSearchOpen(true)}
-              className="flex items-center gap-2 w-full p-2 text-gray-700 hover:text-gray-900 transition-all duration-300 group"
-            >
-              <Search className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
-              <span className="font-medium">{t.search}</span>
-            </button>
+        <div className="md:hidden bg-yellow-50 border-t border-black/20">
+          <div className="flex flex-col px-6 py-4 space-y-4">
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setIsSearchOpen(true)}
+                className="p-2 text-gray-800 hover:text-black transition-colors"
+              >
+                <Search className="w-5 h-5" />
+              </button>
+              <span className="text-gray-800">{t.search}</span>
+            </div>
 
-            {/* Home Link */}
             <a
               href="/"
-              className="flex items-center gap-2 text-gray-700 hover:text-gray-900 transition-all duration-300 group"
+              className="flex items-center gap-2 text-gray-800 hover:text-black transition-colors"
               onClick={() => setMenuOpen(false)}
             >
-              <Home className="text-lg group-hover:scale-110 transition-transform duration-300" />
+              <Home className="w-5 h-5" />
+              <span>{t.home}</span>
             </a>
-            {/* Mobile Category Bar */}
-            <div className="pt-3 border-t border-purple-200">
+
+            <div className="pt-3 border-t border-black/20">
               <CategoryFilterBar />
             </div>
 
-            {/* Social Icons - Mobile */}
-            <div className="flex items-center gap-4 pt-4 border-t border-purple-200 w-full">
+            {/* Mobile Social Icons - Animated */}
+            <div className="flex items-center gap-4 pt-4 border-t border-black/20">
               <a
                 href="#"
-                className="p-2 rounded-full bg-purple-100 text-purple-600 hover:bg-purple-200 hover:text-purple-800 transition-all duration-300 group"
+                className="p-2 text-gray-800 hover:text-blue-600 transition-colors duration-300 transform hover:scale-110 hover:-translate-y-0.5 active:scale-95"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Facebook className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
+                <Facebook className="w-5 h-5" />
               </a>
               <a
                 href="#"
-                className="p-2 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 hover:text-blue-800 transition-all duration-300 group"
+                className="p-2 text-gray-800 hover:text-sky-500 transition-colors duration-300 transform hover:scale-110 hover:-translate-y-0.5 active:scale-95"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Twitter className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
+                <Twitter className="w-5 h-5" />
               </a>
               <a
                 href="#"
-                className="p-2 rounded-full bg-pink-100 text-pink-600 hover:bg-pink-200 hover:text-pink-800 transition-all duration-300 group"
+                className="p-2 text-gray-800 hover:text-pink-600 transition-colors duration-300 transform hover:scale-110 hover:-translate-y-0.5 active:scale-95"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Instagram className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
+                <Instagram className="w-5 h-5" />
               </a>
             </div>
           </div>
         </div>
       )}
 
-      {/* 🔥 FULLSCREEN SEARCH MODAL — Styled to Match Your Design */}
+      {/* 🔥 FULLSCREEN SEARCH MODAL — First Image Style */}
       {isSearchOpen && (
         <div
-          className="fixed inset-0 z-50 bg-linear-to-br from-purple-50 via-indigo-50 to-blue-50 flex flex-col items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-yellow-50 flex flex-col items-center justify-center p-4"
           style={{ fontFamily: langConfig.font }}
         >
           {/* Close Button */}
           <button
             onClick={() => setIsSearchOpen(false)}
-            className="absolute top-4 right-4 p-2 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 transition-colors"
+            className="absolute top-4 right-4 p-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors border-2 border-black"
           >
             <CloseIcon className="w-5 h-5" />
           </button>
 
           {/* ESC Hint */}
-          <p className="text-gray-700 mb-6 text-xl font-semibold">{t.pressEsc}</p>
+          <p className="text-gray-800 mb-6 text-lg font-bold">{t.pressEsc}</p>
 
           {/* Search Form */}
           <form onSubmit={handleSearchSubmit} className="w-full max-w-md">
@@ -243,12 +230,12 @@ export default function Navbar() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder={t.searchModalTitle}
-                className="w-full pl-4 pr-12 py-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 bg-white shadow-sm"
+                className="w-full pl-4 pr-12 py-3 rounded-lg border-2 border-black focus:outline-none focus:ring-2 focus:ring-black transition-all"
                 autoFocus
               />
               <button
                 type="submit"
-                className="absolute right-1 top-1/2 transform -translate-y-1/2 px-4 py-1.5 bg-linear-to-r from-purple-600 to-indigo-600 text-white rounded-full text-sm font-medium hover:from-purple-700 hover:to-indigo-700 transition-all"
+                className="absolute right-1 top-1/2 transform -translate-y-1/2 px-4 py-1.5 bg-black text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors border-2 border-white"
               >
                 {t.searchButton}
               </button>

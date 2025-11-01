@@ -25,10 +25,10 @@ export default function PostCard({ post, locale }: PostCardProps) {
   return (
     <Link
       href={`/posts/${post.slug}`}
-      className="group block rounded-2xl overflow-hidden shadow-none transition-all duration-500 hover:shadow-2xl hover:-translate-y-1.5"
+      className="group block rounded-xl overflow-hidden shadow-none transition-all duration-500 hover:shadow-2xl hover:-translate-y-1.5"
     >
       {/* Glassmorphic Card Base */}
-      <div className="relative bg-white/90 dark:bg-gray-900/60 backdrop-blur-xl border border-white/30 dark:border-gray-800/50 rounded-3xl overflow-hidden transition-all duration-500">
+      <div className="relative bg-white/90 dark:bg-gray-900/60 backdrop-blur-xl border border-white/30 dark:border-gray-800/50 rounded-xl overflow-hidden transition-all duration-500">
         {/* Gradient Border Glow (on hover) */}
         <div
           className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none
@@ -36,12 +36,12 @@ export default function PostCard({ post, locale }: PostCardProps) {
         />
 
         {/* Image */}
-        <div className="relative h-52 sm:h-60 w-full overflow-hidden">
+        <div className="relative h-52 sm:h-48 w-auto overflow-hidden">
           <Image
             src={imageUrl}
             alt={post.title || 'Post image'}
             fill
-            style={{ objectFit: 'cover' }}
+            style={{ objectFit: 'unset' }}
             className="transition-transform duration-700 group-hover:scale-110"
           />
           {/* Dark vignette overlay for text contrast */}
@@ -49,14 +49,14 @@ export default function PostCard({ post, locale }: PostCardProps) {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 p-6 pt-4">
+        <div className="relative z-8 p-4 pt-2">
           {/* Date Badge */}
-          <div className="inline-block mb-3 px-3 py-1 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 text-xs font-semibold rounded-full backdrop-blur-sm border border-indigo-100 dark:border-indigo-800/50">
+          <div className="inline-block mb-3 px-3 py-1 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 text-xs font-bold rounded-full backdrop-blur-sm border border-indigo-100 dark:border-indigo-800/50">
             {formattedDate}
           </div>
 
           {/* Title */}
-          <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-linear-to-r group-hover:from-indigo-600 group-hover:to-purple-600 transition-all duration-500">
+          <h3 className="text-xl sm:text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-linear-to-r group-hover:from-indigo-600 group-hover:to-purple-600 transition-all duration-500">
             {post.title}
           </h3>
 

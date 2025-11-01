@@ -10,9 +10,9 @@ const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || 'en'
 const langConfig = getLanguageConfig(LANG_CODE)
 
 const translations = {
-  en: { all: 'All' },
+  en: { all: 'ALL' },
   he: { all: 'הכול' },
-  hr: { all: 'Sve' },
+  hr: { all: 'SVE' },
 }
 
 const t = translations[LANG_CODE] || translations.en
@@ -51,55 +51,39 @@ export default function CategoryFilterBar() {
       <div
         dir={langConfig.direction}
         style={{ fontFamily: langConfig.font }}
-        className="flex justify-center flex-wrap gap-3 px-6 py-4 bg-white/70 backdrop-blur-sm rounded-xl animate-pulse"
+        className="flex items-center overflow-x-auto gap-3 px-2 py-2 hide-scrollbar"
       >
         {[1, 2, 3, 4].map((i) => (
-          <div key={i} className="h-8 bg-gray-200 rounded-full w-24"></div>
+          <div key={i} className="h-8 bg-gray-200 rounded-full w-20 shrink-0"></div>
         ))}
       </div>
     )
   }
 
-  // ✅ No post-loading animation — clean & static
   return (
     <div
       dir={langConfig.direction}
       style={{ fontFamily: langConfig.font }}
-      className="relative mx-auto max-w-7xl px-6 py-4"
+      className="flex items-center overflow-x-auto gap-3 px-2 py-2 hide-scrollbar"
     >
-      <div className="flex justify-center flex-wrap gap-3">
-        {/* 🏷 All Button */}
-        <Link
-          href="/categories"
-          className="group relative px-5 py-2.5 text-sm font-semibold text-gray-700 
-                     bg-white/90 backdrop-blur-sm rounded-full
-                     hover:bg-linear-to-r hover:from-purple-50 hover:to-indigo-50
-                     hover:text-purple-700
-                     transition-all duration-300 ease-out
-                     before:absolute before:inset-0 before:rounded-full before:bg-linear-to-r before:from-purple-500/10 before:to-indigo-500/10 before:opacity-0 before:transition-opacity before:duration-300
-                     before:group-hover:opacity-100"
-        >
-          <span className="relative z-10">{t.all}</span>
-        </Link>
+      {/* 🏷 All Button */}
+      <Link
+        href="/categories"
+        className="px-4 py-2 text-sm font-bold text-gray-800 bg-white border-2 border-black rounded-full hover:bg-gray-100 transition-all shadow-[3px_3px_0px_#000000] shrink-0"
+      >
+        {t.all}
+      </Link>
 
-        {/* 🌈 Category Buttons */}
-        {categories.map((category) => (
-          <Link
-            key={category.id}
-            href={`/categories/${category.slug}`}
-            className="group relative px-5 py-2.5 text-sm font-medium rounded-full
-                       bg-white  text-gray-700
-                       hover:bg-linear-to-r hover:from-pink-50 hover:to-purple-50
-                       hover:text-purple-700
-                       transition-all duration-300 ease-out
-                       
-                       before:absolute before:inset-0 before:rounded-full before:bg-linear-to-r before:from-pink-500/10 before:to-purple-500/10 before:opacity-0 before:transition-opacity before:duration-300
-                       before:group-hover:opacity-100"
-          >
-            <span className="relative z-10">{category.name}</span>
-          </Link>
-        ))}
-      </div>
+      {/* 🌈 Category Buttons */}
+      {categories.map((category) => (
+        <Link
+          key={category.id}
+          href={`/categories/${category.slug}`}
+          className="px-4 py-2 text-sm font-bold text-gray-800 bg-white border-2 border-black rounded-full hover:bg-gray-100 transition-all shadow-[3px_3px_0px_#000000] shrink-0"
+        >
+          {category.name.toUpperCase()}
+        </Link>
+      ))}
     </div>
   )
 }

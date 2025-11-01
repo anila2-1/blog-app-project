@@ -12,22 +12,11 @@ body {
 }
 
 * {
-  font-size: 1.125rem !important; /* 20px */
-  font-weight: 400;
+  font-weight: 600;
+  
 }
-h1, h2, h3, h4, h5, h6 {
-  font-size: 1.35rem !important; /* 24px+ */
-  font-weight: 700;
-}
-/* Make headings use the same sans font as body (override default 'prose' serif headings) */
-.prose h1,
-.prose h2,
-.prose h3,
-.prose h4,
-.prose h5,
-.prose h6 {
-  font-family: 'Outfit', system-ui, -apple-system, sans-serif;
-}
+/* Removed global heading size overrides to allow custom RichText styles */
+/* Removed prose heading size overrides to allow custom RichText styles */
 /* Add this to styles.css */
 .prose img {
   @apply rounded-lg my-6 max-w-full h-auto shadow-md;
@@ -70,12 +59,15 @@ h1, h2, h3, h4, h5, h6 {
   text-align: left;
 }
 
+/* Headings inside blog */
 .prose h1, .prose h2, .prose h3 {
   font-weight: 800;
+  font-size: 1.35rem !important;
   background: linear-gradient(to right, #4f46e5, #9333ea);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
 
 /* Blockquote stylish */
 .prose blockquote {
@@ -109,20 +101,23 @@ h1, h2, h3, h4, h5, h6 {
 .prose a:hover::after {
   width: 100%;
 }
-
-
-/* Inline Code Styling */
+/* Force all code inside rich text to use prose styles */
 .payload-richtext code:not(pre code) {
-  background-color: #f3f4f6 !important;
-  color: #dc2626 !important;
+  background-color: #f0f9ff !important;
+  color: #0369a1 !important;
   padding: 0.25rem 0.5rem !important;
-  border-radius: 0.25rem !important;
-  font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace !important;
+  border-radius: 0.375rem !important;
+  font-family: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace !important;
   font-size: 0.875rem !important;
-  border: 1px solid #e5e7eb !important;
+  border: 1px solid #bae6fd !important;
   font-weight: 500 !important;
 }
 
+/* Force bold text to be bold */
+.payload-richtext strong,
+.payload-richtext b {
+  font-weight: 700 !important;
+}
 /* ✨ Inline code inside prose (e.g. within a paragraph) */
 .prose code:not(pre code) {
   background-color: #f0f9ff !important; /* light sky background */
@@ -246,15 +241,7 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.6;
 }
 
-.prose h1,
-.prose h2,
-.prose h3,
-.prose h4,
-.prose h5,
-.prose h6 {
-  color: #4f46e5;
-  font-weight: 700;
-}
+
 
 .prose ul,
 .prose ol {
@@ -277,17 +264,6 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.6;
 }
 
-/* Ensure consistent heading spacing and border */
-.payload-richtext h1,
-.payload-richtext h2,
-.payload-richtext h3,
-.payload-richtext h4,
-.payload-richtext h5,
-.payload-richtext h6 {
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid #e0e7ff;
-}
 
 .payload-richtext p {
   line-height: 1.6;
@@ -369,3 +345,13 @@ h1, h2, h3, h4, h5, h6 {
 .animate-float-slow { animation: float-slow 12s ease-in-out infinite; }
 .animate-float-medium { animation: float-medium 9s ease-in-out infinite; }
 .animate-float-fast { animation: float-fast 6s ease-in-out infinite; }
+
+
+/* In your globals.css or layout.css */
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;             /* Chrome, Safari, Opera */
+}

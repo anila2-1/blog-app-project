@@ -45,7 +45,7 @@ export default function RelatedPosts({ categorySlug, currentPostId }: RelatedPos
           <Link
             key={post.id}
             href={`/posts/${post.slug}`}
-            className="group relative flex flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+            className="group relative flex flex-col overflow-hidden rounded-3xl border border-gray-200 bg-[#fff0da] shadow-[7px_7px_0px_#000000] hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
           >
             {/* 🔹 Image */}
             {typeof post.image === 'object' && post.image?.url ? (

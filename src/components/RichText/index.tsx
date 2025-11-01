@@ -1,5 +1,4 @@
 // src/components/RichText.tsx
-// src/components/RichText.tsx
 import {
   DefaultNodeTypes,
   SerializedBlockNode,
@@ -11,6 +10,7 @@ import {
   LinkJSXConverter,
   RichText as ConvertRichText,
 } from '@payloadcms/richtext-lexical/react'
+import React from 'react'
 import Image from 'next/image'
 
 import { CodeBlock, CodeBlockProps } from '@/blocks/Code/Component'
@@ -145,7 +145,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
             <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </div>
           {caption && (
-            <figcaption className="mt-3 text-center text-sm text-gray-600 font-medium italic">
+            <figcaption className="mt-3 text-center text-sm text-white font-medium italic">
               {caption}
             </figcaption>
           )}
@@ -154,33 +154,33 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     )
   },
 
-  // 🎨 Override specific converters for better styling
+  // 🎨 Override specific converters for better styling — NOW WITH PERFECT SIZES AND COLORS
   heading: ({ node, nodesToJSX }) => {
     const children = nodesToJSX({ nodes: node.children })
     const tag = (node as any).tag
 
-    // Common styles for ALL headings
-    const baseStyles = 'border-b border-indigo-200 pb-1 mb-4 mt-6 font-bold'
+    // Common styles for ALL headings — NO prose, explicit Tailwind classes
+    const baseStyles = 'border-b border-indigo-200 pb-1 mb-4 font-black'
 
     switch (tag) {
       case 'h1':
         return (
-          <h1 className={`${baseStyles} text-4xl sm:text-5xl text-indigo-700 leading-tight`}>
+          <h1 className={`${baseStyles} text-5xl sm:text-6xl text-indigo-700 leading-tight`}>
             {children}
           </h1>
         )
       case 'h2':
-        return <h2 className={`${baseStyles} text-3xl sm:text-4xl text-indigo-600`}>{children}</h2>
+        return <h2 className={`${baseStyles} text-4xl sm:text-6xl text-indigo-600`}>{children}</h2>
       case 'h3':
-        return <h3 className={`${baseStyles} text-2xl sm:text-3xl text-indigo-500`}>{children}</h3>
+        return <h3 className={`${baseStyles} text-4xl sm:text-5xl text-indigo-500`}>{children}</h3>
       case 'h4':
-        return <h4 className={`${baseStyles} text-xl text-indigo-600`}>{children}</h4>
+        return <h4 className={`${baseStyles} text-3xl sm:text-4xl text-indigo-600`}>{children}</h4>
       case 'h5':
-        return <h5 className={`${baseStyles} text-lg text-indigo-700`}>{children}</h5>
+        return <h5 className={`${baseStyles} text-2xl sm:text-3xl text-indigo-700`}>{children}</h5>
       case 'h6':
-        return <h6 className={`${baseStyles} text-base text-indigo-800`}>{children}</h6>
+        return <h6 className={`${baseStyles} text-xl sm:text-2xl text-indigo-800`}>{children}</h6>
       default:
-        return <h2 className={`${baseStyles} text-3xl text-indigo-600`}>{children}</h2>
+        return <h2 className={`${baseStyles} text-5xl sm:text-6xl text-indigo-600`}>{children}</h2>
     }
   },
 
@@ -189,15 +189,19 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     const text = textNode.text || ''
     const format = textNode.format || 0
 
-    let className = 'text-gray-800'
+    // Build semantic tags for formatting so Tailwind's default styles apply correctly.
+    let content: React.ReactNode = text
 
-    // Apply formatting based on lexical format
-    if (format & 1) className += ' font-bold' // bold
-    if (format & 2) className += ' italic' // italic
-    if (format & 4) className += ' underline' // underline
-    if (format & 8) className += ' line-through' // strikethrough
+    // Strikethrough
+    if (format & 8) content = <del className="line-through">{content}</del>
+    // Underline
+    if (format & 4) content = <u className="underline">{content}</u>
+    // Italic
+    if (format & 2) content = <em className="italic">{content}</em>
+    // Bold
+    if (format & 1) content = <strong className="font-semibold">{content}</strong>
 
-    return <span className={className}>{text}</span>
+    return <span className="text-gray-800">{content}</span>
   },
 
   list: ({ node, nodesToJSX }) => {
@@ -229,8 +233,16 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
 
   code: ({ node }) => {
     const text = (node as any).text || (node as any).children?.[0]?.text || ''
+
+    // If no text, render nothing
+    if (!text || text.trim() === '') return null
+
+    // Render inline code with subtle styling
     return (
-      <code className="bg-gray-100 text-red-600 px-2 py-1 rounded text-sm font-mono border border-gray-200">
+      <code
+        className="bg-slate-100 text-sky-700 px-1.5 py-0.5 rounded-md border border-slate-200 font-mono text-sm font-medium"
+        data-inline-code
+      >
         {text}
       </code>
     )
@@ -241,9 +253,12 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     const codeText = (node as any).children?.map((child: any) => child.text || '').join('\n') || ''
     const language = (node as any).language || ''
 
+    // Use explicit pre/code wrapper
     return (
       <div className="my-6">
-        <Code code={codeText} language={language} />
+        <pre className="bg-blue-50 border border-sky-300 rounded-xl p-4 overflow-x-auto shadow-sm">
+          <Code code={codeText} language={language} />
+        </pre>
       </div>
     )
   },
@@ -292,7 +307,8 @@ type Props = {
 } & React.HTMLAttributes<HTMLDivElement>
 
 export default function RichText(props: Props) {
-  const { className, enableProse = true, enableGutter = true, data, ...rest } = props
+  // ✅ IMPORTANT: Disable `prose` to avoid CSS conflicts — we're using explicit Tailwind classes
+  const { className, enableProse = false, enableGutter = true, data, ...rest } = props
 
   return (
     <ConvertRichText
@@ -303,7 +319,7 @@ export default function RichText(props: Props) {
         {
           container: enableGutter,
           'max-w-none': !enableGutter,
-          'mx-auto': enableProse, // Removed prose classes to avoid conflicts
+          'mx-auto': enableProse,
         },
         className,
       )}
