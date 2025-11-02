@@ -4,8 +4,21 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Post } from '../../../payload-types'
 
+interface SimplifiedPost {
+  id: string
+  title: string
+  slug: string
+  excerpt: string
+  image?: { url: string }
+  publishedAt?: string
+  featured?: boolean
+  pinned?: boolean
+  views?: number
+  category?: { name: string; slug: string }
+}
+
 interface PostCardProps {
-  post: Post
+  post: Post | SimplifiedPost
   locale: string
 }
 

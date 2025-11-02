@@ -1,5 +1,8 @@
 // src/app/(frontend)/page.tsx
 
+'use client'
+
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import FeaturedPost from './components/FeaturedPost'
 import MostViewedPosts from './components/MostViewedPosts'
@@ -8,59 +11,86 @@ import LatestPosts from './components/LatestPosts'
 import CategoryCards from './components/CategoryCards'
 import Sidebar from './components/Sidebar'
 import { getLanguageConfig, LanguageCode } from '@/config/languages'
-import { getPayload } from '@/lib/payload'
 
 const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || 'en'
 const langConfig = getLanguageConfig(LANG_CODE)
 
-export default async function HomePage() {
-  // Fetch data server-side
-  const payload = await getPayload()
+import type { Post } from '@/payload-types'
 
-  // Fetch categories
-  const categories = await payload.find({
-    collection: 'categories',
-    limit: 6,
-    locale: langConfig.locale,
-    depth: 1,
-  })
+interface SimplifiedPost {
+  id: string
+  title: string
+  slug: string
+  excerpt: string
+  image?: { url: string }
+  publishedAt?: string
+  featured?: boolean
+  pinned?: boolean
+  views?: number
+  category?: { name: string; slug: string }
+}
 
-  // Fetch pinned posts
-  const pinnedPosts = await payload.find({
-    collection: 'posts',
-    where: { pinned: { equals: true } },
-    limit: 3,
-    locale: langConfig.locale,
-    depth: 1,
-  })
+interface Category {
+  id: string
+  name: string
+  slug: string
+  image?: { url: string }
+}
 
-  // Fetch latest posts
-  const latestPosts = await payload.find({
-    collection: 'posts',
-    sort: '-publishedAt',
-    limit: 4,
-    locale: langConfig.locale,
-    depth: 1,
-  })
+export default function HomePage() {
+  const [categories, setCategories] = useState<Category[]>([])
+  const [pinnedPosts, setPinnedPosts] = useState<SimplifiedPost[]>([])
+  const [latestPosts, setLatestPosts] = useState<SimplifiedPost[]>([])
+  const [mostViewedPosts, setMostViewedPosts] = useState<SimplifiedPost[]>([])
+  const [featuredPosts, setFeaturedPosts] = useState<SimplifiedPost[]>([])
+  const [loading, setLoading] = useState(true)
 
-  // Fetch most viewed posts
-  const mostViewedPosts = await payload.find({
-    collection: 'posts',
-    sort: '-views',
-    limit: 4,
-    locale: langConfig.locale,
-    depth: 1,
-  })
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        // Fetch categories
+        const categoriesRes = await fetch(
+          `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/categories?limit=6&locale=${langConfig.locale}&depth=1`,
+        )
+        const categoriesData = await categoriesRes.json()
+        setCategories(categoriesData.docs || [])
 
-  // Fetch featured posts
-  const featuredPosts = await payload.find({
-    collection: 'posts',
-    where: { featured: { equals: true } },
-    sort: '-publishedAt',
-    limit: 3,
-    locale: langConfig.locale,
-    depth: 1,
-  })
+        // Fetch pinned posts
+        const pinnedRes = await fetch(
+          `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/posts?where[pinned][equals]=true&limit=3&locale=${langConfig.locale}&depth=1`,
+        )
+        const pinnedData = await pinnedRes.json()
+        setPinnedPosts(pinnedData.docs || [])
+
+        // Fetch latest posts
+        const latestRes = await fetch(
+          `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/posts?sort=-publishedAt&limit=4&locale=${langConfig.locale}&depth=1`,
+        )
+        const latestData = await latestRes.json()
+        setLatestPosts(latestData.docs || [])
+
+        // Fetch most viewed posts
+        const viewedRes = await fetch(
+          `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/posts?sort=-views&limit=4&locale=${langConfig.locale}&depth=1`,
+        )
+        const viewedData = await viewedRes.json()
+        setMostViewedPosts(viewedData.docs || [])
+
+        // Fetch featured posts
+        const featuredRes = await fetch(
+          `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/posts?where[featured][equals]=true&sort=-publishedAt&limit=3&locale=${langConfig.locale}&depth=1`,
+        )
+        const featuredData = await featuredRes.json()
+        setFeaturedPosts(featuredData.docs || [])
+      } catch (error) {
+        console.error('Error fetching data:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchData()
+  }, [])
 
   return (
     <main
@@ -80,7 +110,7 @@ export default async function HomePage() {
           <div className="absolute inset-0 bg-linear-to-tr from-purple-100 via-pink-50 to-blue-100 blur-3xl opacity-60 -z-10"></div>
 
           {/* Featured Content */}
-          <FeaturedPost posts={featuredPosts.docs} />
+          <FeaturedPost posts={featuredPosts} />
         </SectionCard>
       </div>
 
@@ -90,17 +120,17 @@ export default async function HomePage() {
         <div className="lg:col-span-2 space-y-8">
           {/* 🔥 Popular Articles */}
           <SectionCard label="Popular" padding="p-6" labelPosition="top-4 left-4">
-            <MostViewedPosts posts={mostViewedPosts.docs} />
+            <MostViewedPosts posts={mostViewedPosts} />
           </SectionCard>
 
           {/* Pinned Posts */}
           <SectionCard label="Pinned" padding="p-3" labelPosition="top-4 left-4">
-            <PinnedPosts posts={pinnedPosts.docs} />
+            <PinnedPosts posts={pinnedPosts} />
           </SectionCard>
 
           {/* 🏷️ Category Cards */}
           <SectionCard label="Categories" padding="p-6" labelPosition="top-4 left-4">
-            <CategoryCards categories={categories.docs} />
+            <CategoryCards categories={categories} />
           </SectionCard>
         </div>
 
@@ -108,7 +138,7 @@ export default async function HomePage() {
         <div className="space-y-6 animate-fadeInSlow">
           {/* 📰 Latest Posts */}
           <SectionCard label="Latest" padding="p-5" labelPosition="top-3 left-3">
-            <LatestPosts posts={latestPosts.docs} />
+            <LatestPosts posts={latestPosts} />
           </SectionCard>
 
           <Sidebar />

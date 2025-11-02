@@ -3,10 +3,23 @@ import Image from 'next/image'
 import { Post } from '../../../payload-types'
 import { getLanguageConfig, LanguageCode } from './../../../config/languages'
 
+interface SimplifiedPost {
+  id: string
+  title: string
+  slug: string
+  excerpt: string
+  image?: { url: string }
+  publishedAt?: string
+  featured?: boolean
+  pinned?: boolean
+  views?: number
+  category?: { name: string; slug: string }
+}
+
 const DEFAULT_LANG = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || 'en'
 
 interface LatestPostsProps {
-  posts: Post[]
+  posts: Post[] | SimplifiedPost[]
 }
 
 export default function LatestPosts({ posts }: LatestPostsProps) {
