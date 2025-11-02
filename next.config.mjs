@@ -12,7 +12,7 @@ const nextConfig = {
 
     return webpackConfig
   },
-  serverExternalPackages: ['@payloadcms/db-mongodb'],
+  serverExternalPackages: ['@payloadcms/db-mongodb', '@payloadcms/richtext-lexical'],
   env: {
     NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL || 'http://localhost:3000',
   },
