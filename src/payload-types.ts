@@ -218,6 +218,7 @@ export interface Post {
 export interface Category {
   id: string;
   name: string;
+  slug: string;
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -371,6 +372,7 @@ export interface PostsSelect<T extends boolean = true> {
  */
 export interface CategoriesSelect<T extends boolean = true> {
   name?: T;
+  slug?: T;
   meta?:
     | T
     | {
