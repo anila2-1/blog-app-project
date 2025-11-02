@@ -1,5 +1,5 @@
 {
-  "packageManager": "pnpm",
+  "version": 2,
   "functions": {
     "src/app/sitemap.xml/route.ts": {
       "maxDuration": 30
