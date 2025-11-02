@@ -1,6 +1,3 @@
-'use client'
-
-import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { LucideArrowRight, LucideArrowLeft } from 'lucide-react'
 import { getLanguageConfig, LanguageCode } from './../../../config/languages'
@@ -39,50 +36,11 @@ interface Category {
   }
 }
 
-export default function CategoryCards() {
-  const [categories, setCategories] = useState<Category[]>([])
-  const [loading, setLoading] = useState(true)
+interface CategoryCardsProps {
+  categories: Category[]
+}
 
-  useEffect(() => {
-    async function fetchCategories() {
-      try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/categories?limit=6&locale=${langConfig.locale}&depth=1`,
-        )
-        const data = await res.json()
-        setCategories(data.docs || [])
-      } catch (err) {
-        console.error('Error fetching categories:', err)
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchCategories()
-  }, [])
-
-  // 🌀 Skeleton while loading
-  if (loading) {
-    return (
-      <div className="space-y-8" dir={langConfig.direction} style={{ fontFamily: langConfig.font }}>
-        <div className="flex justify-between items-center">
-          <div className="h-6 bg-gray-300 rounded w-1/4 shadow-[2px_2px_0px_#00000066]" />
-          <div className="h-6 bg-gray-300 rounded w-1/6 shadow-[2px_2px_0px_#00000066]" />
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[1, 2, 3].map((i) => (
-            <div
-              key={i}
-              className="bg-gray-50 p-4 rounded-xl shadow-[2px_2px_0px_#00000066] animate-pulse"
-            >
-              <div className="h-48 bg-gray-300 rounded mb-4"></div>
-              <div className="h-4 bg-gray-300 rounded w-3/4 mx-auto"></div>
-            </div>
-          ))}
-        </div>
-      </div>
-    )
-  }
-
+export default function CategoryCards({ categories }: CategoryCardsProps) {
   // 🪶 No Categories Found
   if (categories.length === 0) {
     return (

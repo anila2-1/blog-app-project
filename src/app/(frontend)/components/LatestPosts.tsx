@@ -1,6 +1,3 @@
-'use client'
-
-import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Post } from '../../../payload-types'
@@ -8,70 +5,19 @@ import { getLanguageConfig, LanguageCode } from './../../../config/languages'
 
 const DEFAULT_LANG = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || 'en'
 
-export default function LatestPosts() {
-  const [posts, setPosts] = useState<Post[]>([])
-  const [loading, setLoading] = useState(true)
-  const [langCode, setLangCode] = useState<LanguageCode>(DEFAULT_LANG)
-  const langConfig = getLanguageConfig(langCode)
+interface LatestPostsProps {
+  posts: Post[]
+}
+
+export default function LatestPosts({ posts }: LatestPostsProps) {
+  const langConfig = getLanguageConfig(DEFAULT_LANG)
 
   const translations = {
     en: { noPosts: 'No posts found.', label: 'New' },
     he: { noPosts: 'לא נמצאו פוסטים.', label: 'חדש' },
     hr: { noPosts: 'Nema pronađenih postova.', label: 'Novo' },
   }
-  const t = translations[langCode] || translations.en
-
-  useEffect(() => {
-    const currentLang = (localStorage.getItem('lang') as LanguageCode) || DEFAULT_LANG
-    setLangCode(currentLang)
-  }, [])
-
-  useEffect(() => {
-    async function fetchPosts() {
-      setLoading(true)
-      try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/posts?sort=-publishedAt&locale=${langConfig.locale}&fallback-locale=none&depth=1`,
-          { cache: 'no-store' },
-        )
-        const data = await res.json()
-        const validPosts = (data.docs || [])
-          .filter((p: Post) => p?.title && p?.publishedAt && p?.excerpt)
-          .slice(0, 4)
-        setPosts(validPosts)
-      } catch (err) {
-        console.error('Error fetching latest posts:', err)
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchPosts()
-  }, [langCode])
-
-  // 🌀 Loading skeletons
-  if (loading) {
-    return (
-      <div className="space-y-4" dir={langConfig.direction} style={{ fontFamily: langConfig.font }}>
-        {[1, 2, 3].map((i) => (
-          <div
-            key={i}
-            className="group relative p-4 rounded-2xl bg-white border-2 border-black
-                       shadow-[2px_2px_0px_#00000066] animate-pulse
-                       transition-all duration-200 ease-out active:translate-x-0.5 active:translate-y-0.5"
-          >
-            <div className="flex items-start gap-4">
-              <div className="w-16 h-16 bg-gray-200 rounded-xl border-2 border-black shadow-[2px_2px_0px_#00000066]"></div>
-              <div className="flex-1 space-y-2">
-                <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-                <div className="h-3 bg-gray-200 rounded w-1/2"></div>
-                <div className="h-3 bg-gray-200 rounded w-full"></div>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    )
-  }
+  const t = translations[DEFAULT_LANG] || translations.en
 
   // 🚫 No posts
   if (posts.length === 0) {

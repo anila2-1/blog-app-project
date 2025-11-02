@@ -1,37 +1,66 @@
 // src/app/(frontend)/page.tsx
 
-'use client'
-
 import Link from 'next/link'
 import FeaturedPost from './components/FeaturedPost'
 import MostViewedPosts from './components/MostViewedPosts'
 import PinnedPosts from './components/PinnedPosts'
 import LatestPosts from './components/LatestPosts'
 import CategoryCards from './components/CategoryCards'
-// import CategoryFilterBar from './components/CategoryFilterBar'
 import Sidebar from './components/Sidebar'
 import { getLanguageConfig, LanguageCode } from '@/config/languages'
-import { useState } from 'react'
+import { getPayload } from '@/lib/payload'
 
 const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || 'en'
 const langConfig = getLanguageConfig(LANG_CODE)
 
-export default function HomePage() {
-  // States for click animations
-  const [pressedSections, setPressedSections] = useState({
-    featured: false,
-    popular: false,
-    pinned: false,
-    categories: false,
-    latest: false,
-    cta: false,
+export default async function HomePage() {
+  // Fetch data server-side
+  const payload = await getPayload()
+
+  // Fetch categories
+  const categories = await payload.find({
+    collection: 'categories',
+    limit: 6,
+    locale: langConfig.locale,
+    depth: 1,
   })
 
-  const handleMouseDown = (key: keyof typeof pressedSections) => () =>
-    setPressedSections((prev) => ({ ...prev, [key]: true }))
+  // Fetch pinned posts
+  const pinnedPosts = await payload.find({
+    collection: 'posts',
+    where: { pinned: { equals: true } },
+    limit: 3,
+    locale: langConfig.locale,
+    depth: 1,
+  })
 
-  const handleMouseUp = (key: keyof typeof pressedSections) => () =>
-    setPressedSections((prev) => ({ ...prev, [key]: false }))
+  // Fetch latest posts
+  const latestPosts = await payload.find({
+    collection: 'posts',
+    sort: '-publishedAt',
+    limit: 4,
+    locale: langConfig.locale,
+    depth: 1,
+  })
+
+  // Fetch most viewed posts
+  const mostViewedPosts = await payload.find({
+    collection: 'posts',
+    sort: '-views',
+    limit: 4,
+    locale: langConfig.locale,
+    depth: 1,
+  })
+
+  // Fetch featured posts
+  const featuredPosts = await payload.find({
+    collection: 'posts',
+    where: { featured: { equals: true } },
+    sort: '-publishedAt',
+    limit: 3,
+    locale: langConfig.locale,
+    depth: 1,
+  })
 
   return (
     <main
@@ -43,9 +72,6 @@ export default function HomePage() {
       <div className="mb-10 relative">
         <SectionCard
           label="Featured"
-          isPressed={pressedSections.featured}
-          onMouseDown={handleMouseDown('featured')}
-          onMouseUp={handleMouseUp('featured')}
           padding="p-4"
           labelPosition="top-3 left-3"
           customClasses="relative overflow-hidden"
@@ -56,9 +82,9 @@ export default function HomePage() {
           {/* 🧭 Navigation Arrows */}
           <button
             aria-label="Previous Featured Post"
-            className="absolute left-3 top-1/2 -translate-y-1/2 z-20 bg-yellow-200 border-2 border-black 
+            className="absolute left-3 top-1/2 -translate-y-1/2 z-20 bg-yellow-200 border-2 border-black
                  rounded-full w-10 h-10 flex items-center justify-center font-bold text-black
-                 shadow-[3px_3px_0px_#000000] hover:bg-yellow-300 
+                 shadow-[3px_3px_0px_#000000] hover:bg-yellow-300
                  active:translate-x-0.5 active:translate-y-0.5 transition-all duration-150"
             onClick={() => document.dispatchEvent(new CustomEvent('featured-prev'))}
           >
@@ -67,9 +93,9 @@ export default function HomePage() {
 
           <button
             aria-label="Next Featured Post"
-            className="absolute right-3 top-1/2 -translate-y-1/2 z-20 bg-yellow-200 border-2 border-black 
+            className="absolute right-3 top-1/2 -translate-y-1/2 z-20 bg-yellow-200 border-2 border-black
                  rounded-full w-10 h-10 flex items-center justify-center font-bold text-black
-                 shadow-[3px_3px_0px_#000000] hover:bg-yellow-300 
+                 shadow-[3px_3px_0px_#000000] hover:bg-yellow-300
                  active:translate-x-0.5 active:translate-y-0.5 transition-all duration-150"
             onClick={() => document.dispatchEvent(new CustomEvent('featured-next'))}
           >
@@ -77,7 +103,7 @@ export default function HomePage() {
           </button>
 
           {/* Featured Content */}
-          <FeaturedPost />
+          <FeaturedPost posts={featuredPosts.docs} />
         </SectionCard>
       </div>
 
@@ -86,54 +112,26 @@ export default function HomePage() {
         {/* Left Content */}
         <div className="lg:col-span-2 space-y-8">
           {/* 🔥 Popular Articles */}
-          <SectionCard
-            label="Popular"
-            isPressed={pressedSections.popular}
-            onMouseDown={handleMouseDown('popular')}
-            onMouseUp={handleMouseUp('popular')}
-            padding="p-6"
-            labelPosition="top-4 left-4"
-          >
-            <MostViewedPosts />
+          <SectionCard label="Popular" padding="p-6" labelPosition="top-4 left-4">
+            <MostViewedPosts posts={mostViewedPosts.docs} />
           </SectionCard>
 
           {/* Pinned Posts */}
-          <SectionCard
-            label="Pinned"
-            isPressed={pressedSections.pinned}
-            onMouseDown={handleMouseDown('pinned')}
-            onMouseUp={handleMouseUp('pinned')}
-            padding="p-3"
-            labelPosition="top-4 left-4"
-          >
-            <PinnedPosts />
+          <SectionCard label="Pinned" padding="p-3" labelPosition="top-4 left-4">
+            <PinnedPosts posts={pinnedPosts.docs} />
           </SectionCard>
 
           {/* 🏷️ Category Cards */}
-          <SectionCard
-            label="Categories"
-            isPressed={pressedSections.categories}
-            onMouseDown={handleMouseDown('categories')}
-            onMouseUp={handleMouseUp('categories')}
-            padding="p-6"
-            labelPosition="top-4 left-4"
-          >
-            <CategoryCards />
+          <SectionCard label="Categories" padding="p-6" labelPosition="top-4 left-4">
+            <CategoryCards categories={categories.docs} />
           </SectionCard>
         </div>
 
         {/* 🧭 Sidebar */}
         <div className="space-y-6 animate-fadeInSlow">
           {/* 📰 Latest Posts */}
-          <SectionCard
-            label="Latest"
-            isPressed={pressedSections.latest}
-            onMouseDown={handleMouseDown('latest')}
-            onMouseUp={handleMouseUp('latest')}
-            padding="p-5"
-            labelPosition="top-3 left-3"
-          >
-            <LatestPosts />
+          <SectionCard label="Latest" padding="p-5" labelPosition="top-3 left-3">
+            <LatestPosts posts={latestPosts.docs} />
           </SectionCard>
 
           <Sidebar />
@@ -143,9 +141,6 @@ export default function HomePage() {
       {/* 💫 Call To Action Section */}
       <SectionCard
         label="Explore"
-        isPressed={pressedSections.cta}
-        onMouseDown={handleMouseDown('cta')}
-        onMouseUp={handleMouseUp('cta')}
         padding="py-12 px-6"
         labelPosition="top-4 left-6"
         customClasses="mt-16 text-center rounded-3xl relative overflow-hidden group animate-fadeUp bg-[#fff9ec] border border-black/10"
@@ -163,9 +158,9 @@ export default function HomePage() {
 
           <Link
             href="/posts"
-            className="inline-block relative px-8 py-4 rounded-full text-lg font-semibold 
+            className="inline-block relative px-8 py-4 rounded-full text-lg font-semibold
       bg-[#ffdf80] border-2 border-black text-black
-      shadow-[3px_3px_0px_#000000] hover:-translate-y-0.5 
+      shadow-[3px_3px_0px_#000000] hover:-translate-y-0.5
       active:translate-x-0.5 active:translate-y-0.5 transition-all duration-200 ease-out"
           >
             <span className="flex items-center gap-2">
@@ -184,18 +179,12 @@ export default function HomePage() {
 function SectionCard({
   label,
   children,
-  isPressed,
-  onMouseDown,
-  onMouseUp,
   padding = 'p-6',
   labelPosition = 'top-4 left-4',
   customClasses = '',
 }: {
   label: string
   children: React.ReactNode
-  isPressed: boolean
-  onMouseDown: () => void
-  onMouseUp: () => void
   padding?: string
   labelPosition?: string
   customClasses?: string
@@ -203,27 +192,22 @@ function SectionCard({
   return (
     <section
       className={`
-        relative overflow-hidden rounded-2xl ${padding} 
-        bg-[#fff9ec] border-2 border-black 
+        relative overflow-hidden rounded-2xl ${padding}
+        bg-[#fff9ec] border-2 border-black
         shadow-[2px_2px_0px_#00000066]
         transition-all duration-200 ease-out
-        hover:-translate-y-[3px] 
+        hover:-translate-y-[3px]
         active:translate-x-0.5 active:translate-y-0.5
         ${customClasses}
       `}
-      onMouseDown={onMouseDown}
-      onMouseUp={onMouseUp}
-      onMouseLeave={onMouseUp}
-      onTouchStart={onMouseDown}
-      onTouchEnd={onMouseUp}
     >
       {/* 🏷️ Minimal Label — Clean Retro Look */}
       <div
-        className={`absolute ${labelPosition} px-3 py-1 
-        bg-[#ffdf80] text-black text-xs font-bold 
-        border-2 border-black 
-        shadow-[2px_2px_0px_#00000066] 
-        rounded-tl-md rounded-br-md 
+        className={`absolute ${labelPosition} px-3 py-1
+        bg-[#ffdf80] text-black text-xs font-bold
+        border-2 border-black
+        shadow-[2px_2px_0px_#00000066]
+        rounded-tl-md rounded-br-md
         active:translate-x-px active:translate-y-px
         transition-all duration-200 ease-out`}
       >

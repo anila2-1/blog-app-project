@@ -1,6 +1,3 @@
-'use client'
-
-import { useEffect, useState } from 'react'
 import { Post } from '../../../payload-types'
 import { getLanguageConfig, LanguageCode } from '@/config/languages'
 
@@ -8,64 +5,18 @@ const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || 'en'
 const langConfig = getLanguageConfig(LANG_CODE)
 
 const translations = {
-  en: { noPosts: 'No popular posts yet.', loading: 'Loading popular posts...' },
-  he: { noPosts: 'אין פוסטים פופולריים עדיין.', loading: 'טוען פוסטים פופולריים...' },
-  hr: { noPosts: 'Još nema popularnih postova.', loading: 'Učitavanje popularnih postova...' },
+  en: { noPosts: 'No popular posts yet.' },
+  he: { noPosts: 'אין פוסטים פופולריים עדיין.' },
+  hr: { noPosts: 'Još nema popularnih postova.' },
 }
 
 const t = translations[LANG_CODE] || translations.en
 
-export default function MostViewedPosts() {
-  const [posts, setPosts] = useState<Post[]>([])
-  const [loading, setLoading] = useState(true)
+interface MostViewedPostsProps {
+  posts: Post[]
+}
 
-  useEffect(() => {
-    async function fetchPosts() {
-      try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/posts?sort=-views&locale=${langConfig.locale}&fallback-locale=none&depth=1`,
-          { cache: 'no-store' },
-        )
-        const data = await res.json()
-        const validPosts = (data.docs || []).filter(
-          (p: Post) => p?.title && p?.slug && typeof p.image !== 'string' && p.image?.url,
-        )
-        setPosts(validPosts.slice(0, 4)) // top 4 popular posts
-      } catch (err) {
-        console.error('Error fetching most viewed posts:', err)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchPosts()
-  }, [])
-
-  // 🔄 Loading skeleton
-  if (loading) {
-    return (
-      <div
-        className="flex flex-col gap-5"
-        dir={langConfig.direction}
-        style={{ fontFamily: langConfig.font }}
-      >
-        {[1, 2, 3].map((i) => (
-          <div
-            key={i}
-            className="flex gap-4 p-3 bg-white border-2 border-black rounded-2xl shadow-[2px_2px_0px_#00000066]
-                       animate-pulse transition-all duration-200 ease-out active:translate-x-0.5 active:translate-y-0.5"
-          >
-            <div className="h-20 w-28 bg-gray-200 rounded-lg"></div>
-            <div className="flex-1 space-y-2">
-              <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-              <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-            </div>
-          </div>
-        ))}
-      </div>
-    )
-  }
-
+export default function MostViewedPosts({ posts }: MostViewedPostsProps) {
   // 🚫 No posts
   if (!posts.length) {
     return (
