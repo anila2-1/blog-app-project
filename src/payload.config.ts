@@ -1,6 +1,7 @@
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { seoPlugin } from '@payloadcms/plugin-seo'
 import { buildConfig } from 'payload'
 import { en } from '@payloadcms/translations/languages/en'
 import path from 'path'
@@ -53,6 +54,21 @@ export default buildConfig({
   sharp,
   plugins: [
     payloadCloudPlugin(),
+    seoPlugin({
+      collections: ['posts', 'categories'],
+      uploadsCollection: 'media',
+      generateTitle: ({ doc }) => `Modern Web - ${doc?.title?.value || doc?.name?.value}`,
+      generateDescription: ({ doc }) => doc?.excerpt?.value || doc?.metaDescription?.value,
+      generateURL: ({ doc, collectionSlug }) => {
+        if (collectionSlug === 'posts') {
+          return `/${doc.slug.value}`
+        }
+        if (collectionSlug === 'categories') {
+          return `/categories/${doc.slug.value}`
+        }
+        return '/'
+      },
+    }),
     // storage-adapter-placeholder
   ],
 })

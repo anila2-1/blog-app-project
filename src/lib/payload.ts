@@ -1,5 +1,33 @@
-// src/lib/payload.ts
-import payload from 'payload'
+import config from '@payload-config'
+import { getPayload as getPayloadInstance } from 'payload'
+
+let cached = (global as any).payload
+
+if (!cached) {
+  cached = (global as any).payload = { client: null, promise: null }
+}
+
+export const getPayloadClient = async () => {
+  if (cached.client) {
+    return cached.client
+  }
+
+  if (!cached.promise) {
+    cached.promise = getPayloadInstance({
+      config,
+    })
+  }
+
+  try {
+    cached.client = await cached.promise
+  } catch (e) {
+    cached.promise = null
+    throw e
+  }
+
+  return cached.client
+}
+
 export async function getPayload() {
-  return payload
+  return getPayloadClient()
 }
