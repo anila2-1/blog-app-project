@@ -12,7 +12,7 @@ body {
 }
 
 * {
-  font-weight: 600;
+  font-weight: 500;
   
 }
 /* Removed global heading size overrides to allow custom RichText styles */
@@ -354,4 +354,11 @@ body {
 }
 .hide-scrollbar::-webkit-scrollbar {
   display: none;             /* Chrome, Safari, Opera */
+}
+
+
+@layer components {
+  .retro-shadow {
+    @apply shadow-[3px_3px_0px_#000000] border-2 border-black transition-all duration-200 ease-out active:translate-x-[2px] active:translate-y-[2px];
+  }
 }

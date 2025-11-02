@@ -1,5 +1,3 @@
-// src/app/(frontend)/components/CategoryFilterBar.tsx
-
 'use client'
 
 import { useEffect, useState } from 'react'
@@ -31,7 +29,7 @@ export default function CategoryFilterBar() {
     async function fetchCategories() {
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/categories?limit=10&locale=${langConfig.locale}`,
+          `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/categories?limit=50&locale=${langConfig.locale}`,
         )
         const data = await res.json()
         setCategories(data.docs || [])
@@ -60,22 +58,26 @@ export default function CategoryFilterBar() {
     )
   }
 
+  // 📦 Show first 4 categories in bar
+  const visibleCategories = categories.slice(0, 4)
+
   return (
     <div
       dir={langConfig.direction}
       style={{ fontFamily: langConfig.font }}
       className="flex items-center overflow-x-auto gap-3 px-2 py-2 hide-scrollbar"
     >
-      {/* 🏷 All Button */}
-      <Link
-        href="/categories"
-        className="px-4 py-2 text-sm font-bold text-gray-800 bg-white border-2 border-black rounded-full hover:bg-gray-100 transition-all shadow-[3px_3px_0px_#000000] shrink-0"
-      >
-        {t.all}
-      </Link>
-
-      {/* 🌈 Category Buttons */}
-      {categories.map((category) => (
+      {/* 🏷 ALL Button (for all categories page) */}
+      {categories.length > 4 && (
+        <Link
+          href="/categories"
+          className="px-4 py-2 text-sm font-bold text-gray-800 bg-yellow-100 border-2 border-black rounded-full hover:bg-yellow-200 transition-all shadow-[3px_3px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 shrink-0"
+        >
+          {t.all}
+        </Link>
+      )}
+      {/* 🌈 Category Buttons (first 4 only) */}
+      {visibleCategories.map((category) => (
         <Link
           key={category.id}
           href={`/categories/${category.slug}`}

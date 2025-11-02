@@ -1,5 +1,3 @@
-// src/app/(frontend)/categories/page.tsx
-
 'use client'
 
 import { useEffect, useState } from 'react'
@@ -68,21 +66,21 @@ export default function CategoriesPage() {
       dir={langConfig.direction}
       style={{ fontFamily: langConfig.font }}
     >
-      {/* Header */}
+      {/* 🧭 Header */}
       <div className="text-center mb-16">
         <h1 className="text-4xl md:text-5xl font-extrabold bg-linear-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent mb-4">
           {t.pageTitle}
         </h1>
-        <p className="text-lg text-gray-500 max-w-2xl mx-auto">{t.pageSubtitle}</p>
+        <p className="text-lg text-gray-600 max-w-2xl mx-auto">{t.pageSubtitle}</p>
       </div>
 
-      {/* Loading Skeleton */}
+      {/* 🌀 Loading Skeleton */}
       {loading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {[...Array(8)].map((_, i) => (
             <div
               key={i}
-              className="bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100 animate-pulse"
+              className="bg-white rounded-2xl border-2 border-black shadow-[3px_3px_0px_#000000] overflow-hidden animate-pulse"
             >
               <div className="h-40 bg-gray-200"></div>
               <div className="p-5">
@@ -92,9 +90,9 @@ export default function CategoriesPage() {
           ))}
         </div>
       ) : categories.length === 0 ? (
-        // Empty State
+        // ❌ Empty State
         <div className="text-center py-20">
-          <div className="inline-block p-4 bg-gray-100 rounded-full mb-6">
+          <div className="inline-block p-4 bg-gray-100 rounded-full mb-6 shadow-[3px_3px_0px_#000000]">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-12 w-12 text-gray-400"
@@ -113,25 +111,32 @@ export default function CategoriesPage() {
           <p className="text-gray-500 text-lg mb-6">{t.noCategories}</p>
           <Link
             href="/"
-            className="inline-flex items-center px-5 py-2.5 bg-linear-to-r from-blue-600 to-indigo-600 text-white font-medium rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300"
+            className="inline-flex items-center px-5 py-2.5 bg-yellow-100 border-2 border-black text-gray-800 font-bold rounded-full shadow-[3px_3px_0px_#000000] hover:bg-yellow-200 transition-all hover:translate-x-0.5 hover:translate-y-0.5"
           >
             {t.backToHome}
           </Link>
         </div>
       ) : (
-        // Category Grid
+        // 🗂️ Category Grid
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {categories.map((category) => (
             <Link key={category.id} href={`/categories/${category.slug}`} className="group block">
-              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-1.5 hover:border-gray-200 flex flex-col">
-                <div className="p-5 grow flex items-center justify-center">
-                  <h3 className="text-lg font-semibold text-gray-800 text-center group-hover:text-blue-600 transition-colors duration-200 line-clamp-2 px-2">
+              <div className="bg-white border-2 border-black rounded-2xl shadow-[3px_3px_0px_#000000] overflow-hidden transition-all hover:translate-x-0.5 hover:translate-y-0.5 hover:bg-gray-50">
+                {/* 🖼️ Optional Image */}
+                {category.image?.url && (
+                  <img
+                    src={category.image.url}
+                    alt={category.name}
+                    className="w-full h-40 object-cover border-b-2 border-black"
+                  />
+                )}
+
+                {/* 🏷️ Name */}
+                <div className="p-5 flex flex-col items-center justify-center text-center">
+                  <h3 className="text-lg font-bold text-gray-900 uppercase tracking-wide group-hover:text-blue-600 transition-colors duration-200 line-clamp-2">
                     {category.name}
                   </h3>
-                </div>
-
-                <div className="px-5 pb-5 flex justify-center">
-                  <span className="inline-block w-8 h-0.5 bg-linear-to-r from-blue-500 to-indigo-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                  <div className="mt-3 w-10 h-1 bg-black rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
                 </div>
               </div>
             </Link>

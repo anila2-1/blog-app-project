@@ -1,11 +1,9 @@
-// src/app/(frontend)/categories/[slug]/page.tsx
-
 'use client'
 
 import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { Post } from './../../../../payload-types'
+import { Post } from '@/payload-types'
 import { getLanguageConfig, LanguageCode } from '@/config/languages'
 
 const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || 'en'
@@ -59,21 +57,13 @@ export default function CategoryPostsPage() {
         const cat = catData.docs[0]
         setCategory(cat)
 
-        // Fetch ALL posts
+        // Fetch posts filtered by category
         const postsRes = await fetch(
-          `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/posts?sort=-publishedAt&locale=${langConfig.locale}`,
+          `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/posts?where[category][in]=${cat.id}&sort=-publishedAt&locale=${langConfig.locale}`,
         )
         const postsData = await postsRes.json()
 
-        // ✅ FIXED FILTER: Handle both object and string category ID
-        const filteredPosts = (postsData.docs || []).filter((post: Post) => {
-          const categories = post.category
-          if (!Array.isArray(categories)) return false
-          const categoryIds = categories.map((cat) => (typeof cat === 'object' ? cat.id : cat))
-          return categoryIds.includes(cat.id)
-        })
-
-        setPosts(filteredPosts)
+        setPosts(postsData.docs || [])
       } catch (err) {
         console.error('Error:', err)
         router.push('/categories')
@@ -85,7 +75,6 @@ export default function CategoryPostsPage() {
     fetchCategoryAndPosts()
   }, [slug, router])
 
-  // ✅ Remove loading UI — just show nothing until data arrives
   if (loading) {
     return (
       <main
@@ -93,8 +82,14 @@ export default function CategoryPostsPage() {
         dir={langConfig.direction}
         style={{ fontFamily: langConfig.font }}
       >
-        <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-indigo-600 border-t-transparent"></div>
-        <p className="mt-4 text-gray-600">Loading posts...</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {[1, 2, 3, 4].map((i) => (
+            <div
+              key={i}
+              className="bg-white border-2 border-gray-900 rounded-2xl p-6 shadow-[3px_3px_0px_#000000] animate-pulse h-40"
+            ></div>
+          ))}
+        </div>
       </main>
     )
   }
@@ -108,12 +103,12 @@ export default function CategoryPostsPage() {
       <header className="mb-12 text-center sm:text-left">
         <Link
           href="/categories"
-          className="inline-flex items-center text-indigo-600 font-medium hover:text-indigo-800 transition-colors mb-4 group"
+          className="inline-flex items-center px-5 py-2.5 bg-yellow-300 border-2 border-black rounded-full font-bold text-black shadow-[3px_3px_0px_#000000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all duration-200"
         >
           {t.allCategories}
         </Link>
 
-        <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-3">
+        <h1 className="mt-6 text-4xl md:text-5xl font-extrabold text-gray-900 mb-3 drop-shadow-[2px_2px_0px_#000000]">
           {category?.name || 'Category'}
         </h1>
         <p className="text-lg text-gray-600">{t.articleCount(posts.length)}</p>
@@ -124,7 +119,7 @@ export default function CategoryPostsPage() {
           <p className="text-gray-500 text-lg mb-6">{t.noPosts}</p>
           <Link
             href="/categories"
-            className="inline-flex items-center px-6 py-3 bg-indigo-600 text-white font-medium rounded-xl hover:bg-indigo-700 transition-colors"
+            className="inline-flex items-center px-6 py-3 bg-yellow-300 border-2 border-black rounded-xl font-bold text-black shadow-[3px_3px_0px_#000000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all duration-200"
           >
             {t.browseOther}
           </Link>
@@ -133,30 +128,38 @@ export default function CategoryPostsPage() {
         <div className="space-y-8">
           {posts.map((post) => (
             <Link key={post.id} href={`/posts/${post.slug}`} className="block group">
-              <article className="bg-white border border-gray-200 rounded-2xl p-6 transition-all duration-300 hover:border-indigo-200 hover:shadow-lg hover:-translate-y-0.5">
-                <div className="flex flex-col sm:flex-row sm:items-start gap-5">
-                  <div className="grow">
-                    <h2 className="text-xl md:text-2xl font-bold text-gray-900 group-hover:text-indigo-700 transition-colors line-clamp-2 mb-2">
-                      {post.title}
-                    </h2>
+              <article className="bg-white border-2 border-black rounded-2xl overflow-hidden shadow-[3px_3px_0px_#000000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all duration-200">
+                {/* ✅ Optional post image on top */}
+                {post.image && typeof post.image === 'object' && post.image.url && (
+                  <div className="relative w-full h-56 overflow-hidden border-b-2 border-black">
+                    <img
+                      src={post.image.url}
+                      alt={post.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                )}
 
-                    {post.excerpt ? (
-                      <p className="text-gray-600 line-clamp-3 mb-4 leading-relaxed">
-                        {post.excerpt}
-                      </p>
-                    ) : null}
-                    <div className="flex items-center justify-between text-sm text-gray-500">
-                      <span>
-                        {post.publishedAt
-                          ? new Date(post.publishedAt).toLocaleDateString(langConfig.locale, {
-                              year: 'numeric',
-                              month: 'short',
-                              day: 'numeric',
-                            })
-                          : null}
-                      </span>
-                      <span className="text-indigo-600 font-medium">Read more →</span>
-                    </div>
+                <div className="p-6">
+                  <h2 className="text-xl md:text-2xl font-extrabold text-gray-900 mb-3 line-clamp-2 group-hover:text-blue-700 transition-colors">
+                    {post.title}
+                  </h2>
+                  {post.excerpt && (
+                    <p className="text-gray-700 line-clamp-3 mb-4 leading-relaxed">
+                      {post.excerpt}
+                    </p>
+                  )}
+                  <div className="flex items-center justify-between text-sm text-gray-600">
+                    <span>
+                      {post.publishedAt
+                        ? new Date(post.publishedAt).toLocaleDateString(langConfig.locale, {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric',
+                          })
+                        : ''}
+                    </span>
+                    <span className="font-semibold text-blue-700">Read more →</span>
                   </div>
                 </div>
               </article>

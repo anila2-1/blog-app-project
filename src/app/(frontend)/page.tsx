@@ -138,17 +138,13 @@ export default function HomePage() {
           <Link
             href="/posts"
             className="inline-block group relative px-8 py-4 rounded-full text-lg font-semibold text-black
-        bg-linear-to-r from-[#ffe3e3] to-[#ffe3e3]
-        shadow-lg shadow-[#F16363]/30 backdrop-blur-sm
-        transition-all duration-300 ease-out
-        hover:scale-105 hover:shadow-xl hover:shadow-[#F16363]/40
-        hover:from-[#ffdada] hover:to-[#ffdada]
+        
         before:absolute before:inset-0 before:rounded-full before:bg-white/20 before:blur-md before:opacity-0 before:transition-opacity before:duration-300
         before:group-hover:opacity-40
         after:absolute after:-inset-0.5 after:rounded-full after:bg-linear-to-r after:from-[#F16363]/30 after:to-[#ff8a8a]/30 after:opacity-0 after:transition-opacity after:duration-500
         after:group-hover:opacity-50"
           >
-            <span className="relative z-10 flex items-center gap-2">
+            <span className="relative z-10 flex items-center gap-2 group retro-shadow px-4 py-2 rounded-full bg-yellow-200 border-2 border-black">
               View All Articles
               <span className="text-xl transition-transform group-hover:translate-x-1">→</span>
             </span>
@@ -160,8 +156,6 @@ export default function HomePage() {
 }
 
 // 🔧 Reusable SectionCard Component
-
-// 🔧 Reusable SectionCard Component — Updated with #F16363 Theme
 
 function SectionCard({
   label,
@@ -209,9 +203,12 @@ function SectionCard({
       {/* Floating glow in #F16363 tone */}
       <div className="absolute inset-0 bg-linear-to-tr from-[#F16363]/10 via-transparent to-[#F16363]/5 blur-3xl opacity-70 -z-10"></div>
 
-      {/* Corner Label — Now in #F16363 */}
+      {/* 🏷️ Corner Label — Retro Style */}
       <div
-        className={`absolute ${labelPosition} px-3 py-1 bg-[#ffffff] text-black text-xs font-semibold rounded-tl-md rounded-br-md shadow-sm z-10`}
+        className={`absolute ${labelPosition} px-3 py-1 bg-white text-black text-xs font-semibold 
+              rounded-tl-md rounded-br-md border-2 border-black 
+              shadow-[3px_3px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 
+              transition-all duration-200 ease-out z-10`}
       >
         {label}
       </div>

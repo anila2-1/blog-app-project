@@ -1,4 +1,3 @@
-// src/app/(frontend)/components/CategoryCards.tsx
 'use client'
 
 import { useEffect, useState } from 'react'
@@ -6,7 +5,7 @@ import Link from 'next/link'
 import { LucideArrowRight, LucideArrowLeft } from 'lucide-react'
 import { getLanguageConfig, LanguageCode } from './../../../config/languages'
 
-// Get language code from .env (build-time constant)
+// Get language code from .env
 const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || 'en'
 const langConfig = getLanguageConfig(LANG_CODE)
 
@@ -61,16 +60,20 @@ export default function CategoryCards() {
     fetchCategories()
   }, [])
 
+  // 🌀 Skeleton while loading
   if (loading) {
     return (
       <div className="space-y-8" dir={langConfig.direction} style={{ fontFamily: langConfig.font }}>
         <div className="flex justify-between items-center">
-          <div className="h-6 bg-gray-300 rounded w-1/4"></div>
-          <div className="h-6 bg-gray-300 rounded w-1/6"></div>
+          <div className="h-6 bg-gray-300 rounded w-1/4 shadow-[3px_3px_0px_#000000]" />
+          <div className="h-6 bg-gray-300 rounded w-1/6 shadow-[3px_3px_0px_#000000]" />
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="bg-gray-50 p-4 rounded animate-pulse">
+            <div
+              key={i}
+              className="bg-gray-50 p-4 rounded-xl shadow-[3px_3px_0px_#000000] animate-pulse"
+            >
               <div className="h-48 bg-gray-300 rounded mb-4"></div>
               <div className="h-4 bg-gray-300 rounded w-3/4 mx-auto"></div>
             </div>
@@ -80,6 +83,7 @@ export default function CategoryCards() {
     )
   }
 
+  // 🪶 No Categories Found
   if (categories.length === 0) {
     return (
       <p
@@ -96,10 +100,10 @@ export default function CategoryCards() {
     <div className="space-y-8" dir={langConfig.direction} style={{ fontFamily: langConfig.font }}>
       {/* Header */}
       <div className="flex justify-between items-center">
-        <h2 className="text-lg font-bold text-gray-800 flex items-center"></h2>
+        <h2 className="text-lg font-bold text-white flex items-center">{t.exploreTopics}</h2>
         <Link
           href="/categories"
-          className="inline-flex items-center px-4 py-2 bg-sky-900 border border-gray-300 rounded-full text-sm font-medium text-gray-100 hover:bg-sky-800 transition-colors"
+          className="inline-flex items-center px-4 py-2 bg-yellow-100 border-2 border-black rounded-full text-sm font-bold text-gray-800 hover:bg-yellow-200 transition-all shadow-[3px_3px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5"
         >
           {t.allCategories}
           {langConfig.direction === 'rtl' ? (
@@ -110,19 +114,21 @@ export default function CategoryCards() {
         </Link>
       </div>
 
-      {/* Category Cards - ✅ RTL-safe grid */}
-      <div
-        className={`grid gap-6 ${
-          langConfig.direction === 'rtl'
-            ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'
-            : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'
-        }`}
-      >
+      {/* Category Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {categories.map((category) => (
           <Link key={category.id} href={`/categories/${category.slug}`} className="block group">
-            <div className="relative overflow-hidden bg-sky-700 rounded-xl shadow-lg hover:shadow-lg transition-shadow duration-300">
-              <div className="p-4 bg-white/90">
-                <h3 className="text-center font-medium text-gray-900 line-clamp-2">
+            <div className="relative overflow-hidden bg-white border-2 border-black rounded-2xl shadow-[3px_3px_0px_#000000] transition-all hover:translate-x-0.5 hover:translate-y-0.5 hover:bg-gray-50">
+              {/* Optional Image */}
+              {category.image?.url && (
+                <img
+                  src={category.image.url}
+                  alt={category.name}
+                  className="w-full h-48 object-cover rounded-t-2xl"
+                />
+              )}
+              <div className="p-4">
+                <h3 className="text-center font-bold text-gray-900 uppercase tracking-wide">
                   {category.name}
                 </h3>
               </div>
