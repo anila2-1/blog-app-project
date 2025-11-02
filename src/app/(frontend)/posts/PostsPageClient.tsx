@@ -95,7 +95,7 @@ export default function PostsPageClient({ initialPage }: { initialPage: number }
             {[1, 2, 3, 4, 5, 6].map((i) => (
               <div
                 key={i}
-                className="bg-white/80 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-200/50 shadow-[3px_3px_0px_#000000]"
+                className="bg-white/80 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-200/50 shadow-[2px_2px_0px_#00000066]"
               >
                 <div className="h-48 bg-gray-300"></div>
                 <div className="p-5 space-y-3">
@@ -119,7 +119,7 @@ export default function PostsPageClient({ initialPage }: { initialPage: number }
         dir={langConfig.direction}
         style={{ fontFamily: langConfig.font }}
       >
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 max-w-md mx-auto border border-gray-200/50 shadow-[3px_3px_0px_#000000]">
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 max-w-md mx-auto border border-gray-200/50 shadow-[2px_2px_0px_#00000066]">
           <p className="text-gray-600">{t.noPostsMessage}</p>
         </div>
       </main>
@@ -151,7 +151,7 @@ export default function PostsPageClient({ initialPage }: { initialPage: number }
             <div
               key={post.id}
               className="group relative block bg-white/80 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-200/50 
-              shadow-[3px_3px_0px_#000000] hover:shadow-xl active:translate-x-0.5 active:translate-y-0.5 transition-all duration-500 hover:-translate-y-2"
+              shadow-[2px_2px_0px_#00000066] hover:shadow-xl active:translate-x-0.5 active:translate-y-0.5 transition-all duration-500 hover:-translate-y-2"
             >
               <div className="relative h-52 w-full overflow-hidden">
                 <Image
@@ -189,7 +189,7 @@ export default function PostsPageClient({ initialPage }: { initialPage: number }
                 <Link
                   href={`/posts/${post.slug}`}
                   className="inline-block mt-3 text-sm font-semibold bg-yellow-300 text-gray-900 px-4 py-2 rounded-full 
-                  border border-black shadow-[3px_3px_0px_#000000] hover:bg-yellow-400 active:translate-x-0.5 active:translate-y-0.5 transition-all"
+                  border border-black shadow-[2px_2px_0px_#00000066] hover:bg-yellow-400 active:translate-x-0.5 active:translate-y-0.5 transition-all"
                 >
                   {t.readMore} →
                 </Link>
@@ -206,7 +206,7 @@ export default function PostsPageClient({ initialPage }: { initialPage: number }
         <div className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-4">
           <Link
             href={createPageURL(currentPage - 1)}
-            className={`px-4 py-2 rounded-full font-bold border border-black shadow-[3px_3px_0px_#000000] bg-white hover:bg-gray-100 active:translate-x-0.5 active:translate-y-0.5 transition-all ${
+            className={`px-4 py-2 rounded-full font-bold border border-black shadow-[2px_2px_0px_#00000066] bg-white hover:bg-gray-100 active:translate-x-0.5 active:translate-y-0.5 transition-all ${
               currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''
             }`}
             aria-disabled={currentPage === 1}
@@ -222,7 +222,7 @@ export default function PostsPageClient({ initialPage }: { initialPage: number }
                   key={page}
                   href={createPageURL(page)}
                   className={`w-10 h-10 flex items-center justify-center rounded-full text-sm font-bold border border-black 
-                  shadow-[3px_3px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all ${
+                  shadow-[2px_2px_0px_#00000066] active:translate-x-0.5 active:translate-y-0.5 transition-all ${
                     currentPage === page
                       ? 'bg-purple-600 text-white'
                       : 'bg-white text-gray-700 hover:bg-gray-100'
@@ -237,7 +237,7 @@ export default function PostsPageClient({ initialPage }: { initialPage: number }
 
           <Link
             href={createPageURL(currentPage + 1)}
-            className={`px-4 py-2 rounded-full font-bold border border-black shadow-[3px_3px_0px_#000000] bg-white hover:bg-gray-100 active:translate-x-0.5 active:translate-y-0.5 transition-all ${
+            className={`px-4 py-2 rounded-full font-bold border border-black shadow-[2px_2px_0px_#00000066] bg-white hover:bg-gray-100 active:translate-x-0.5 active:translate-y-0.5 transition-all ${
               currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : ''
             }`}
             aria-disabled={currentPage === totalPages}

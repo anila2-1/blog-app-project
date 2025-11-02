@@ -20,7 +20,7 @@ export default function Footer() {
   }
 
   return (
-    <footer className="relative bg-linear-to-br from-yellow-50 to-amber-50 text-gray-800 pt-16 pb-8">
+    <footer className="relative bg-linear-to-br from-yellow-100 to-amber-100 text-gray-800 pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-6 md:px-8">
         {/* Grid Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">

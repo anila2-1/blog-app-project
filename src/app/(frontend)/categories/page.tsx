@@ -80,7 +80,7 @@ export default function CategoriesPage() {
           {[...Array(8)].map((_, i) => (
             <div
               key={i}
-              className="bg-white rounded-2xl border-2 border-black shadow-[3px_3px_0px_#000000] overflow-hidden animate-pulse"
+              className="bg-white rounded-2xl border-2 border-black shadow-[2px_2px_0px_#00000066] overflow-hidden animate-pulse"
             >
               <div className="h-40 bg-gray-200"></div>
               <div className="p-5">
@@ -92,7 +92,7 @@ export default function CategoriesPage() {
       ) : categories.length === 0 ? (
         // ❌ Empty State
         <div className="text-center py-20">
-          <div className="inline-block p-4 bg-gray-100 rounded-full mb-6 shadow-[3px_3px_0px_#000000]">
+          <div className="inline-block p-4 bg-gray-100 rounded-full mb-6 shadow-[2px_2px_0px_#00000066]">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-12 w-12 text-gray-400"
@@ -111,7 +111,7 @@ export default function CategoriesPage() {
           <p className="text-gray-500 text-lg mb-6">{t.noCategories}</p>
           <Link
             href="/"
-            className="inline-flex items-center px-5 py-2.5 bg-yellow-100 border-2 border-black text-gray-800 font-bold rounded-full shadow-[3px_3px_0px_#000000] hover:bg-yellow-200 transition-all hover:translate-x-0.5 hover:translate-y-0.5"
+            className="inline-flex items-center px-5 py-2.5 bg-yellow-100 border-2 border-black text-gray-800 font-bold rounded-full shadow-[2px_2px_0px_#00000066] hover:bg-yellow-200 transition-all hover:translate-x-0.5 hover:translate-y-0.5"
           >
             {t.backToHome}
           </Link>
@@ -121,7 +121,7 @@ export default function CategoriesPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {categories.map((category) => (
             <Link key={category.id} href={`/categories/${category.slug}`} className="group block">
-              <div className="bg-white border-2 border-black rounded-2xl shadow-[3px_3px_0px_#000000] overflow-hidden transition-all hover:translate-x-0.5 hover:translate-y-0.5 hover:bg-gray-50">
+              <div className="bg-white border-2 border-black rounded-2xl shadow-[2px_2px_0px_#00000066] overflow-hidden transition-all hover:translate-x-0.5 hover:translate-y-0.5 hover:bg-gray-50">
                 {/* 🖼️ Optional Image */}
                 {category.image?.url && (
                   <img

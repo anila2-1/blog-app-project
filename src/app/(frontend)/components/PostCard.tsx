@@ -1,5 +1,3 @@
-// src/app/(frontend)/components/PostCard.tsx
-
 'use client'
 
 import Link from 'next/link'
@@ -8,7 +6,7 @@ import { Post } from '../../../payload-types'
 
 interface PostCardProps {
   post: Post
-  locale: string // required — no default
+  locale: string
 }
 
 export default function PostCard({ post, locale }: PostCardProps) {
@@ -25,46 +23,48 @@ export default function PostCard({ post, locale }: PostCardProps) {
   return (
     <Link
       href={`/posts/${post.slug}`}
-      className="group block rounded-xl overflow-hidden shadow-none transition-all duration-500 hover:shadow-2xl hover:-translate-y-1.5"
+      className={`group block rounded-xl overflow-hidden border-2 border-black 
+                  shadow-[2px_2px_0px_#00000066] bg-white/90 dark:bg-gray-900/60 
+                  backdrop-blur-xl transition-all duration-200 ease-out 
+                  hover:-translate-y-1 active:translate-x-0.5 active:translate-y-0.5`}
     >
-      {/* Glassmorphic Card Base */}
-      <div className="relative bg-white/90 dark:bg-gray-900/60 backdrop-blur-xl border border-white/30 dark:border-gray-800/50 rounded-xl overflow-hidden transition-all duration-500">
-        {/* Gradient Border Glow (on hover) */}
-        <div
-          className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none
-                        bg-linear-to-r from-indigo-400/20 via-purple-400/20 to-pink-400/20 blur-xl z-0"
+      {/* Image Section */}
+      <div className="relative h-52 sm:h-48 overflow-hidden rounded-t-xl">
+        <Image
+          src={imageUrl}
+          alt={post.title || 'Post image'}
+          fill
+          className="object-cover transition-transform duration-500 group-hover:scale-110"
         />
+        <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent" />
+      </div>
 
-        {/* Image */}
-        <div className="relative h-52 sm:h-48 w-auto overflow-hidden">
-          <Image
-            src={imageUrl}
-            alt={post.title || 'Post image'}
-            fill
-            style={{ objectFit: 'unset' }}
-            className="transition-transform duration-700 group-hover:scale-110"
-          />
-          {/* Dark vignette overlay for text contrast */}
-          <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent" />
+      {/* Content Section */}
+      <div className="relative z-10 p-4 pt-2">
+        {/* Date Badge */}
+        <div
+          className={`inline-block mb-3 px-3 py-1 border-2 border-black 
+                      bg-white text-black text-xs font-bold rounded-full 
+                      shadow-[2px_2px_0px_#00000066] transition-all duration-200 ease-out 
+                      active:translate-x-0.5 active:translate-y-0.5`}
+        >
+          {formattedDate}
         </div>
 
-        {/* Content */}
-        <div className="relative z-8 p-4 pt-2">
-          {/* Date Badge */}
-          <div className="inline-block mb-3 px-3 py-1 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 text-xs font-bold rounded-full backdrop-blur-sm border border-indigo-100 dark:border-indigo-800/50">
-            {formattedDate}
-          </div>
+        {/* Title */}
+        <h3
+          className={`text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 
+                      group-hover:text-transparent group-hover:bg-clip-text 
+                      group-hover:bg-linear-to-r group-hover:from-indigo-600 group-hover:to-purple-600 
+                      transition-all duration-200 ease-out`}
+        >
+          {post.title}
+        </h3>
 
-          {/* Title */}
-          <h3 className="text-xl sm:text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-linear-to-r group-hover:from-indigo-600 group-hover:to-purple-600 transition-all duration-500">
-            {post.title}
-          </h3>
-
-          {/* Excerpt */}
-          <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed line-clamp-3">
-            {post.excerpt}
-          </p>
-        </div>
+        {/* Excerpt */}
+        <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed line-clamp-3">
+          {post.excerpt}
+        </p>
       </div>
     </Link>
   )

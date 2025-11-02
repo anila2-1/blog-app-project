@@ -27,7 +27,7 @@ export default function PinnedPosts() {
       try {
         // ✅ Fetch ALL pinned posts (no limit)
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/posts?where[pinned][equals]=true&locale=${langConfig.locale}&fallback-locale=none`,
+          `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/posts?where[pinned][equals]=true&locale=${langConfig.locale}&fallback-locale=none&depth=1`,
         )
         const data = await res.json()
 

@@ -10,12 +10,13 @@ import LatestPosts from './components/LatestPosts'
 import CategoryCards from './components/CategoryCards'
 // import CategoryFilterBar from './components/CategoryFilterBar'
 import Sidebar from './components/Sidebar'
-import { languages } from '@/config/languages'
+import { getLanguageConfig, LanguageCode } from '@/config/languages'
 import { useState } from 'react'
 
-export default function HomePage() {
-  const [lang] = useState(process.env.NEXT_PUBLIC_DEFAULT_LANG || languages[0].code)
+const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || 'en'
+const langConfig = getLanguageConfig(LANG_CODE)
 
+export default function HomePage() {
   // States for click animations
   const [pressedSections, setPressedSections] = useState({
     featured: false,
@@ -33,9 +34,13 @@ export default function HomePage() {
     setPressedSections((prev) => ({ ...prev, [key]: false }))
 
   return (
-    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      {/* 🌟 Featured Post Section */}
-      <div className="mb-10">
+    <main
+      className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10"
+      dir={langConfig.direction}
+      style={{ fontFamily: langConfig.font }}
+    >
+      {/* 🌟 Featured Post Section — with Navigation Arrows */}
+      <div className="mb-10 relative">
         <SectionCard
           label="Featured"
           isPressed={pressedSections.featured}
@@ -45,7 +50,33 @@ export default function HomePage() {
           labelPosition="top-3 left-3"
           customClasses="relative overflow-hidden"
         >
+          {/* Soft gradient background */}
           <div className="absolute inset-0 bg-linear-to-tr from-purple-100 via-pink-50 to-blue-100 blur-3xl opacity-60 -z-10"></div>
+
+          {/* 🧭 Navigation Arrows */}
+          <button
+            aria-label="Previous Featured Post"
+            className="absolute left-3 top-1/2 -translate-y-1/2 z-20 bg-yellow-200 border-2 border-black 
+                 rounded-full w-10 h-10 flex items-center justify-center font-bold text-black
+                 shadow-[3px_3px_0px_#000000] hover:bg-yellow-300 
+                 active:translate-x-0.5 active:translate-y-0.5 transition-all duration-150"
+            onClick={() => document.dispatchEvent(new CustomEvent('featured-prev'))}
+          >
+            ←
+          </button>
+
+          <button
+            aria-label="Next Featured Post"
+            className="absolute right-3 top-1/2 -translate-y-1/2 z-20 bg-yellow-200 border-2 border-black 
+                 rounded-full w-10 h-10 flex items-center justify-center font-bold text-black
+                 shadow-[3px_3px_0px_#000000] hover:bg-yellow-300 
+                 active:translate-x-0.5 active:translate-y-0.5 transition-all duration-150"
+            onClick={() => document.dispatchEvent(new CustomEvent('featured-next'))}
+          >
+            →
+          </button>
+
+          {/* Featured Content */}
           <FeaturedPost />
         </SectionCard>
       </div>
@@ -117,34 +148,27 @@ export default function HomePage() {
         onMouseUp={handleMouseUp('cta')}
         padding="py-12 px-6"
         labelPosition="top-4 left-6"
-        customClasses="mt-16 text-center rounded-3xl relative overflow-hidden group animate-fadeUp bg-gradient-to-br from-[#1a1a1a] via-[#2a1a1f] to-[#3a1f25] border-2 border-[#F16363]/30"
+        customClasses="mt-16 text-center rounded-3xl relative overflow-hidden group animate-fadeUp bg-[#fff9ec] border border-black/10"
       >
-        {/* Decorative Floating Orbs — Updated to #F16363 tone */}
-        <div className="absolute top-10 -left-6 w-24 h-24 bg-[#F16363]/10 rounded-full blur-xl animate-float-slow"></div>
-        <div className="absolute bottom-10 -right-6 w-32 h-32 bg-[#F16363]/15 rounded-full blur-xl animate-float-slow animation-delay-2000"></div>
+        <div className="absolute inset-0 bg-[#fff9ec]"></div>
 
         <div className="relative z-10 max-w-2xl mx-auto">
-          {/* Heading — Gradient from dark red to #F16363 */}
-          <h2 className="text-3xl sm:text-4xl font-extrabold bg-linear-to-r from-[#F16363] to-[#ff8a8a] bg-clip-text text-white mb-4 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4 tracking-tight">
             Discover More Inspiring Posts
           </h2>
 
-          {/* Description — Light text for dark bg */}
-          <p className="text-gray-200 mb-10 text-lg leading-relaxed">
+          <p className="text-gray-600 mb-10 text-lg leading-relaxed">
             Stay inspired and explore our full collection of articles.
           </p>
 
-          {/* Button — #F16363 based gradient */}
           <Link
             href="/posts"
-            className="inline-block group relative px-8 py-4 rounded-full text-lg font-semibold text-black
-        
-        before:absolute before:inset-0 before:rounded-full before:bg-white/20 before:blur-md before:opacity-0 before:transition-opacity before:duration-300
-        before:group-hover:opacity-40
-        after:absolute after:-inset-0.5 after:rounded-full after:bg-linear-to-r after:from-[#F16363]/30 after:to-[#ff8a8a]/30 after:opacity-0 after:transition-opacity after:duration-500
-        after:group-hover:opacity-50"
+            className="inline-block relative px-8 py-4 rounded-full text-lg font-semibold 
+      bg-[#ffdf80] border-2 border-black text-black
+      shadow-[3px_3px_0px_#000000] hover:-translate-y-0.5 
+      active:translate-x-0.5 active:translate-y-0.5 transition-all duration-200 ease-out"
           >
-            <span className="relative z-10 flex items-center gap-2 group retro-shadow px-4 py-2 rounded-full bg-yellow-200 border-2 border-black">
+            <span className="flex items-center gap-2">
               View All Articles
               <span className="text-xl transition-transform group-hover:translate-x-1">→</span>
             </span>
@@ -179,42 +203,35 @@ function SectionCard({
   return (
     <section
       className={`
-        relative overflow-hidden
-        bg-linear-to-br from-[#F16363] via-[#F16363] to-[#F16363]
-        border-2 border-[#F16363]/30
-        rounded-2xl ${padding}
-        transition-all duration-300 ease-out
-        ${
-          isPressed
-            ? 'scale-[0.98] ring-2 ring-[#F16363]/50 shadow-inner'
-            : 'hover:shadow-lg hover:border-[#F16363]/50'
-        }
+        relative overflow-hidden rounded-2xl ${padding} 
+        bg-[#fff9ec] border-2 border-black 
+        shadow-[2px_2px_0px_#00000066]
+        transition-all duration-200 ease-out
+        hover:-translate-y-[3px] 
+        active:translate-x-0.5 active:translate-y-0.5
         ${customClasses}
       `}
-      style={{
-        boxShadow: '7px 7px 0px #000000',
-      }}
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}
       onMouseLeave={onMouseUp}
       onTouchStart={onMouseDown}
       onTouchEnd={onMouseUp}
     >
-      {/* Floating glow in #F16363 tone */}
-      <div className="absolute inset-0 bg-linear-to-tr from-[#F16363]/10 via-transparent to-[#F16363]/5 blur-3xl opacity-70 -z-10"></div>
-
-      {/* 🏷️ Corner Label — Retro Style */}
+      {/* 🏷️ Minimal Label — Clean Retro Look */}
       <div
-        className={`absolute ${labelPosition} px-3 py-1 bg-white text-black text-xs font-semibold 
-              rounded-tl-md rounded-br-md border-2 border-black 
-              shadow-[3px_3px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 
-              transition-all duration-200 ease-out z-10`}
+        className={`absolute ${labelPosition} px-3 py-1 
+        bg-[#ffdf80] text-black text-xs font-bold 
+        border-2 border-black 
+        shadow-[2px_2px_0px_#00000066] 
+        rounded-tl-md rounded-br-md 
+        active:translate-x-px active:translate-y-px
+        transition-all duration-200 ease-out`}
       >
         {label}
       </div>
 
       {/* Content */}
-      <div className="pt-8 text-white">{children}</div>
+      <div className="pt-6">{children}</div>
     </section>
   )
 }

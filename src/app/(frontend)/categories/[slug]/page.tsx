@@ -86,7 +86,7 @@ export default function CategoryPostsPage() {
           {[1, 2, 3, 4].map((i) => (
             <div
               key={i}
-              className="bg-white border-2 border-gray-900 rounded-2xl p-6 shadow-[3px_3px_0px_#000000] animate-pulse h-40"
+              className="bg-white border-2 border-gray-900 rounded-2xl p-6 shadow-[2px_2px_0px_#00000066] animate-pulse h-40"
             ></div>
           ))}
         </div>
@@ -103,12 +103,12 @@ export default function CategoryPostsPage() {
       <header className="mb-12 text-center sm:text-left">
         <Link
           href="/categories"
-          className="inline-flex items-center px-5 py-2.5 bg-yellow-300 border-2 border-black rounded-full font-bold text-black shadow-[3px_3px_0px_#000000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all duration-200"
+          className="inline-flex items-center px-5 py-2.5 bg-yellow-300 border-2 border-black rounded-full font-bold text-black shadow-[2px_2px_0px_#00000066] hover:translate-x-0.5 hover:translate-y-0.5 transition-all duration-200"
         >
           {t.allCategories}
         </Link>
 
-        <h1 className="mt-6 text-4xl md:text-5xl font-extrabold text-gray-900 mb-3 drop-shadow-[2px_2px_0px_#000000]">
+        <h1 className="mt-6 text-4xl md:text-5xl font-extrabold text-gray-900 mb-3 drop-shadow-[2px_2px_0px_#00000066]">
           {category?.name || 'Category'}
         </h1>
         <p className="text-lg text-gray-600">{t.articleCount(posts.length)}</p>
@@ -119,7 +119,7 @@ export default function CategoryPostsPage() {
           <p className="text-gray-500 text-lg mb-6">{t.noPosts}</p>
           <Link
             href="/categories"
-            className="inline-flex items-center px-6 py-3 bg-yellow-300 border-2 border-black rounded-xl font-bold text-black shadow-[3px_3px_0px_#000000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all duration-200"
+            className="inline-flex items-center px-6 py-3 bg-yellow-300 border-2 border-black rounded-xl font-bold text-black shadow-[2px_2px_0px_#00000066] hover:translate-x-0.5 hover:translate-y-0.5 transition-all duration-200"
           >
             {t.browseOther}
           </Link>
@@ -128,7 +128,7 @@ export default function CategoryPostsPage() {
         <div className="space-y-8">
           {posts.map((post) => (
             <Link key={post.id} href={`/posts/${post.slug}`} className="block group">
-              <article className="bg-white border-2 border-black rounded-2xl overflow-hidden shadow-[3px_3px_0px_#000000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all duration-200">
+              <article className="bg-white border-2 border-black rounded-2xl overflow-hidden shadow-[2px_2px_0px_#00000066] hover:translate-x-0.5 hover:translate-y-0.5 transition-all duration-200">
                 {/* ✅ Optional post image on top */}
                 {post.image && typeof post.image === 'object' && post.image.url && (
                   <div className="relative w-full h-56 overflow-hidden border-b-2 border-black">

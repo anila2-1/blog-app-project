@@ -22,32 +22,25 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <link rel="stylesheet" href={activeLang.css} />
         </head>
         <body className="bg-[#fff5cf] text-gray-800 relative min-h-screen">
-          {/* 🌸 Warm Cream Background with Subtle Decorations */}
-          <div className="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-            {/* Base Layer — Solid #fff5cf already set in body */}
+          {/* 🌿 Gradient Grid Background */}
+          <div className="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none bg-[#fff5cf] overflow-hidden">
+            {/* Gradient overlay */}
+            <div className="absolute inset-0 bg-linear-to-br from-[#fff5cf] via-[#ffe9a3] to-[#ffd166] opacity-60" />
 
-            {/* Floating Orb 1 — Soft Peach Glow */}
-            <div className="absolute top-1/4 -left-16 w-80 h-80 bg-linear-to-r from-[#ffd166]/20 via-[#ff9e6d]/10 to-transparent rounded-full blur-3xl animate-float-slow" />
-
-            {/* Floating Orb 2 — Warm Pink */}
-            <div className="absolute bottom-1/3 right-0 w-96 h-96 bg-linear-to-br from-[#f16363]/10 via-[#ff8a8a]/5 to-transparent rounded-full blur-[100px] animate-float-medium animation-delay-1000" />
-
-            {/* Floating Orb 3 — Cream Highlight */}
-            <div className="absolute top-1/2 right-1/4 w-72 h-72 bg-linear-to-tr from-[#fff5cf]/30 via-white/20 to-transparent rounded-full blur-[90px] animate-float-fast animation-delay-2000" />
-
-            {/* Subtle Paper Texture Overlay (Optional) */}
+            {/* Subtle grid pattern */}
             <div
-              className="absolute inset-0 opacity-5"
+              className="absolute inset-0 opacity-20"
               style={{
                 backgroundImage: `
-                  radial-gradient(circle at 10% 20%, rgba(0,0,0,0.03) 0%, transparent 20%),
-                  radial-gradient(circle at 90% 80%, rgba(0,0,0,0.02) 0%, transparent 25%)
-                `,
+        linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px)
+      `,
+                backgroundSize: '40px 40px',
               }}
             />
 
-            {/* Very Light Gradient Overlay for Depth */}
-            <div className="absolute inset-0 bg-linear-to-b from-white/30 via-transparent to-[#fff5cf]/20 backdrop-blur-[1px]" />
+            {/* Soft glow highlight */}
+            <div className="absolute top-1/3 left-1/3 w-[600px] h-[600px] rounded-full bg-[#ff9e6d]/20 blur-[120px]" />
           </div>
 
           <Navbar />

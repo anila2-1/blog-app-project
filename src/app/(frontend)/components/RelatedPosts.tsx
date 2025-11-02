@@ -18,13 +18,16 @@ export default function RelatedPosts({ categorySlug, currentPostId }: RelatedPos
       if (!categorySlug) return
 
       try {
+        // Fetch related posts by category slug
         const res = await fetch(
-          `/api/posts?where[category][slug][equals]=${categorySlug}&where[id][not_equals]=${currentPostId}&limit=3&depth=1`,
+          `/api/posts?where[category.slug][equals]=${categorySlug}&where[id][not_equals]=${currentPostId}&limit=3&depth=1`,
         )
+
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
         const data = await res.json()
         setRelatedPosts(data.docs || [])
       } catch (err) {
-        console.error('Failed to fetch related posts:', err)
+        console.error('❌ Failed to fetch related posts:', err)
       }
     }
 
@@ -45,9 +48,12 @@ export default function RelatedPosts({ categorySlug, currentPostId }: RelatedPos
           <Link
             key={post.id}
             href={`/posts/${post.slug}`}
-            className="group relative flex flex-col overflow-hidden rounded-3xl border border-gray-200 bg-[#fff0da] shadow-[7px_7px_0px_#000000] hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+            className="group relative flex flex-col overflow-hidden rounded-3xl border border-gray-200 
+                       bg-[#fff9ec] shadow-[3px_3px_0px_#000000] hover:-translate-y-1 
+                       active:translate-x-0.5 active:translate-y-0.5
+                       transition-all duration-300"
           >
-            {/* 🔹 Image */}
+            {/* 🖼️ Image */}
             {typeof post.image === 'object' && post.image?.url ? (
               <div className="relative w-full h-48 overflow-hidden">
                 <img
@@ -55,15 +61,14 @@ export default function RelatedPosts({ categorySlug, currentPostId }: RelatedPos
                   alt={post.title}
                   className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-linear-to-t from-black/40 via-black/10 to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
               </div>
             ) : (
-              <div className="w-full h-48 bg-linear-to-br from-violet-100 to-purple-50 flex items-center justify-center text-violet-500">
+              <div className="w-full h-48 bg-[#fff0da] flex items-center justify-center text-gray-400">
                 <p className="text-sm font-medium">No Image</p>
               </div>
             )}
 
-            {/* 🔹 Content */}
+            {/* 🧠 Content */}
             <div className="p-5 flex flex-col justify-between flex-1">
               <div>
                 <p className="text-sm text-gray-500 mb-1">
@@ -72,9 +77,7 @@ export default function RelatedPosts({ categorySlug, currentPostId }: RelatedPos
                 <h4 className="font-semibold text-lg text-gray-800 group-hover:text-violet-600 transition-colors line-clamp-2">
                   {post.title}
                 </h4>
-                <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed line-clamp-3">
-                  {post.excerpt}
-                </p>
+                <p className="text-gray-600 text-sm leading-relaxed line-clamp-3">{post.excerpt}</p>
               </div>
 
               <div className="mt-4 flex items-center text-violet-600 font-medium text-sm opacity-0 group-hover:opacity-100 transition-all duration-300">

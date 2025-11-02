@@ -52,7 +52,7 @@ export default function PostContent({ post }: PostContentProps) {
     <article className="max-w-6xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
       {/* ✅ Featured Image */}
       <div
-        className="bg-[#fff0da] rounded-3xl border border-gray-200 shadow-[7px_7px_0px_#000000] p-8 sm:p-12
+        className="bg-[#fff0da] rounded-3xl border border-gray-200 shadow-[2px_2px_0px_#00000066] p-8 sm:p-12
                       transition-all duration-300 hover:shadow-2xl hover:border-sky-200"
       >
         <h1 className="text-3xl font-bold mb-2">{post.title}</h1>
