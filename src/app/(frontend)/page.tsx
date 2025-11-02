@@ -68,7 +68,7 @@ export default async function HomePage() {
       dir={langConfig.direction}
       style={{ fontFamily: langConfig.font }}
     >
-      {/* 🌟 Featured Post Section — with Navigation Arrows */}
+      {/* 🌟 Featured Post Section */}
       <div className="mb-10 relative">
         <SectionCard
           label="Featured"
@@ -78,29 +78,6 @@ export default async function HomePage() {
         >
           {/* Soft gradient background */}
           <div className="absolute inset-0 bg-linear-to-tr from-purple-100 via-pink-50 to-blue-100 blur-3xl opacity-60 -z-10"></div>
-
-          {/* 🧭 Navigation Arrows */}
-          <button
-            aria-label="Previous Featured Post"
-            className="absolute left-3 top-1/2 -translate-y-1/2 z-20 bg-yellow-200 border-2 border-black
-                 rounded-full w-10 h-10 flex items-center justify-center font-bold text-black
-                 shadow-[3px_3px_0px_#000000] hover:bg-yellow-300
-                 active:translate-x-0.5 active:translate-y-0.5 transition-all duration-150"
-            onClick={() => document.dispatchEvent(new CustomEvent('featured-prev'))}
-          >
-            ←
-          </button>
-
-          <button
-            aria-label="Next Featured Post"
-            className="absolute right-3 top-1/2 -translate-y-1/2 z-20 bg-yellow-200 border-2 border-black
-                 rounded-full w-10 h-10 flex items-center justify-center font-bold text-black
-                 shadow-[3px_3px_0px_#000000] hover:bg-yellow-300
-                 active:translate-x-0.5 active:translate-y-0.5 transition-all duration-150"
-            onClick={() => document.dispatchEvent(new CustomEvent('featured-next'))}
-          >
-            →
-          </button>
 
           {/* Featured Content */}
           <FeaturedPost posts={featuredPosts.docs} />
