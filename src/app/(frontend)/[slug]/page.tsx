@@ -1,6 +1,6 @@
 // src/app/(frontend)/posts/[slug]/page.tsx
 
-import { Post } from '../../../../payload-types'
+import { Post } from '../../../payload-types'
 import { getLanguageConfig, LanguageCode } from '@/config/languages'
 import PostContent from '@/components/PostContent'
 import Link from 'next/link'
