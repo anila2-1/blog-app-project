@@ -12,6 +12,11 @@ const nextConfig = {
 
     return webpackConfig
   },
+  serverExternalPackages: ['@payloadcms/db-mongodb', '@payloadcms/richtext-lexical'],
+  transpilePackages: ['@payloadcms/richtext-lexical'],
+  env: {
+    NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL || 'http://localhost:3000',
+  },
 }
 
 export default withPayload(nextConfig, { devBundleServerPackages: false })
