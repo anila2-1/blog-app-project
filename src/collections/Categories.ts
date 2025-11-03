@@ -26,24 +26,7 @@ export const Categories: CollectionConfig = {
       type: 'text',
       required: true,
       unique: true,
-      admin: {
-        position: 'sidebar',
-      },
-      hooks: {
-        beforeValidate: [
-          ({ value, data }) => {
-            if (value) return value
-            // Auto-generate slug from name if not provided
-            return (
-              data?.name
-                ?.toLowerCase()
-                .replace(/\s+/g, '-')
-                .replace(/[^\w-]+/g, '') || ''
-            )
-          },
-        ],
-      },
-    },
+    }
   ],
 }
 

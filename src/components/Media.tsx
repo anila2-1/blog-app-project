@@ -9,7 +9,7 @@ export interface MediaProps {
   imgClassName?: string
 }
 
-export const Media: React.FC<MediaProps> = ({ resource, className, imgClassName }) => {
+export const Media: React.FC<MediaProps> = ({ resource, imgClassName }) => {
   return <img src={resource.url} alt={resource.alt} className={imgClassName} />
 }
 

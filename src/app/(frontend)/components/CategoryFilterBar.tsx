@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { getLanguageConfig, LanguageCode } from '@/config/languages'
+import { getLanguageConfig, LanguageCode, languages } from '@/config/languages'
 
-const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || 'en'
+const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || languages[0].code
 const langConfig = getLanguageConfig(LANG_CODE)
 
 const translations = {
@@ -59,7 +59,10 @@ export default function CategoryFilterBar() {
   }
 
   // 📦 Show first 4 categories in bar
-  const visibleCategories = categories.slice(0, 4)
+  const validCategories = categories.filter(
+    (category) => typeof category.slug === 'string' && category.slug.trim() !== '',
+  )
+  const visibleCategories = validCategories.slice(0, 4)
 
   return (
     <div
@@ -68,7 +71,7 @@ export default function CategoryFilterBar() {
       className="flex items-center overflow-x-auto gap-3 px-2 py-2 hide-scrollbar"
     >
       {/* 🏷 ALL Button (for all categories page) */}
-      {categories.length > 4 && (
+      {validCategories.length > 4 && (
         <Link
           href="/categories"
           className="px-4 py-2 text-sm font-bold text-gray-800 bg-yellow-100 border-2 border-black rounded-full hover:bg-yellow-200 transition-all shadow-[2px_2px_0px_#00000066] active:translate-x-0.5 active:translate-y-0.5 shrink-0"

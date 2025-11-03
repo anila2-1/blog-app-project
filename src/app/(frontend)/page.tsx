@@ -10,12 +10,10 @@ import PinnedPosts from './components/PinnedPosts'
 import LatestPosts from './components/LatestPosts'
 import CategoryCards from './components/CategoryCards'
 import Sidebar from './components/Sidebar'
-import { getLanguageConfig, LanguageCode } from '@/config/languages'
+import { getLanguageConfig, LanguageCode, languages } from '@/config/languages'
 
-const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || 'en'
+const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || languages[0].code
 const langConfig = getLanguageConfig(LANG_CODE)
-
-import type { Post } from '@/payload-types'
 
 interface SimplifiedPost {
   id: string

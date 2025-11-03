@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { getLanguageConfig, LanguageCode } from '@/config/languages'
+import { getLanguageConfig, LanguageCode, languages } from '@/config/languages'
 
-const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || 'en'
+const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || languages[0].code
 const langConfig = getLanguageConfig(LANG_CODE)
 
 const translations = {
@@ -119,28 +119,30 @@ export default function CategoriesPage() {
       ) : (
         // 🗂️ Category Grid
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          {categories.map((category) => (
-            <Link key={category.id} href={`/categories/${category.slug}`} className="group block">
-              <div className="bg-white border-2 border-black rounded-2xl shadow-[2px_2px_0px_#00000066] overflow-hidden transition-all hover:translate-x-0.5 hover:translate-y-0.5 hover:bg-gray-50">
-                {/* 🖼️ Optional Image */}
-                {category.image?.url && (
-                  <img
-                    src={category.image.url}
-                    alt={category.name}
-                    className="w-full h-40 object-cover border-b-2 border-black"
-                  />
-                )}
+          {categories
+            .filter((category) => typeof category.slug === 'string' && category.slug.trim() !== '')
+            .map((category) => (
+              <Link key={category.id} href={`/categories/${category.slug}`} className="group block">
+                <div className="bg-white border-2 border-black rounded-2xl shadow-[2px_2px_0px_#00000066] overflow-hidden transition-all hover:translate-x-0.5 hover:translate-y-0.5 hover:bg-gray-50">
+                  {/* 🖼️ Optional Image */}
+                  {category.image?.url && (
+                    <img
+                      src={category.image.url}
+                      alt={category.name}
+                      className="w-full h-40 object-cover border-b-2 border-black"
+                    />
+                  )}
 
-                {/* 🏷️ Name */}
-                <div className="p-5 flex flex-col items-center justify-center text-center">
-                  <h3 className="text-lg font-bold text-gray-900 uppercase tracking-wide group-hover:text-blue-600 transition-colors duration-200 line-clamp-2">
-                    {category.name}
-                  </h3>
-                  <div className="mt-3 w-10 h-1 bg-black rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
+                  {/* 🏷️ Name */}
+                  <div className="p-5 flex flex-col items-center justify-center text-center">
+                    <h3 className="text-lg font-bold text-gray-900 uppercase tracking-wide group-hover:text-blue-600 transition-colors duration-200 line-clamp-2">
+                      {category.name}
+                    </h3>
+                    <div className="mt-3 w-10 h-1 bg-black rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
+                  </div>
                 </div>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            ))}
         </div>
       )}
     </main>

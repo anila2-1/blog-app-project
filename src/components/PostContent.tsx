@@ -6,9 +6,9 @@ import { useEffect } from 'react'
 import { Post } from '@/payload-types'
 import RichText from './RichText'
 import RelatedPosts from './../app/(frontend)/components/RelatedPosts'
-import { getLanguageConfig, LanguageCode } from '@/config/languages'
+import { getLanguageConfig, LanguageCode, languages } from '@/config/languages'
 
-const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || 'en'
+const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || languages[0].code
 const langConfig = getLanguageConfig(LANG_CODE)
 
 // ✅ Prevent double count using cookies

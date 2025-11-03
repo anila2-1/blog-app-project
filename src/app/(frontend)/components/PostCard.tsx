@@ -1,8 +1,10 @@
+// src/app/(frontend)/components/PostCard.tsx
 'use client'
 
 import Link from 'next/link'
 import Image from 'next/image'
 import { Post } from '../../../payload-types'
+import { getLanguageConfig, LanguageCode, languages } from '@/config/languages'
 
 interface SimplifiedPost {
   id: string
@@ -19,19 +21,40 @@ interface SimplifiedPost {
 
 interface PostCardProps {
   post: Post | SimplifiedPost
-  locale: string
+  locale?: string
 }
+
+const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || languages[0].code
+const langConfig = getLanguageConfig(LANG_CODE)
+
+const translations = {
+  en: {
+    readMore: 'Read More',
+    noDate: 'N/A',
+  },
+  he: {
+    readMore: 'קרא עוד',
+    noDate: 'לא זמין',
+  },
+  hr: {
+    readMore: 'Pročitaj više',
+    noDate: 'Nema datuma',
+  },
+}
+
+const t = translations[LANG_CODE] || translations.en
 
 export default function PostCard({ post, locale }: PostCardProps) {
   const imageUrl = typeof post.image === 'string' ? post.image : post.image?.url || ''
+  const userLocale = locale || LANG_CODE
 
   const formattedDate = post.publishedAt
-    ? new Date(post.publishedAt).toLocaleDateString(locale, {
+    ? new Date(post.publishedAt).toLocaleDateString(userLocale, {
         year: 'numeric',
         month: 'short',
         day: 'numeric',
       })
-    : 'N/A'
+    : t.noDate
 
   return (
     <Link
@@ -40,8 +63,10 @@ export default function PostCard({ post, locale }: PostCardProps) {
                   shadow-[2px_2px_0px_#00000066] bg-white/90 dark:bg-gray-900/60 
                   backdrop-blur-xl transition-all duration-200 ease-out 
                   hover:-translate-y-1 active:translate-x-0.5 active:translate-y-0.5`}
+      dir={langConfig.direction}
+      style={{ fontFamily: langConfig.font }}
     >
-      {/* Image Section */}
+      {/* 🖼️ Image Section */}
       <div className="relative h-52 sm:h-48 overflow-hidden rounded-t-xl">
         <Image
           src={imageUrl}
@@ -52,7 +77,7 @@ export default function PostCard({ post, locale }: PostCardProps) {
         <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent" />
       </div>
 
-      {/* Content Section */}
+      {/* 📝 Content Section */}
       <div className="relative z-10 p-4 pt-2">
         {/* Date Badge */}
         <div
@@ -75,9 +100,17 @@ export default function PostCard({ post, locale }: PostCardProps) {
         </h3>
 
         {/* Excerpt */}
-        <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed line-clamp-3">
+        <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed line-clamp-3 mb-3">
           {post.excerpt}
         </p>
+
+        {/* Read More Link */}
+        <span
+          className="inline-block text-sm font-semibold text-indigo-700 hover:text-purple-700 
+                     transition-colors duration-300"
+        >
+          {t.readMore} →
+        </span>
       </div>
     </Link>
   )

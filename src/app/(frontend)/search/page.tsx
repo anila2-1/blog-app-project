@@ -5,14 +5,42 @@
 import { useEffect, useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { Post } from '@/payload-types' // adjust if your path is different
+import { Post } from '@/payload-types'
+import { getLanguageConfig, LanguageCode } from '@/config/languages'
 
-function SearchResultsPageContent() {
+// 🌐 Detect default language or fallback to English
+const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || 'en'
+const langConfig = getLanguageConfig(LANG_CODE)
+
+const translations = {
+  en: {
+    resultsFor: 'Results for',
+    searching: 'Searching...',
+    noResults: 'No posts found matching your query.',
+    error: 'Failed to load results',
+  },
+  hr: {
+    resultsFor: 'Rezultati za',
+    searching: 'Pretraživanje...',
+    noResults: 'Nema objava koje odgovaraju vašem upitu.',
+    error: 'Neuspjelo učitavanje rezultata',
+  },
+  he: {
+    resultsFor: 'תוצאות עבור',
+    searching: 'מחפש...',
+    noResults: 'לא נמצאו פוסטים התואמים לשאילתה שלך.',
+    error: 'נכשלה טעינת התוצאות',
+  },
+}
+
+function SearchResultsPageContent({ locale = LANG_CODE }: { locale?: string }) {
   const searchParams = useSearchParams()
   const query = searchParams.get('q') || ''
   const [results, setResults] = useState<Post[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+
+  const t = translations[locale as keyof typeof translations] || translations[LANG_CODE]
 
   useEffect(() => {
     if (!query.trim()) {
@@ -25,9 +53,10 @@ function SearchResultsPageContent() {
       setLoading(true)
       setError(null)
       try {
-        // 🔍 Search in title AND excerpt (adjust fields as needed)
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/posts?where[or][0][title][like]=${encodeURIComponent(query)}&where[or][1][excerpt][like]=${encodeURIComponent(query)}&locale=en&limit=20`,
+          `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/posts?where[or][0][title][like]=${encodeURIComponent(
+            query,
+          )}&where[or][1][excerpt][like]=${encodeURIComponent(query)}&locale=${locale}&limit=20`,
           { cache: 'no-store' },
         )
 
@@ -37,24 +66,24 @@ function SearchResultsPageContent() {
         setResults(data.docs || [])
       } catch (err) {
         console.error('Search error:', err)
-        setError('Failed to load results')
+        setError(t.error)
       } finally {
         setLoading(false)
       }
     }
 
-    const timer = setTimeout(fetchResults, 300) // debounce
+    const timer = setTimeout(fetchResults, 300)
     return () => clearTimeout(timer)
-  }, [query])
+  }, [query, locale])
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
       <h1 className="text-2xl font-bold mb-6">
-        Results for: <span className="text-indigo-600">&ldquo;{query}&ldquo;</span>
+        {t.resultsFor}: <span className="text-indigo-600">&ldquo;{query}&rdquo;</span>
       </h1>
 
       {loading ? (
-        <p className="text-gray-600">Searching...</p>
+        <p className="text-gray-600">{t.searching}</p>
       ) : error ? (
         <p className="text-red-600">{error}</p>
       ) : results.length > 0 ? (
@@ -73,7 +102,7 @@ function SearchResultsPageContent() {
           ))}
         </div>
       ) : (
-        <p className="text-gray-600">No posts found matching your query.</p>
+        <p className="text-gray-600">{t.noResults}</p>
       )}
     </div>
   )

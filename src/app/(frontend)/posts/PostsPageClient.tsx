@@ -5,11 +5,11 @@ import Link from 'next/link'
 import { useSearchParams, usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Post } from '../../../payload-types'
-import { getLanguageConfig, LanguageCode } from '@/config/languages'
+import { getLanguageConfig, LanguageCode, languages } from '@/config/languages'
 import RichTextPreview from '@/components/RichTextPreview'
 import Image from 'next/image'
 
-const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || 'en'
+const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || languages[0].code
 const langConfig = getLanguageConfig(LANG_CODE)
 
 const translations = {

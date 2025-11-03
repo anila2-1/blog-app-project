@@ -1,11 +1,11 @@
 // src/app/(frontend)/posts/[slug]/page.tsx
 
 import { Post } from '../../../payload-types'
-import { getLanguageConfig, LanguageCode } from '@/config/languages'
+import { getLanguageConfig, LanguageCode, languages } from '@/config/languages'
 import PostContent from '@/components/PostContent'
 import Link from 'next/link'
 
-const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || 'en'
+const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || languages[0].code
 const langConfig = getLanguageConfig(LANG_CODE)
 
 // --- SEO in <head> ---
@@ -104,7 +104,7 @@ export default async function SinglePostPage(props: { params: Promise<{ slug: st
     >
       <article>
         {/* compute a safe category object only if the relationship returned an object */}
-        {category && (
+        {category && typeof category.slug === 'string' && category.slug.trim() !== '' && (
           <div className="flex justify-center mb-8">
             <Link
               href={`/categories/${category.slug}`}

@@ -1,5 +1,5 @@
 import { Post } from '../../../payload-types'
-import { getLanguageConfig, LanguageCode } from '@/config/languages'
+import { getLanguageConfig, LanguageCode, languages } from '@/config/languages'
 
 interface SimplifiedPost {
   id: string
@@ -14,7 +14,7 @@ interface SimplifiedPost {
   category?: { name: string; slug: string }
 }
 
-const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || 'en'
+const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || languages[0].code
 const langConfig = getLanguageConfig(LANG_CODE)
 
 const translations = {

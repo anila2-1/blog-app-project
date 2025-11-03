@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import { LucideArrowRight, LucideArrowLeft } from 'lucide-react'
-import { getLanguageConfig, LanguageCode } from './../../../config/languages'
+import { getLanguageConfig, LanguageCode, languages } from './../../../config/languages'
 
 // Get language code from .env
-const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || 'en'
+const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || languages[0].code
 const langConfig = getLanguageConfig(LANG_CODE)
 
 // Translations
@@ -41,8 +41,13 @@ interface CategoryCardsProps {
 }
 
 export default function CategoryCards({ categories }: CategoryCardsProps) {
+  // Filter out categories with invalid slugs
+  const validCategories = categories.filter(
+    (category) => typeof category.slug === 'string' && category.slug.trim() !== '',
+  )
+
   // 🪶 No Categories Found
-  if (categories.length === 0) {
+  if (validCategories.length === 0) {
     return (
       <p
         className="text-gray-500 text-center"
@@ -74,7 +79,7 @@ export default function CategoryCards({ categories }: CategoryCardsProps) {
 
       {/* Category Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {categories.map((category) => (
+        {validCategories.map((category) => (
           <Link key={category.id} href={`/categories/${category.slug}`} className="block group">
             <div className="relative overflow-hidden bg-white border-2 border-black rounded-2xl shadow-[2px_2px_0px_#00000066] transition-all hover:translate-x-0.5 hover:translate-y-0.5 hover:bg-gray-50">
               {/* Optional Image */}

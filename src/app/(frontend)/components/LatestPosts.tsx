@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Post } from '../../../payload-types'
-import { getLanguageConfig, LanguageCode } from './../../../config/languages'
+import { getLanguageConfig, LanguageCode, languages } from './../../../config/languages'
 
 interface SimplifiedPost {
   id: string
@@ -16,7 +16,7 @@ interface SimplifiedPost {
   category?: { name: string; slug: string }
 }
 
-const DEFAULT_LANG = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || 'en'
+const DEFAULT_LANG = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || languages[0].code
 
 interface LatestPostsProps {
   posts: Post[] | SimplifiedPost[]
@@ -52,7 +52,7 @@ export default function LatestPosts({ posts }: LatestPostsProps) {
       dir={langConfig.direction}
       style={{ fontFamily: langConfig.font }}
     >
-      {posts.map((post, idx) => (
+      {posts.map((post) => (
         <Link
           key={post.id}
           href={`/posts/${post.slug}`}

@@ -1,7 +1,53 @@
+// src/app/(frontend)/components/Footer.tsx
 'use client'
 
 import React, { useEffect, useState } from 'react'
 import { ArrowUp, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react'
+import { getLanguageConfig, LanguageCode, languages } from '@/config/languages'
+
+const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || languages[0].code
+const langConfig = getLanguageConfig(LANG_CODE)
+
+const translations = {
+  en: {
+    siteName: 'BlogSite',
+    about:
+      'A modern blog platform powered by Payload CMS, designed for content creators who love flexibility, simplicity, and elegant design.',
+    quickLinks: 'Quick Links',
+    home: 'Home',
+    posts: 'Posts',
+    aboutPage: 'About',
+    stayConnected: 'Stay Connected',
+    followText: 'Follow us for updates, design inspiration, and Payload CMS tips.',
+    builtWith: 'Built with love using Next.js & Payload CMS.',
+  },
+  he: {
+    siteName: 'בלוגסייט',
+    about:
+      'פלטפורמת בלוגים מודרנית המופעלת על ידי Payload CMS, שנועדה ליוצרים שאוהבים גמישות, פשטות ועיצוב אלגנטי.',
+    quickLinks: 'קישורים מהירים',
+    home: 'בית',
+    posts: 'פוסטים',
+    aboutPage: 'אודות',
+    stayConnected: 'הישארו מחוברים',
+    followText: 'עקבו אחרינו לעדכונים, השראה בעיצוב וטיפים ל-Payload CMS.',
+    builtWith: 'נבנה באהבה באמצעות Next.js ו-Payload CMS.',
+  },
+  hr: {
+    siteName: 'BlogSite',
+    about:
+      'Moderna blog platforma pokretana Payload CMS-om, dizajnirana za stvaratelje sadržaja koji vole fleksibilnost, jednostavnost i elegantan dizajn.',
+    quickLinks: 'Brze Poveznice',
+    home: 'Početna',
+    posts: 'Objave',
+    aboutPage: 'O Nama',
+    stayConnected: 'Ostanite Povezani',
+    followText: 'Pratite nas za novosti, inspiraciju za dizajn i Payload CMS savjete.',
+    builtWith: 'Izrađeno s ljubavlju pomoću Next.js i Payload CMS-a.',
+  },
+}
+
+const t = translations[LANG_CODE] || translations.en
 
 export default function Footer() {
   const [isVisible, setIsVisible] = useState(false)
@@ -10,7 +56,6 @@ export default function Footer() {
     const toggleVisibility = () => {
       setIsVisible(window.scrollY > 300)
     }
-
     window.addEventListener('scroll', toggleVisibility)
     return () => window.removeEventListener('scroll', toggleVisibility)
   }, [])
@@ -20,7 +65,11 @@ export default function Footer() {
   }
 
   return (
-    <footer className="relative bg-linear-to-br from-yellow-100 to-amber-100 text-gray-800 pt-16 pb-8">
+    <footer
+      className="relative bg-linear-to-br from-yellow-100 to-amber-100 text-gray-800 pt-16 pb-8"
+      dir={langConfig.direction}
+      style={{ fontFamily: langConfig.font }}
+    >
       <div className="max-w-7xl mx-auto px-6 md:px-8">
         {/* Grid Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
@@ -30,32 +79,27 @@ export default function Footer() {
               <div className="w-10 h-10 rounded-full bg-blue-600 border-2 border-black flex items-center justify-center shadow-lg">
                 <span className="text-white font-extrabold text-lg">B</span>
               </div>
-              <h3 className="text-2xl font-black ml-3 text-gray-900 tracking-tight">BlogSite</h3>
+              <h3 className="text-2xl font-black ml-3 text-gray-900 tracking-tight">
+                {t.siteName}
+              </h3>
             </div>
-            <p className="text-gray-600 leading-relaxed text-sm md:text-base">
-              A modern blog platform powered by{' '}
-              <strong className="text-gray-900 font-semibold">Payload CMS</strong>, designed for
-              content creators who love flexibility, simplicity, and elegant design.
-            </p>
+            <p className="text-gray-600 leading-relaxed text-sm md:text-base">{t.about}</p>
           </div>
 
           {/* Middle - Quick Links */}
           <div>
-            <h4 className="text-xl font-black text-gray-900 mb-6 flex items-center gap-2">
-              Quick Links
-            </h4>
+            <h4 className="text-xl font-black text-gray-900 mb-6">{t.quickLinks}</h4>
             <ul className="space-y-3">
               {[
-                { name: 'Home', href: '/' },
-                { name: 'Posts', href: '/posts' },
-                { name: 'About', href: '/about' },
+                { name: t.home, href: '/' },
+                { name: t.posts, href: '/posts' },
+                { name: t.aboutPage, href: '/about' },
               ].map((link, index) => (
                 <li key={index}>
                   <a
                     href={link.href}
                     className="group flex items-center text-gray-700 hover:text-amber-700 font-medium transition-all duration-300"
                   >
-                    {/* Paper Plane Icon (Animated) */}
                     <span className="mr-2 inline-block transform transition-transform duration-500 ease-out group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:rotate-12">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -82,28 +126,18 @@ export default function Footer() {
 
           {/* Right - Social & Scroll */}
           <div>
-            <h4 className="text-xl font-black text-gray-900 mb-4">Stay Connected</h4>
-            <p className="text-sm text-gray-600 mb-6 leading-relaxed">
-              Follow us for updates, design inspiration, and Payload CMS tips.
-            </p>
+            <h4 className="text-xl font-black text-gray-900 mb-4">{t.stayConnected}</h4>
+            <p className="text-sm text-gray-600 mb-6 leading-relaxed">{t.followText}</p>
 
             <div className="flex space-x-3 mb-8">
-              {[
-                { icon: Facebook, bg: 'bg-blue-600 hover:bg-blue-700' },
-                { icon: Twitter, bg: 'bg-sky-500 hover:bg-sky-600' },
-                {
-                  icon: Instagram,
-                  bg: 'bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 hover:from-pink-600 hover:via-purple-600 hover:to-indigo-600',
-                },
-                { icon: Linkedin, bg: 'bg-blue-800 hover:bg-blue-900' },
-              ].map((social, index) => (
+              {[Facebook, Twitter, Instagram, Linkedin].map((Icon, index) => (
                 <a
                   key={index}
                   href="#"
-                  className={`${social.bg} p-3 rounded-full text-white shadow-md hover:shadow-xl transform hover:scale-110 hover:-translate-y-1 transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2`}
-                  aria-label={`Follow us on ${social.icon.name}`}
+                  className="bg-amber-600 hover:bg-amber-700 p-3 rounded-full text-white shadow-md hover:shadow-xl transform hover:scale-110 hover:-translate-y-1 transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2"
+                  aria-label={`Follow us on ${Icon.name}`}
                 >
-                  <social.icon className="w-5 h-5 transition-transform duration-300 hover:rotate-12" />
+                  <Icon className="w-5 h-5 transition-transform duration-300 hover:rotate-12" />
                 </a>
               ))}
             </div>
@@ -139,8 +173,7 @@ export default function Footer() {
         <div className="border-t border-amber-200 pt-6 text-center text-xs md:text-sm text-gray-600 font-medium">
           <p>
             © {new Date().getFullYear()}{' '}
-            <span className="font-black text-amber-700">BlogSite</span> • Built with love using{' '}
-            <span className="font-black text-purple-700">Next.js & Payload CMS</span>.
+            <span className="font-black text-amber-700">{t.siteName}</span> • {t.builtWith}
           </p>
         </div>
       </div>
