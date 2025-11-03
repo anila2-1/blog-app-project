@@ -58,7 +58,7 @@ export default function PostCard({ post, locale }: PostCardProps) {
 
   return (
     <Link
-      href={`/posts/${post.slug}`}
+      href={`/${post.slug}`}
       className={`group block rounded-xl overflow-hidden border-2 border-black 
                   shadow-[2px_2px_0px_#00000066] bg-white/90 dark:bg-gray-900/60 
                   backdrop-blur-xl transition-all duration-200 ease-out 

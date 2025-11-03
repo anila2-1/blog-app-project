@@ -52,7 +52,7 @@ export default function MostViewedPosts({ posts }: MostViewedPostsProps) {
     >
       {posts.map((post, i) => (
         <a
-          href={`/posts/${post.slug}`}
+          href={`/${post.slug}`}
           key={post.id}
           className="flex gap-4 items-center p-3 bg-white border-2 border-black rounded-2xl
                      shadow-[2px_2px_0px_#00000066] hover:bg-gray-50 transition-all duration-200 ease-out

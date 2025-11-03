@@ -40,7 +40,7 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
       title,
       description,
       type: 'article',
-      url: `${process.env.NEXT_PUBLIC_SITE_URL}/posts/${post.slug}`,
+      url: `${process.env.NEXT_PUBLIC_SITE_URL}/${post.slug}`,
     },
     twitter: {
       card: 'summary',

@@ -55,7 +55,7 @@ export default function LatestPosts({ posts }: LatestPostsProps) {
       {posts.map((post) => (
         <Link
           key={post.id}
-          href={`/posts/${post.slug}`}
+          href={`/${post.slug}`}
           className="group relative block p-3 rounded-2xl bg-white
                      border-2 border-black shadow-[2px_2px_0px_#00000066]
                      transition-all duration-200 ease-out

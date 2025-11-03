@@ -187,7 +187,7 @@ export default function PostsPageClient({ initialPage }: { initialPage: number }
 
                 {/* ✅ Read More Button (Retro Style) */}
                 <Link
-                  href={`/posts/${post.slug}`}
+                  href={`/${post.slug}`}
                   className="inline-block mt-3 text-sm font-semibold bg-yellow-300 text-gray-900 px-4 py-2 rounded-full 
                   border border-black shadow-[2px_2px_0px_#00000066] hover:bg-yellow-400 active:translate-x-0.5 active:translate-y-0.5 transition-all"
                 >

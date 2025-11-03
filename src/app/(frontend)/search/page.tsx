@@ -91,7 +91,7 @@ function SearchResultsPageContent({ locale = LANG_CODE }: { locale?: string }) {
           {results.map((post) => (
             <Link
               key={post.id}
-              href={`/posts/${post.slug}`}
+              href={`/${post.slug}`}
               className="group block p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 hover:border-indigo-200"
             >
               <h3 className="font-semibold text-gray-900 group-hover:text-indigo-700 line-clamp-2">

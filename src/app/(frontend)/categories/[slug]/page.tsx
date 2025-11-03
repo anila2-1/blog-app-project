@@ -127,7 +127,7 @@ export default function CategoryPostsPage() {
       ) : (
         <div className="space-y-8">
           {posts.map((post) => (
-            <Link key={post.id} href={`/posts/${post.slug}`} className="block group">
+            <Link key={post.id} href={`/${post.slug}`} className="block group">
               <article className="bg-white border-2 border-black rounded-2xl overflow-hidden shadow-[2px_2px_0px_#00000066] hover:translate-x-0.5 hover:translate-y-0.5 transition-all duration-200">
                 {/* ✅ Optional post image on top */}
                 {post.image && typeof post.image === 'object' && post.image.url && (
