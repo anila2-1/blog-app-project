@@ -1,7 +1,7 @@
 //src/app/(frontend)/page.tsx
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import Link from 'next/link'
 import FeaturedPost from './components/FeaturedPost'
 import MostViewedPosts from './components/MostViewedPosts'
@@ -43,6 +43,23 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true)
   const [currentIndex, setCurrentIndex] = useState(0)
 
+  const autoPlayRef = useRef<NodeJS.Timeout | null>(null)
+
+  const startAutoPlay = () => {
+    if (autoPlayRef.current) clearInterval(autoPlayRef.current)
+    autoPlayRef.current = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % featuredPosts.length)
+    }, 3000) // 5 seconds
+  }
+
+  // ✅ Stop auto-play
+  const stopAutoPlay = () => {
+    if (autoPlayRef.current) {
+      clearInterval(autoPlayRef.current)
+      autoPlayRef.current = null
+    }
+  }
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -79,9 +96,24 @@ export default function HomePage() {
         setLoading(false)
       }
     }
-
     fetchData()
   }, [])
+
+  // 🎮 Auto-play effect
+  useEffect(() => {
+    if (featuredPosts.length > 1 && !loading) {
+      startAutoPlay()
+    }
+    return () => stopAutoPlay() // cleanup on unmount
+  }, [featuredPosts.length, loading])
+
+  // 🖱 Handle hover to pause/resume
+  const handleMouseEnter = () => stopAutoPlay()
+  const handleMouseLeave = () => {
+    if (featuredPosts.length > 1 && !loading) {
+      startAutoPlay()
+    }
+  }
 
   return (
     <main
@@ -91,7 +123,11 @@ export default function HomePage() {
     >
       <div className="mb-10 relative">
         {/* 🎯 Main Container for Featured + Arrows */}
-        <div className="relative">
+        <div
+          className="relative"
+          onMouseEnter={handleMouseEnter} // ✅ added
+          onMouseLeave={handleMouseLeave} // ✅ added
+        >
           <SectionCard
             label="Featured"
             padding="p-4"
@@ -99,21 +135,23 @@ export default function HomePage() {
             customClasses="relative overflow-hidden"
           >
             <div className="absolute inset-0 bg-linear-to-tr opacity-60 -z-10" />
-
-            {/* Render FeaturedPost */}
             <FeaturedPost posts={featuredPosts} loading={loading} currentIndex={currentIndex} />
           </SectionCard>
 
-          {/* 🚀 ARROWS — Positioned Outside SectionCard, Floating Over Layout */}
+          {/* 🚀 ARROWS — keep exactly as they are */}
           {featuredPosts.length > 1 && !loading && (
             <>
-              {/* Left Arrow */}
               <button
-                onClick={() =>
+                onClick={() => {
                   setCurrentIndex(
                     (prev) => (prev - 1 + featuredPosts.length) % featuredPosts.length,
                   )
-                }
+                  // Optional: restart auto-play after manual nav
+                  stopAutoPlay()
+                  setTimeout(() => {
+                    if (featuredPosts.length > 1) startAutoPlay()
+                  }, 6000)
+                }}
                 aria-label="Previous featured post"
                 className="absolute left-1 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white border border-gray-300 rounded-full p-2 shadow-sm cursor-pointer z-30 hidden sm:block transition-all hover:scale-110 hover:shadow-md"
               >
@@ -129,9 +167,14 @@ export default function HomePage() {
                 </svg>
               </button>
 
-              {/* Right Arrow */}
               <button
-                onClick={() => setCurrentIndex((prev) => (prev + 1) % featuredPosts.length)}
+                onClick={() => {
+                  setCurrentIndex((prev) => (prev + 1) % featuredPosts.length)
+                  stopAutoPlay()
+                  setTimeout(() => {
+                    if (featuredPosts.length > 1) startAutoPlay()
+                  }, 6000)
+                }}
                 aria-label="Next featured post"
                 className="absolute right-1 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white border border-gray-300 rounded-full p-2 shadow-sm cursor-pointer z-30 hidden sm:block transition-all hover:scale-110 hover:shadow-md"
               >
@@ -150,13 +193,19 @@ export default function HomePage() {
           )}
         </div>
 
-        {/* ✅ INDICATOR DOTS — Positioned BELOW the card, outside its container */}
+        {/* ✅ INDICATOR DOTS — also keep, but add auto-reset on click */}
         {featuredPosts.length > 1 && !loading && (
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-30">
             {featuredPosts.map((_, i) => (
               <button
                 key={i}
-                onClick={() => setCurrentIndex(i)}
+                onClick={() => {
+                  setCurrentIndex(i)
+                  stopAutoPlay()
+                  setTimeout(() => {
+                    if (featuredPosts.length > 1) startAutoPlay()
+                  }, 7000)
+                }}
                 aria-label={`Go to featured post ${i + 1}`}
                 className={`w-2 h-2 rounded-full transition-all duration-300 ease-out ${
                   i === currentIndex
@@ -208,7 +257,7 @@ export default function HomePage() {
           </p>
           <Link
             href="/posts"
-            className="inline-block relative px-8 py-4 rounded-full text-lg font-semibold bg-[#ffdf80] border-2 border-black text-black shadow-[3px_3px_0px_#000000] hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 transition-all duration-200 ease-out"
+            className="inline-block relative px-8 py-4 rounded-full text-lg font-semibold bg-[#ffdf80] border border-black/10 text-black shadow-[3px_3px_0px_#000000] hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 transition-all duration-200 ease-out"
           >
             <span className="flex items-center gap-2">
               View All Articles
@@ -236,7 +285,7 @@ function SectionCard({
 }) {
   return (
     <section
-      className={`relative overflow-hidden rounded-2xl ${padding} bg-[#fff9ec] border border-black/10 shadow-[2px_2px_0px_#00000066] transition-all duration-200 ease-out hover:-translate-y-[3px] active:translate-x-0.5 active:translate-y-0.5 ${customClasses}`}
+      className={`relative overflow-hidden rounded-2xl ${padding} bg-[#fcf5e8] border border-black/10 shadow-[2px_2px_0px_#00000066] transition-all duration-200 ease-out hover:-translate-y-[3px] active:translate-x-0.5 active:translate-y-0.5 ${customClasses}`}
     >
       <div
         className={`absolute ${labelPosition} px-3 py-1 bg-[#ffdf80] text-black text-xs font-bold border border-black/10 shadow-[2px_2px_0px_#00000088] rounded-tl-md rounded-br-md active:translate-x-px active:translate-y-px transition-all duration-200 ease-out`}

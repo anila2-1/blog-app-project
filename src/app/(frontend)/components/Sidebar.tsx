@@ -20,7 +20,7 @@ export default function Sidebar() {
       {/* 🖼️ Advertisement Card */}
       <div
         className={`relative group rounded-2xl overflow-hidden bg-white p-6 
-                    border-2 border-black shadow-[2px_2px_0px_#00000066] 
+                    border border-black/10 shadow-[2px_2px_0px_#00000066] 
                     transition-all duration-200 ease-out 
                     hover:-translate-y-1 active:translate-x-0.5 active:translate-y-0.5`}
       >
@@ -30,7 +30,7 @@ export default function Sidebar() {
         <div
           className={`h-40 bg-linear-to-br from-[#fdf8f0] via-[#fff5cf] to-[#fdf8f0] 
                       rounded-xl mb-5 flex items-center justify-center relative overflow-hidden 
-                      border-2 border-black shadow-[2px_2px_0px_#00000066]
+                      border border-black/10 shadow-[2px_2px_0px_#00000066]
                       transition-all duration-200 ease-out 
                       active:translate-x-0.5 active:translate-y-0.5`}
         >
@@ -46,23 +46,21 @@ export default function Sidebar() {
       {/* 🌐 Follow Us Card */}
       <div
         className={`bg-linear-to-br from-[#fdf8f0] via-[#fff5cf] to-[#fdf8f0]
-                    border-2 border-black shadow-[2px_2px_0px_#00000066] 
-                    transition-all duration-200 ease-out 
-                    hover:-translate-y-1 active:translate-x-0.5 active:translate-y-0.5 
-                    relative overflow-hidden`}
+              border border-black/10 shadow-[2px_2px_0px_#00000066] 
+              transition-all duration-200 ease-out 
+              hover:-translate-y-1 active:translate-x-0.5 active:translate-y-0.5 
+              relative overflow-hidden rounded-2xl p-6`}
       >
         <div className="absolute inset-0 bg-linear-to-tr from-white/10 to-transparent"></div>
 
-        <h3 className="font-bold text-black text-lg mb-5 text-center relative z-10">
+        {/* Title */}
+        <h3 className="font-bold text-black text-lg mb-4 text-center relative z-10">
           <span className="relative z-10">{t.followUs}</span>
-          <span className="absolute left-1/2 -translate-x-1/2 bottom-0 w-12 h-1 bg-white/60 rounded-full"></span>
+          <span className="absolute left-1/2 -translate-x-1/2 bottom-0 w-12 h-1 bg-black rounded-full"></span>
         </h3>
 
-        <div
-          className={`flex justify-center ${
-            langConfig.direction === 'rtl' ? 'space-x-reverse' : ''
-          } space-x-6`}
-        >
+        {/* Social Icons Row */}
+        <div className="flex justify-center gap-4 py-2">
           <SocialIcon Icon={LucideFacebook} />
           <SocialIcon Icon={LucideTwitter} />
           <SocialIcon Icon={LucideInstagram} />
@@ -80,13 +78,13 @@ function SocialIcon({ Icon }: { Icon: React.ElementType }) {
       href="#"
       target="_blank"
       rel="noopener noreferrer"
-      className={`group relative flex items-center justify-center w-12 h-12 rounded-full 
-                  bg-white border-2 border-black shadow-[2px_2px_0px_#000000]
+      className={`group flex items-center justify-center w-12 h-12 rounded-full 
+                  bg-white border border-black shadow-[2px_2px_0px_#000000]
                   transition-all duration-200 ease-out 
                   hover:-translate-y-[3px] active:translate-x-0.5 active:translate-y-0.5`}
     >
       <Icon
-        size={22}
+        size={20} // ✅ smaller icon for better fit inside 48x48 circle
         strokeWidth={2.5}
         className="text-black group-hover:text-[#F16363] transition-all duration-200 ease-out group-hover:scale-110"
       />

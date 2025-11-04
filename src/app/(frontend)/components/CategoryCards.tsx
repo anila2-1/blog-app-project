@@ -84,7 +84,8 @@ export default function CategoryCards({ categories, loading = false }: CategoryC
     <div className="space-y-8" dir={langConfig.direction} style={{ fontFamily: langConfig.font }}>
       {/* Header */}
       <div className="flex justify-between items-center">
-        <h2 className="text-lg font-bold text-black flex items-center">{t.exploreTopics}</h2>
+        {/* {t.exploreTopics} */}
+        <h2 className="text-lg font-bold text-black flex items-center"></h2>
         <Link
           href="/categories"
           className="inline-flex items-center px-4 py-2 bg-yellow-100 border-2 border-black rounded-full text-sm font-bold text-gray-800 hover:bg-yellow-200 transition-all shadow-[2px_2px_0px_#00000066] active:translate-x-0.5 active:translate-y-0.5"

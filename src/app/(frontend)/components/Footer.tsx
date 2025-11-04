@@ -154,12 +154,12 @@ export default function Footer() {
                   text-amber-700 font-bold 
                   rounded-full
                   shadow-lg hover:shadow-xl
-                  hover:bg-linear-to-r from-amber-500 to-orange-500
+                  hover:bg-linear-to-r from-amber-400 to-orange-400
                   hover:text-white
-                  transition-all duration-500 ease-out
-                  hover:scale-110 active:scale-95
+                  transition-all duration-200 ease-out
+                  hover:scale-125 active:scale-75
                   animate-bounce
-                  ring-2 ring-amber-900 hover:ring-amber-900
+                  ring-2 ring-amber-00 hover:ring-amber-900
                 "
                 aria-label="Scroll to top"
               >

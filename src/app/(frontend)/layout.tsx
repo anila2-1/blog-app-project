@@ -21,9 +21,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <head>
           <link rel="stylesheet" href={activeLang.css} />
         </head>
-        <body className="bg-[#fff9e2] text-gray-800 relative min-h-screen">
+        <body className="bg-[#fffae8] text-gray-800 relative min-h-screen">
           {/* 🌿 Gradient Grid Background */}
-          <div className="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none bg-[#fff9e2] overflow-hidden">
+          <div className="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none bg-[#fffcf0] overflow-hidden">
             {/* Gradient overlay */}
             <div className="absolute inset-0 bg-linear-to-br from-[#fffbec] via-[#fffcf0] to-[#fffbf0] opacity-60" />
 
