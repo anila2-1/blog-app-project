@@ -8,7 +8,6 @@ import { getLanguageConfig, LanguageCode } from '@/config/languages'
 
 // 🌐 Detect default language from environment or fallback to English
 const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || 'en'
-const langConfig = getLanguageConfig(LANG_CODE)
 
 const translations = {
   en: {
@@ -37,6 +36,7 @@ interface RelatedPostsProps {
 export default function RelatedPosts({ categorySlug, currentPostId, locale }: RelatedPostsProps) {
   const [relatedPosts, setRelatedPosts] = useState<Post[]>([])
 
+  const langConfig = getLanguageConfig((locale as LanguageCode) || LANG_CODE)
   const t = translations[locale as keyof typeof translations] || translations[LANG_CODE]
 
   useEffect(() => {
@@ -62,7 +62,7 @@ export default function RelatedPosts({ categorySlug, currentPostId, locale }: Re
   if (relatedPosts.length === 0) return null
 
   return (
-    <section className="mt-12">
+    <section className="mt-12" dir={langConfig.direction} style={{ fontFamily: langConfig.font }}>
       {/* Section Heading */}
       <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
         {t.relatedPosts}

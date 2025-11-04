@@ -32,20 +32,22 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
   })()
   const title = post.seo?.metaTitle || post.title
   const description = post.seo?.metaDescription || post.excerpt
+  const categorySuffix = category ? ` | Category: ${category.name || category.title}` : ''
+  const fullDescription = `${description}${categorySuffix}`
 
   return {
     title,
-    description,
+    description: fullDescription,
     openGraph: {
       title,
-      description,
+      description: fullDescription,
       type: 'article',
       url: `${process.env.NEXT_PUBLIC_SITE_URL}/${post.slug}`,
     },
     twitter: {
       card: 'summary',
       title,
-      description,
+      description: fullDescription,
     },
   }
 }

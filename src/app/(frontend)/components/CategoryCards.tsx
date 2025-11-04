@@ -31,8 +31,10 @@ interface Category {
   id: string
   name: string
   slug: string
-  image?: {
-    url: string
+  meta?: {
+    image?: {
+      url: string
+    } | null
   }
 }
 
@@ -45,19 +47,6 @@ export default function CategoryCards({ categories }: CategoryCardsProps) {
   const validCategories = categories.filter(
     (category) => typeof category.slug === 'string' && category.slug.trim() !== '',
   )
-
-  // 🪶 No Categories Found
-  if (validCategories.length === 0) {
-    return (
-      <p
-        className="text-gray-500 text-center"
-        dir={langConfig.direction}
-        style={{ fontFamily: langConfig.font }}
-      >
-        {t.noCategories}
-      </p>
-    )
-  }
 
   return (
     <div className="space-y-8" dir={langConfig.direction} style={{ fontFamily: langConfig.font }}>
@@ -83,9 +72,9 @@ export default function CategoryCards({ categories }: CategoryCardsProps) {
           <Link key={category.id} href={`/categories/${category.slug}`} className="block group">
             <div className="relative overflow-hidden bg-white border-2 border-black rounded-2xl shadow-[2px_2px_0px_#00000066] transition-all hover:translate-x-0.5 hover:translate-y-0.5 hover:bg-gray-50">
               {/* Optional Image */}
-              {category.image?.url && (
+              {category.meta?.image?.url && (
                 <img
-                  src={category.image.url}
+                  src={category.meta.image.url}
                   alt={category.name}
                   className="w-full h-48 object-cover rounded-t-2xl"
                 />

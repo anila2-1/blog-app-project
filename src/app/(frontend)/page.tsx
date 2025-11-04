@@ -90,6 +90,20 @@ export default function HomePage() {
     fetchData()
   }, [])
 
+  if (loading) {
+    return (
+      <main
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10"
+        dir={langConfig.direction}
+        style={{ fontFamily: langConfig.font }}
+      >
+        <div className="text-center py-20">
+          <p className="text-gray-600">Loading...</p>
+        </div>
+      </main>
+    )
+  }
+
   return (
     <main
       className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10"
@@ -198,7 +212,7 @@ function SectionCard({
     <section
       className={`
         relative overflow-hidden rounded-2xl ${padding}
-        bg-[#fff9ec] border-2 border-black
+        bg-[#fff9ec] border border-black/10
         shadow-[2px_2px_0px_#00000066]
         transition-all duration-200 ease-out
         hover:-translate-y-[3px]
@@ -206,7 +220,7 @@ function SectionCard({
         ${customClasses}
       `}
     >
-      {/* 🏷️ Minimal Label — Clean Retro Look */}
+      {/* Minimal Label — Clean Retro Look */}
       <div
         className={`absolute ${labelPosition} px-3 py-1
         bg-[#ffdf80] text-black text-xs font-bold

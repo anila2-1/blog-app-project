@@ -90,7 +90,7 @@ export default function CategoriesPage() {
           ))}
         </div>
       ) : categories.length === 0 ? (
-        // ❌ Empty State
+        // Empty State
         <div className="text-center py-20">
           <div className="inline-block p-4 bg-gray-100 rounded-full mb-6 shadow-[2px_2px_0px_#00000066]">
             <svg

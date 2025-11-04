@@ -77,7 +77,11 @@ function SearchResultsPageContent({ locale = LANG_CODE }: { locale?: string }) {
   }, [query, locale])
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10">
+    <div
+      className="max-w-7xl mx-auto px-4 py-10"
+      dir={langConfig.direction}
+      style={{ fontFamily: langConfig.font }}
+    >
       <h1 className="text-2xl font-bold mb-6">
         {t.resultsFor}: <span className="text-indigo-600">&ldquo;{query}&rdquo;</span>
       </h1>

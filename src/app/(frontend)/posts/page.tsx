@@ -23,7 +23,11 @@ export default async function PostsPage({
   const currentPage = parseInt(params?.page || '1', 10)
 
   return (
-    <div className="relative min-h-screen overflow-hidden ">
+    <div
+      className="relative min-h-screen overflow-hidden "
+      dir={langConfig.direction}
+      style={{ fontFamily: langConfig.font }}
+    >
       <PostsPageClient initialPage={currentPage} />
     </div>
   )
