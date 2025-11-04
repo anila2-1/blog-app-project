@@ -47,6 +47,9 @@ importers:
       '@radix-ui/react-slot':
         specifier: ^1.2.3
         version: 1.2.3(@types/react@19.1.8)(react@19.1.0)
+      '@types/prismjs':
+        specifier: ^1.26.5
+        version: 1.26.5
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -77,6 +80,9 @@ importers:
       prism-react-renderer:
         specifier: ^2.4.1
         version: 2.4.1(react@19.1.0)
+      prismjs:
+        specifier: ^1.30.0
+        version: 1.30.0
       react:
         specifier: 19.1.0
         version: 19.1.0

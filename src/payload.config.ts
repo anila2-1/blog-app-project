@@ -3,7 +3,7 @@ import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { buildConfig } from 'payload'
-import { en } from '@payloadcms/translations/languages/en'
+import { hr } from '@payloadcms/translations/languages/hr'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
@@ -30,16 +30,16 @@ export default buildConfig({
   localization: {
     locales: [
       {
-        label: 'English',
-        code: 'en',
+        label: 'Croatian',
+        code: 'hr',
         rtl: false,
       },
     ],
-    defaultLocale: 'en',
+    defaultLocale: 'hr',
     fallback: true,
   },
   i18n: {
-    supportedLanguages: { en },
+    supportedLanguages: { hr },
   },
   // payload.config.ts
 

@@ -98,7 +98,7 @@ export default function FeaturedPost({ posts = [], loading, currentIndex = 0 }: 
             </p>
           </div>
           <Link
-            href={`/posts/${post?.slug ?? ''}`}
+            href={`/${post?.slug ?? ''}`}
             className="mt-4 inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold text-black bg-yellow-200 rounded-full border-2 border-black shadow-[2px_2px_0px_#00000066] active:translate-x-0.5 active:translate-y-0.5 transition-all duration-200 ease-out hover:bg-yellow-300 group"
           >
             {t.readMore}

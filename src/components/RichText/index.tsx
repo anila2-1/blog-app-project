@@ -12,9 +12,22 @@ import {
 } from '@payloadcms/richtext-lexical/react'
 import React from 'react'
 import Image from 'next/image'
+import Prism from 'prismjs'
+// load common languages you'll need
+// @ts-ignore - prism component side-effect imports do not ship types
+import 'prismjs/components/prism-markup' // html
+// @ts-ignore - prism component side-effect imports do not ship types
+import 'prismjs/components/prism-css'
+// @ts-ignore - prism component side-effect imports do not ship types
+import 'prismjs/components/prism-javascript'
+// @ts-ignore - prism component side-effect imports do not ship types
+import 'prismjs/components/prism-jsx'
+// @ts-ignore - prism component side-effect imports do not ship types
+import 'prismjs/components/prism-typescript'
+// @ts-ignore - prism component side-effect imports do not ship types
+import 'prismjs/components/prism-python'
 
 import { CodeBlock, CodeBlockProps } from '@/blocks/Code/Component'
-import { Code } from '@/blocks/Code/Component.client'
 import { BannerBlock } from '@/blocks/Banner/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import MediaBlock from './../../blocks/MediaBlock/Component'
@@ -91,9 +104,64 @@ const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   return relationTo === 'posts' ? `/posts/${slug}` : `/${slug}`
 }
 
+// small helper to escape HTML so it displays correctly inside <code>
+const escapeHtml = (str: string) =>
+  str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+
+const codeBlockInlineStyle: React.CSSProperties = {
+  fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace',
+  background: '#f0f9ff',
+  color: '#0f172a',
+  padding: '1rem',
+  borderRadius: '0.75rem',
+  border: '1px solid rgba(59,130,246,0.12)',
+  overflowX: 'auto',
+  whiteSpace: 'pre',
+}
+
 const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) => ({
   ...defaultConverters,
   ...LinkJSXConverter({ internalDocToHref }),
+
+  // Render raw HTML nodes (if richtext contains an 'html' node)
+  html: ({ node }: any) => {
+    const raw = node?.value || node?.html || node?.text || ''
+    const code = String(raw)
+
+    // Try to highlight with Prism if available; if not, render plain escaped text (React escapes automatically)
+    let highlighted: string | null = null
+    try {
+      if (Prism && Prism.languages && Prism.languages.markup) {
+        highlighted = Prism.highlight(code, Prism.languages.markup, 'markup')
+      }
+    } catch (e) {
+      highlighted = null
+    }
+
+    return (
+      <div className="my-6">
+        <pre style={codeBlockInlineStyle}>
+          {/* If Prism produced markup, use innerHTML to preserve token spans; otherwise render text child so React escapes it */}
+          {highlighted ? (
+            <code
+              className="language-markup font-mono text-sm block"
+              dangerouslySetInnerHTML={{ __html: highlighted }}
+              aria-label="raw html block"
+            />
+          ) : (
+            <code className="font-mono text-sm block" aria-label="raw html block">
+              {code}
+            </code>
+          )}
+        </pre>
+      </div>
+    )
+  },
 
   // 🖼️ STYLISH IMAGE RENDERING - CENTERED
   image: ({ node }) => {
@@ -249,15 +317,55 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
   },
 
   codeblock: ({ node, nodesToJSX }) => {
-    const children = nodesToJSX({ nodes: node.children })
-    const codeText = (node as any).children?.map((child: any) => child.text || '').join('\n') || ''
-    const language = (node as any).language || ''
+    const codeText =
+      (node as any).children
+        ?.map((child: any) => {
+          if (typeof child?.text === 'string') return child.text
+          if (child?.children && Array.isArray(child.children))
+            return child.children.map((c: any) => c.text || '').join('\n')
+          return child?.value ?? child?.html ?? ''
+        })
+        .join('\n') ||
+      (node as any).text ||
+      ''
 
-    // Use explicit pre/code wrapper
+    const languageRaw = (node as any).language || ''
+    const lang = (languageRaw || 'markup').toLowerCase()
+    const prismLang =
+      lang === 'html' || lang === 'markup' ? 'markup' : lang === 'js' ? 'javascript' : lang
+
+    // Try Prism highlighting; fall back to plain text rendering
+    let highlighted: string | null = null
+    try {
+      if (typeof Prism !== 'undefined' && Prism.languages) {
+        if (Prism.languages[prismLang]) {
+          highlighted = Prism.highlight(String(codeText), Prism.languages[prismLang], prismLang)
+        } else if (Prism.languages.markup) {
+          highlighted = Prism.highlight(String(codeText), Prism.languages.markup, 'markup')
+        }
+      }
+    } catch (e) {
+      highlighted = null
+    }
+
+    // Return a single wrapper element and ensure valid JSX + comma separation in object
     return (
       <div className="my-6">
-        <pre className="bg-blue-50 border border-sky-300 rounded-xl p-4 overflow-x-auto shadow-sm">
-          <Code code={codeText} language={language} />
+        <pre style={codeBlockInlineStyle}>
+          {highlighted ? (
+            <code
+              className={`language-${prismLang} font-mono text-sm block`}
+              dangerouslySetInnerHTML={{ __html: highlighted }}
+              aria-label={languageRaw ? `${languageRaw} code block` : 'code block'}
+            />
+          ) : (
+            <code
+              className={`font-mono text-sm block whitespace-pre`}
+              aria-label={languageRaw ? `${languageRaw} code block` : 'code block'}
+            >
+              {codeText}
+            </code>
+          )}
         </pre>
       </div>
     )
