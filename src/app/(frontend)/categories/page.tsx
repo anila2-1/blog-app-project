@@ -80,7 +80,7 @@ export default function CategoriesPage() {
           {[...Array(8)].map((_, i) => (
             <div
               key={i}
-              className="bg-white rounded-2xl border-2 border-black shadow-[2px_2px_0px_#00000066] overflow-hidden animate-pulse"
+              className="bg-white rounded-2xl border border-black/10 shadow-[2px_2px_0px_#00000066] overflow-hidden animate-pulse"
             >
               <div className="h-40 bg-gray-200"></div>
               <div className="p-5">

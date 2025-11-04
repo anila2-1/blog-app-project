@@ -59,7 +59,7 @@ export default function PostCard({ post, locale }: PostCardProps) {
   return (
     <Link
       href={`/${post.slug}`}
-      className={`group block rounded-xl overflow-hidden border-2 border-black 
+      className={`group block rounded-xl overflow-hidden border border-black/10
                   shadow-[2px_2px_0px_#00000066] bg-white/90 dark:bg-gray-900/60 
                   backdrop-blur-xl transition-all duration-200 ease-out 
                   hover:-translate-y-1 active:translate-x-0.5 active:translate-y-0.5`}
@@ -81,7 +81,7 @@ export default function PostCard({ post, locale }: PostCardProps) {
       <div className="relative z-10 p-4 pt-2">
         {/* Date Badge */}
         <div
-          className={`inline-block mb-3 px-3 py-1 border-2 border-black 
+          className={`inline-block mb-3 px-3 py-1 border border-black/10
                       bg-white text-black text-xs font-bold rounded-full 
                       shadow-[2px_2px_0px_#00000066] transition-all duration-200 ease-out 
                       active:translate-x-0.5 active:translate-y-0.5`}

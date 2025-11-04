@@ -45,7 +45,7 @@ export default function Sidebar() {
 
       {/* 🌐 Follow Us Card */}
       <div
-        className={`bg-linear-to-br from-[#F16363] to-[#ff7a7a] rounded-2xl p-6 
+        className={`bg-linear-to-br from-[#fdf8f0] via-[#fff5cf] to-[#fdf8f0]
                     border-2 border-black shadow-[2px_2px_0px_#00000066] 
                     transition-all duration-200 ease-out 
                     hover:-translate-y-1 active:translate-x-0.5 active:translate-y-0.5 
@@ -53,7 +53,7 @@ export default function Sidebar() {
       >
         <div className="absolute inset-0 bg-linear-to-tr from-white/10 to-transparent"></div>
 
-        <h3 className="font-bold text-white text-lg mb-5 text-center relative z-10">
+        <h3 className="font-bold text-black text-lg mb-5 text-center relative z-10">
           <span className="relative z-10">{t.followUs}</span>
           <span className="absolute left-1/2 -translate-x-1/2 bottom-0 w-12 h-1 bg-white/60 rounded-full"></span>
         </h3>

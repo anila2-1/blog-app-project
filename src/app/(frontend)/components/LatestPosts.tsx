@@ -20,9 +20,10 @@ const DEFAULT_LANG = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || l
 
 interface LatestPostsProps {
   posts: Post[] | SimplifiedPost[]
+  loading: boolean
 }
 
-export default function LatestPosts({ posts }: LatestPostsProps) {
+export default function LatestPosts({ posts, loading }: LatestPostsProps) {
   const langConfig = getLanguageConfig(DEFAULT_LANG)
 
   const translations = {
@@ -32,7 +33,27 @@ export default function LatestPosts({ posts }: LatestPostsProps) {
   }
   const t = translations[DEFAULT_LANG] || translations.en
 
-  // 🚫 No posts
+  if (loading) {
+    return (
+      <div className="space-y-4 mt-5 animate-pulse">
+        {[1, 2, 3, 4].map((i) => (
+          <div
+            key={i}
+            className="block p-3 rounded-2xl bg-white border border-black/10 shadow-[2px_2px_0px_#00000066]"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-20 h-20 bg-gray-200 rounded-xl"></div>
+              <div className="flex-1">
+                <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+                <div className="h-3 bg-gray-200 rounded w-full"></div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    )
+  }
+
   if (posts.length === 0) {
     return (
       <p
@@ -45,26 +66,16 @@ export default function LatestPosts({ posts }: LatestPostsProps) {
     )
   }
 
-  // ✅ Latest Posts list
   return (
-    <div
-      className="space-y-4 mt-5"
-      dir={langConfig.direction}
-      style={{ fontFamily: langConfig.font }}
-    >
+    <div className="space-y-4 mt-5">
       {posts.map((post) => (
         <Link
           key={post.id}
           href={`/${post.slug}`}
-          className="group relative block p-3 rounded-2xl bg-white
-                     border-2 border-black shadow-[2px_2px_0px_#00000066]
-                     transition-all duration-200 ease-out
-                     hover:-translate-y-[3px] hover:shadow-[2px_2px_0px_#00000066]
-                     active:translate-x-0.5 active:translate-y-0.5"
+          className="group relative block p-3 rounded-2xl bg-white border border-black/10 shadow-[2px_2px_0px_#00000066] transition-all duration-200 ease-out hover:-translate-y-[3px] hover:shadow-[2px_2px_0px_#00000066] active:translate-x-0.5 active:translate-y-0.5"
         >
           <div className="flex items-center gap-3">
-            {/* 🖼️ Post Image */}
-            <div className="relative w-20 h-20 shrink-0 overflow-hidden rounded-xl border-2 border-black shadow-[2px_2px_0px_#00000066]">
+            <div className="relative w-20 h-20 shrink-0 overflow-hidden rounded-xl border border-black/10 shadow-[2px_2px_0px_#00000066]">
               {typeof post.image !== 'string' && post.image?.url ? (
                 <Image
                   src={post.image.url}
@@ -73,13 +84,9 @@ export default function LatestPosts({ posts }: LatestPostsProps) {
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
                 />
               ) : (
-                <div className="w-full h-full bg-linear-to-br from-gray-200 to-gray-300 flex items-center justify-center text-gray-500 text-sm">
-                  No Image
-                </div>
+                <div className="w-full h-full bg-gray-200"></div>
               )}
             </div>
-
-            {/* 📝 Text Content */}
             <div className="flex-1 min-w-0">
               <h3 className="font-bold text-gray-900 group-hover:text-indigo-600 line-clamp-2 text-sm sm:text-base transition-colors duration-200">
                 {post.title}

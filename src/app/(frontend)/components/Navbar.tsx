@@ -73,10 +73,10 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 text-purple-800 font-medium">
+        <Link href="/" className="flex items-center gap-2 text-black font-medium">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center border-2 border-black">
-              <span className="text-white font-bold text-sm">B</span>
+            <div className="w-8 h-8 rounded-full bg-yellow-400 flex items-center justify-center border-2 border-black">
+              <span className="text-black font-bold text-sm">B</span>
             </div>
             <span className="text-xl font-extrabold text-purple-900 uppercase tracking-wider">
               {t.siteName}

@@ -74,7 +74,7 @@ export default function CategoryFilterBar() {
       {validCategories.length > 4 && (
         <Link
           href="/categories"
-          className="px-4 py-2 text-sm font-bold text-gray-800 bg-yellow-100 border-2 border-black rounded-full hover:bg-yellow-200 transition-all shadow-[2px_2px_0px_#00000066] active:translate-x-0.5 active:translate-y-0.5 shrink-0"
+          className="px-4 py-2 text-sm font-bold text-gray-800 bg-yellow-100 border border-black/20 rounded-full hover:bg-yellow-200 transition-all shadow-[2px_2px_0px_#00000066] active:translate-x-0.5 active:translate-y-0.5 shrink-0"
         >
           {t.all}
         </Link>
@@ -84,7 +84,7 @@ export default function CategoryFilterBar() {
         <Link
           key={category.id}
           href={`/categories/${category.slug}`}
-          className="px-4 py-2 text-sm font-bold text-gray-800 bg-white border-2 border-black rounded-full hover:bg-gray-100 transition-all shadow-[2px_2px_0px_#00000066] shrink-0"
+          className="px-4 py-2 text-sm font-bold text-gray-800 bg-white border border-black/20 rounded-full hover:bg-yellow-200 transition-all shadow-[2px_2px_0px_#00000066] active:translate-x-0.5 active:translate-y-0.5 shrink-0"
         >
           {category.name.toUpperCase()}
         </Link>

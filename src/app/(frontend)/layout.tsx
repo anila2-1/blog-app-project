@@ -21,15 +21,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <head>
           <link rel="stylesheet" href={activeLang.css} />
         </head>
-        <body className="bg-[#fff5cf] text-gray-800 relative min-h-screen">
+        <body className="bg-[#fff9e2] text-gray-800 relative min-h-screen">
           {/* 🌿 Gradient Grid Background */}
-          <div className="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none bg-[#fff5cf] overflow-hidden">
+          <div className="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none bg-[#fff9e2] overflow-hidden">
             {/* Gradient overlay */}
-            <div className="absolute inset-0 bg-linear-to-br from-[#fff5cf] via-[#ffe9a3] to-[#ffd166] opacity-60" />
+            <div className="absolute inset-0 bg-linear-to-br from-[#fffbec] via-[#fffcf0] to-[#fffbf0] opacity-60" />
 
             {/* Subtle grid pattern */}
             <div
-              className="absolute inset-0 opacity-20"
+              className="absolute inset-0 opacity-10"
               style={{
                 backgroundImage: `
         linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px),
