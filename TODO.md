@@ -1,0 +1,6 @@
+- Convert homepage to server component
+- Add ISR with revalidate
+- Optimize images in components
+- Add lazy loading for components
+- Implement API caching
+- Test performance improvements
