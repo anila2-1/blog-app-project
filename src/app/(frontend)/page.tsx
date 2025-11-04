@@ -180,7 +180,7 @@ export default function HomePage() {
           </SectionCard>
 
           <SectionCard label="Categories" padding="p-6" labelPosition="top-4 left-4">
-            <CategoryCards categories={categories} loading={true} />
+            <CategoryCards categories={categories} loading={loading} />
           </SectionCard>
         </div>
 
