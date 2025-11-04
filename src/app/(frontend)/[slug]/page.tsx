@@ -30,8 +30,9 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
     const rawCat = (post as any)?.category ?? (post as any)?.categories?.[0]
     return typeof rawCat === 'object' && rawCat ? rawCat : undefined
   })()
-  const title = post.seo?.metaTitle || post.title
-  const description = post.seo?.metaDescription || post.excerpt
+  const seo = (post as any).seo
+  const title = seo?.metaTitle || post.title
+  const description = seo?.metaDescription || post.excerpt
   const categorySuffix = category ? ` | Category: ${category.name || category.title}` : ''
   const fullDescription = `${description}${categorySuffix}`
 

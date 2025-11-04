@@ -55,17 +55,40 @@ export default buildConfig({
   plugins: [
     payloadCloudPlugin(),
     seoPlugin({
-      collections: ['posts', 'categories'],
-      uploadsCollection: 'media',
+      collections: ['posts'],
       generateTitle: ({ doc }) => `Modern Web - ${doc?.title?.value || doc?.name?.value}`,
       generateDescription: ({ doc }) => doc?.excerpt?.value || doc?.metaDescription?.value,
       generateURL: ({ doc, collectionSlug }) => {
         if (collectionSlug === 'posts') {
-          return `/${doc.slug.value}`
+          const defaultLocale = 'en'
+          const docLocale = (doc as any)?.locale || defaultLocale
+
+          let slug = ''
+          try {
+            const slugValue = (doc as any)?.slug?.value
+            if (!slugValue) {
+              slug = (doc as any)?.slug || ''
+            } else if (typeof slugValue === 'string') {
+              slug = slugValue
+            } else if (typeof slugValue === 'object') {
+              slug =
+                slugValue[docLocale] ??
+                slugValue[defaultLocale] ??
+                Object.values(slugValue)[0] ??
+                ''
+            } else {
+              slug = String(slugValue)
+            }
+          } catch (e) {
+            slug = ''
+          }
+
+          if (docLocale && docLocale !== defaultLocale && slug) {
+            return `/${docLocale}/${slug}`
+          }
+          return `/${slug}`
         }
-        if (collectionSlug === 'categories') {
-          return `/categories/${doc.slug.value}`
-        }
+
         return '/'
       },
     }),

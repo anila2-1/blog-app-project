@@ -100,37 +100,37 @@ export const Posts: CollectionConfig = {
       },
     },
 
-    {
-      name: 'seo',
-      type: 'group',
-      label: 'SEO',
-      localized: true,
-      admin: {
-        position: 'sidebar',
-      },
-      fields: [
-        {
-          name: 'metaTitle',
-          label: 'Meta Title',
-          type: 'text',
-          required: false,
-          maxLength: 60,
-          admin: {
-            description: 'Recommended under 60 characters',
-          },
-        },
-        {
-          name: 'metaDescription',
-          label: 'Meta Description',
-          type: 'textarea',
-          required: false,
-          maxLength: 160,
-          admin: {
-            description: 'Recommended under 160 characters',
-          },
-        },
-      ],
-    },
+    // {
+    //   name: 'seo',
+    //   type: 'group',
+    //   label: 'SEO',
+    //   localized: true,
+    //   admin: {
+    //     position: 'sidebar',
+    //   },
+    //   fields: [
+    //     {
+    //       name: 'metaTitle',
+    //       label: 'Meta Title',
+    //       type: 'text',
+    //       required: false,
+    //       maxLength: 60,
+    //       admin: {
+    //         description: 'Recommended under 60 characters',
+    //       },
+    //     },
+    //     {
+    //       name: 'metaDescription',
+    //       label: 'Meta Description',
+    //       type: 'textarea',
+    //       required: false,
+    //       maxLength: 160,
+    //       admin: {
+    //         description: 'Recommended under 160 characters',
+    //       },
+    //     },
+    //   ],
+    // },
   ],
 }
 export default Posts
