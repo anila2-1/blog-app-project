@@ -1,19 +1,20 @@
-import { Post } from '../../../payload-types'
+'use client'
+import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { getLanguageConfig, LanguageCode, languages } from './../../../config/languages'
+import { getLanguageConfig, LanguageCode, languages } from '@/config/languages'
 
 interface SimplifiedPost {
-  id: string
-  title: string
-  slug: string
-  excerpt: string
-  image?: { url: string }
+  id?: string
+  title?: string
+  slug?: string
+  excerpt?: string
+  image?: { url?: string } | string
   publishedAt?: string
   featured?: boolean
   pinned?: boolean
   views?: number
-  category?: { name: string; slug: string }
+  category?: { name?: string; slug?: string }
 }
 
 const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || languages[0].code
@@ -28,12 +29,12 @@ const translations = {
 const t = translations[LANG_CODE] || translations.en
 
 interface FeaturedPostProps {
-  posts: Post[] | SimplifiedPost[]
+  posts?: SimplifiedPost[]
   loading: boolean
-  currentIndex: number
+  currentIndex?: number
 }
 
-export default function FeaturedPost({ posts, loading, currentIndex }: FeaturedPostProps) {
+export default function FeaturedPost({ posts = [], loading, currentIndex = 0 }: FeaturedPostProps) {
   if (loading) {
     return (
       <div className="mb-10 animate-pulse">
@@ -52,7 +53,7 @@ export default function FeaturedPost({ posts, loading, currentIndex }: FeaturedP
     )
   }
 
-  if (posts.length === 0) {
+  if (!posts || posts.length === 0) {
     return (
       <div
         className="bg-linear-to-br from-[#F16363]/20 to-[#F16363]/30 p-6 rounded-2xl text-center text-black font-medium shadow-[2px_2px_0px_#00000066] border-2 border-black"
@@ -64,9 +65,13 @@ export default function FeaturedPost({ posts, loading, currentIndex }: FeaturedP
     )
   }
 
-  const post = posts[currentIndex] || posts[0]
+  // Ensure index is within bounds
+  const safeIndex = Math.max(0, Math.min(currentIndex, posts.length - 1))
+  const post = posts[safeIndex] || posts[0]
+
+  // Normalize image shape and fallback
   const imageUrl =
-    typeof post.image === 'string' ? post.image : post.image?.url || '/placeholder.jpg'
+    typeof post?.image === 'string' ? post.image : (post?.image?.url ?? '/placeholder.jpg')
 
   return (
     <div className="mb-10 relative overflow-hidden rounded-2xl transition-all duration-300 ease-in-out">
@@ -75,7 +80,7 @@ export default function FeaturedPost({ posts, loading, currentIndex }: FeaturedP
           <div className="relative h-48 sm:h-60 rounded-2xl overflow-hidden border border-black/10 shadow-[2px_2px_0px_#00000066]">
             <Image
               src={imageUrl}
-              alt={post.title || 'Featured Post'}
+              alt={post?.title ?? 'Featured Post'}
               fill
               className="object-cover transition-transform duration-500 hover:scale-105"
               priority
@@ -86,14 +91,14 @@ export default function FeaturedPost({ posts, loading, currentIndex }: FeaturedP
         <div className="sm:w-1/2 flex flex-col justify-between text-black">
           <div>
             <h2 className="text-xl sm:text-2xl font-bold leading-tight mb-3 line-clamp-2">
-              {post.title}
+              {post?.title ?? ''}
             </h2>
             <p className="text-gray-900 text-sm sm:text-base leading-relaxed line-clamp-3 opacity-90">
-              {post.excerpt}
+              {post?.excerpt ?? ''}
             </p>
           </div>
           <Link
-            href={`/${post.slug}`}
+            href={`/posts/${post?.slug ?? ''}`}
             className="mt-4 inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold text-black bg-yellow-200 rounded-full border-2 border-black shadow-[2px_2px_0px_#00000066] active:translate-x-0.5 active:translate-y-0.5 transition-all duration-200 ease-out hover:bg-yellow-300 group"
           >
             {t.readMore}

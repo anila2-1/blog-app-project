@@ -1,3 +1,4 @@
+import React, { memo } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Post } from '../../../payload-types'
@@ -8,7 +9,7 @@ interface SimplifiedPost {
   title: string
   slug: string
   excerpt: string
-  image?: { url: string }
+  image?: { url: string } | string | null
   publishedAt?: string
   featured?: boolean
   pinned?: boolean
@@ -19,11 +20,11 @@ interface SimplifiedPost {
 const DEFAULT_LANG = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || languages[0].code
 
 interface LatestPostsProps {
-  posts: Post[] | SimplifiedPost[]
+  posts?: Post[] | SimplifiedPost[] // allow undefined while loading/fetching
   loading: boolean
 }
 
-export default function LatestPosts({ posts, loading }: LatestPostsProps) {
+const LatestPosts: React.FC<LatestPostsProps> = ({ posts, loading }) => {
   const langConfig = getLanguageConfig(DEFAULT_LANG)
 
   const translations = {
@@ -54,7 +55,9 @@ export default function LatestPosts({ posts, loading }: LatestPostsProps) {
     )
   }
 
-  if (posts.length === 0) {
+  const safePosts = Array.isArray(posts) ? posts : []
+
+  if (safePosts.length === 0) {
     return (
       <p
         className="text-gray-600 text-center py-6"
@@ -68,34 +71,53 @@ export default function LatestPosts({ posts, loading }: LatestPostsProps) {
 
   return (
     <div className="space-y-4 mt-5">
-      {posts.map((post) => (
-        <Link
-          key={post.id}
-          href={`/${post.slug}`}
-          className="group relative block p-3 rounded-2xl bg-white border border-black/10 shadow-[2px_2px_0px_#00000066] transition-all duration-200 ease-out hover:-translate-y-[3px] hover:shadow-[2px_2px_0px_#00000066] active:translate-x-0.5 active:translate-y-0.5"
-        >
-          <div className="flex items-center gap-3">
-            <div className="relative w-20 h-20 shrink-0 overflow-hidden rounded-xl border border-black/10 shadow-[2px_2px_0px_#00000066]">
-              {typeof post.image !== 'string' && post.image?.url ? (
-                <Image
-                  src={post.image.url}
-                  alt={post.title}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-              ) : (
-                <div className="w-full h-full bg-gray-200"></div>
-              )}
-            </div>
-            <div className="flex-1 min-w-0">
-              <h3 className="font-bold text-gray-900 group-hover:text-indigo-600 line-clamp-2 text-sm sm:text-base transition-colors duration-200">
-                {post.title}
-              </h3>
-              <p className="text-gray-700 text-xs mt-1 line-clamp-2">{post.excerpt}</p>
+      {safePosts.map((post, idx) => {
+        // safe fallbacks to avoid runtime errors
+        const id = (post as any)?.id ?? (post as any)?.slug ?? idx
+        const slug = (post as any)?.slug ?? ''
+        const title = (post as any)?.title ?? t.label
+        const excerpt = (post as any)?.excerpt ?? ''
+        const rawImage = (post as any)?.image
+        const imageUrl =
+          typeof rawImage === 'string' ? rawImage : (rawImage?.url ?? '/placeholder.png') // placeholder should exist in public/
+
+        const content = (
+          <div className="group relative block p-3 rounded-2xl bg-white border border-black/10 shadow-[2px_2px_0px_#00000066] transition-all duration-200 ease-out hover:-translate-y-[3px] hover:shadow-[2px_2px_0px_#00000066] active:translate-x-0.5 active:translate-y-0.5">
+            <div className="flex items-center gap-3">
+              <div className="relative w-20 h-20 shrink-0 overflow-hidden rounded-xl border border-black/10 shadow-[2px_2px_0px_#00000066]">
+                {imageUrl ? (
+                  <Image
+                    src={imageUrl}
+                    alt={title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    sizes="80px"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gray-200" />
+                )}
+              </div>
+              <div className="flex-1 min-w-0">
+                <h3 className="font-bold text-gray-900 group-hover:text-indigo-600 line-clamp-2 text-sm sm:text-base transition-colors duration-200">
+                  {title}
+                </h3>
+                <p className="text-gray-700 text-xs mt-1 line-clamp-2">{excerpt}</p>
+              </div>
             </div>
           </div>
-        </Link>
-      ))}
+        )
+
+        // if no slug, render non-link wrapper to avoid broken navigation
+        return slug ? (
+          <Link key={id} href={`/${slug}`}>
+            {content}
+          </Link>
+        ) : (
+          <div key={id}>{content}</div>
+        )
+      })}
     </div>
   )
 }
+
+export default memo(LatestPosts)
