@@ -2,11 +2,6 @@ import { withPayload } from '@payloadcms/next/withPayload'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Required for Payload + Next.js compatibility in monorepos
-  experimental: {
-    serverComponentsExternalPackages: ['@payloadcms/db-mongodb', '@payloadcms/plugin-nested-docs'],
-  },
-
   // Transpile Payload-related packages that use modern JS/TS
   transpilePackages: [
     '@payloadcms/richtext-lexical',
@@ -15,15 +10,10 @@ const nextConfig = {
   ],
 
   // Webpack config fixes for TypeScript + ESM/CJS interop
-  webpack: (config, { dev, isServer }) => {
+  webpack: (config) => {
     // Only apply aliasing if needed—often unnecessary in Next.js 13+
     config.resolve.extensionAlias = {
       '.js': ['.ts', '.tsx', '.js', '.jsx'],
-    }
-
-    // Important: Do not bundle MongoDB driver in serverless environments
-    if (!dev && isServer) {
-      config.externals = [...(config.externals || []), 'mongodb']
     }
 
     return config
