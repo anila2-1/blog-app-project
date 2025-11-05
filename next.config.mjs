@@ -2,30 +2,21 @@ import { withPayload } from '@payloadcms/next/withPayload'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Transpile Payload-related packages that use modern JS/TS
-  transpilePackages: [
-    '@payloadcms/richtext-lexical',
-    '@payloadcms/ui',
-    '@payloadcms/next', // sometimes needed
-  ],
-
-  // Webpack config fixes for TypeScript + ESM/CJS interop
-  webpack: (config) => {
-    // Only apply aliasing if needed—often unnecessary in Next.js 13+
-    config.resolve.extensionAlias = {
+  // Your Next.js config here
+  webpack: (webpackConfig) => {
+    webpackConfig.resolve.extensionAlias = {
+      '.cjs': ['.cts', '.cjs'],
       '.js': ['.ts', '.tsx', '.js', '.jsx'],
+      '.mjs': ['.mts', '.mjs'],
     }
 
-    return config
+    return webpackConfig
   },
-
-  // Pass through necessary env vars (only public ones via NEXT_PUBLIC_*)
+  transpilePackages: ['@payloadcms/richtext-lexical'],
+  serverExternalPackages: ['@payloadcms/db-mongodb'],
   env: {
     NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL || 'http://localhost:3000',
   },
 }
 
-export default withPayload(nextConfig, {
-  // Recommended for production builds; set to true only in dev if needed
-  devBundleServerPackages: false,
-})
+export default withPayload(nextConfig, { devBundleServerPackages: false })
