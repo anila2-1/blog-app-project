@@ -80,15 +80,19 @@ export default function CategoryFilterBar() {
         </Link>
       )}
       {/* 🌈 Category Buttons (first 4 only) */}
-      {visibleCategories.map((category) => (
-        <Link
-          key={category.id}
-          href={`/categories/${category.slug}`}
-          className="px-4 py-2 text-sm font-bold text-gray-800 bg-white border border-black/20 rounded-full hover:bg-yellow-200 transition-all shadow-[2px_2px_0px_#00000066] active:translate-x-0.5 active:translate-y-0.5 shrink-0"
-        >
-          {category.name.toUpperCase()}
-        </Link>
-      ))}
+      {visibleCategories.map((category) => {
+        // Safely handle missing or non-string names
+        const name = typeof category.name === 'string' ? category.name : ''
+        return (
+          <Link
+            key={category.id}
+            href={`/categories/${category.slug}`}
+            className="px-4 py-2 text-sm font-bold text-gray-800 bg-white border border-black/20 rounded-full hover:bg-yellow-200 transition-all shadow-[2px_2px_0px_#00000066] active:translate-x-0.5 active:translate-y-0.5 shrink-0"
+          >
+            {name.toUpperCase()}
+          </Link>
+        )
+      })}
     </div>
   )
 }
