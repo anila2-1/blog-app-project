@@ -36,7 +36,7 @@ const translations = {
   },
 }
 
-const t = translations[LANG_CODE] || translations.en
+const t = translations[LANG_CODE as keyof typeof translations] || translations.en
 const POSTS_PER_PAGE = 6
 
 export default function PostsPageClient({ initialPage }: { initialPage: number }) {
