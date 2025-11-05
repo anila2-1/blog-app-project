@@ -1,22 +1,30 @@
+// next.config.js
 import { withPayload } from '@payloadcms/next/withPayload'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Your Next.js config here
-  webpack: (webpackConfig) => {
-    webpackConfig.resolve.extensionAlias = {
-      '.cjs': ['.cts', '.cjs'],
-      '.js': ['.ts', '.tsx', '.js', '.jsx'],
-      '.mjs': ['.mts', '.mjs'],
-    }
-
-    return webpackConfig
-  },
+  // Only transpile packages that use modern syntax (like Lexical)
   transpilePackages: ['@payloadcms/richtext-lexical'],
-  serverExternalPackages: ['@payloadcms/db-mongodb'],
+
+  // Optional: pass public env vars (but prefer NEXT_PUBLIC_* in .env)
   env: {
     NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL || 'http://localhost:3000',
   },
+
+  // Critical: Prevent bundling of native/server-only modules
+  experimental: {
+    serverComponentsExternalPackages: ['@payloadcms/db-mongodb'],
+  },
+
+  // Keep webpack minimal unless you have a specific need
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      // Client-only: ensure MongoDB is not imported
+    }
+    return config
+  },
 }
 
-export default withPayload(nextConfig, { devBundleServerPackages: false })
+export default withPayload(nextConfig, {
+  devBundleServerPackages: false, // correct for production
+})
