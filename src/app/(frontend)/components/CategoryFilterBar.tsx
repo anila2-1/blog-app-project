@@ -11,6 +11,7 @@ const translations = {
   en: { all: 'ALL' },
   he: { all: 'הכול' },
   hr: { all: 'SVE' },
+  tr: { all: 'HEPSİ' },
 }
 
 const t = translations[LANG_CODE] || translations.en

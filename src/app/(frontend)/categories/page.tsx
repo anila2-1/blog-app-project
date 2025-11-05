@@ -26,6 +26,12 @@ const translations = {
     noCategories: 'Nema dostupnih kategorija.',
     backToHome: '← Natrag na početnu',
   },
+  tr: {
+    pageTitle: 'Konuları Keşfedin',
+    pageSubtitle: 'Makalelere kategoriye göre göz atın',
+    noCategories: 'Kategori mevcut değil.',
+    backToHome: '← Ana Sayfaya Dön',
+  },
 }
 
 const t = translations[LANG_CODE] || translations.en

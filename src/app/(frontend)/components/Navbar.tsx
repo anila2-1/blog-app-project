@@ -38,6 +38,15 @@ const translations = {
     close: 'Zatvori',
     pressEsc: 'Pritisnite ESC za zatvaranje',
   },
+  tr: {
+    home: 'ANA SAYFA',
+    search: 'Ara...',
+    siteName: 'BLOGSITE',
+    searchModalTitle: 'Aramaya başlamak için yazın',
+    searchButton: 'ARA',
+    close: 'Kapat',
+    pressEsc: "Kapatmak için ESC'ye basın",
+  },
 }
 
 const t = translations[LANG_CODE] || translations.en

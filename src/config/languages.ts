@@ -1,6 +1,6 @@
 // src/lib/languages.ts
 
-export type LanguageCode = 'en' | 'he' | 'hr'
+export type LanguageCode = 'en' | 'he' | 'hr' | 'tr'
 
 export interface LanguageConfig {
   css?: string
@@ -35,6 +35,14 @@ export const languages: LanguageConfig[] = [
     font: 'David Libre, sans-serif', // ← real Hebrew font
     locale: 'he-IL',
     css: '/lang/he.css',
+  },
+  {
+    name: 'Turkish',
+    code: 'tr',
+    direction: 'ltr',
+    font: 'Outfit, sans-serif', // Use a suitable font, e.g., Outfit or a Turkish-specific one if available
+    locale: 'tr-TR',
+    css: '/lang/tr.css', // Assuming you add this CSS file
   },
 ]
 

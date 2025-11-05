@@ -31,6 +31,12 @@ const translations = {
     noResults: 'לא נמצאו פוסטים התואמים לשאילתה שלך.',
     error: 'נכשלה טעינת התוצאות',
   },
+  tr: {
+    resultsFor: 'Sonuçlar',
+    searching: 'Aranıyor...',
+    noResults: 'Sorgunuzla eşleşen gönderi bulunamadı.',
+    error: 'Sonuçlar yüklenemedi',
+  },
 }
 
 function SearchResultsPageContent({ locale = LANG_CODE }: { locale?: string }) {

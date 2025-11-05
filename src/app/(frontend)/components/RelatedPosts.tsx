@@ -25,6 +25,11 @@ const translations = {
     readMore: 'קרא עוד',
     noImage: 'אין תמונה',
   },
+  tr: {
+    relatedPosts: 'İlgili Gönderiler',
+    readMore: 'Devamını Oku',
+    noImage: 'Resim Yok',
+  },
 }
 
 interface RelatedPostsProps {

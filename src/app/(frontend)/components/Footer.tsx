@@ -45,6 +45,18 @@ const translations = {
     followText: 'Pratite nas za novosti, inspiraciju za dizajn i Payload CMS savjete.',
     builtWith: 'Izrađeno s ljubavlju pomoću Next.js i Payload CMS-a.',
   },
+  tr: {
+    siteName: 'BlogSite',
+    about:
+      'Payload CMS ile güçlendirilen modern bir blog platformu, esnekliği, basitliği ve zarif tasarımı seven içerik yaratıcıları için tasarlandı.',
+    quickLinks: 'Hızlı Bağlantılar',
+    home: 'Ana Sayfa',
+    posts: 'Gönderiler',
+    aboutPage: 'Hakkında',
+    stayConnected: 'Bağlantıda Kalın',
+    followText: 'Güncellemeler, tasarım ilhamı ve Payload CMS ipuçları için bizi takip edin.',
+    builtWith: 'Next.js ve Payload CMS kullanarak sevgiyle yapıldı.',
+  },
 }
 
 const t = translations[LANG_CODE] || translations.en

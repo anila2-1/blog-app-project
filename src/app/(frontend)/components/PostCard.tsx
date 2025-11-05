@@ -40,6 +40,10 @@ const translations = {
     readMore: 'Pročitaj više',
     noDate: 'Nema datuma',
   },
+  tr: {
+    readMore: 'Devamını Oku',
+    noDate: 'Tarih Yok',
+  },
 }
 
 const t = translations[LANG_CODE] || translations.en

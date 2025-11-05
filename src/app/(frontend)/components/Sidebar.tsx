@@ -10,6 +10,7 @@ const translations = {
   en: { advertisement: 'Advertisement', followUs: 'Follow Us' },
   he: { advertisement: 'פרסום', followUs: 'עקבו אחרינו' },
   hr: { advertisement: 'Oglašavanje', followUs: 'Pratite nas' },
+  tr: { advertisement: 'Reklam', followUs: 'Bizi Takip Edin' },
 }
 
 const t = translations[LANG_CODE] || translations.en

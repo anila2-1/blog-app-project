@@ -21,6 +21,7 @@ const translations = {
   en: { noPosts: 'No popular posts yet.' },
   he: { noPosts: 'אין פוסטים פופולריים עדיין.' },
   hr: { noPosts: 'Još nema popularnih postova.' },
+  tr: { noPosts: 'Henüz popüler gönderi yok.' },
 }
 
 const t = translations[LANG_CODE] || translations.en

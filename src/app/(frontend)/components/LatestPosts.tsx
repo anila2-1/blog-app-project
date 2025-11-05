@@ -31,6 +31,7 @@ const LatestPosts: React.FC<LatestPostsProps> = ({ posts, loading }) => {
     en: { noPosts: 'No posts found.', label: 'New' },
     he: { noPosts: 'לא נמצאו פוסטים.', label: 'חדש' },
     hr: { noPosts: 'Nema pronađenih postova.', label: 'Novo' },
+    tr: { noPosts: 'Gönderi bulunamadı.', label: 'Yeni' },
   }
   const t = translations[DEFAULT_LANG] || translations.en
 

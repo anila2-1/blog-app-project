@@ -22,6 +22,7 @@ const translations = {
   en: { noPosts: 'No pinned posts found.' },
   he: { noPosts: 'לא נמצאו פוסטים מוצמדים.' },
   hr: { noPosts: 'Nema prikvačenih postova.' },
+  tr: { noPosts: 'Sabitlenmiş gönderi bulunamadı.' },
 }
 
 const t = translations[LANG_CODE] || translations.en

@@ -26,6 +26,12 @@ const translations = {
     noCategories: 'Nema pronađenih kategorija.',
     loading: 'Učitavanje...',
   },
+  tr: {
+    exploreTopics: 'KONULARI KEŞFEDİN',
+    allCategories: 'Tüm Kategoriler',
+    noCategories: 'Kategori bulunamadı.',
+    loading: 'Yükleniyor...',
+  },
 }
 
 const t = translations[LANG_CODE] || translations.en
