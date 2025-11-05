@@ -28,6 +28,12 @@ const translations = {
     browseOther: 'Pregledajte druge teme',
     articleCount: (count: number) => `${count} članaka u ovoj kategoriji`,
   },
+  tr: {
+    allCategories: '← Tüm Kategoriler',
+    noPosts: 'Bu kategoride gönderi bulunamadı.',
+    browseOther: 'Diğer konuları göz atın',
+    articleCount: (count: number) => `${count} makale bu kategoride`,
+  },
 }
 
 const t = translations[LANG_CODE] || translations.en
