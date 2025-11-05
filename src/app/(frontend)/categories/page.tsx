@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { getLanguageConfig, LanguageCode, languages } from '@/config/languages'
 
-const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || languages[0].code
+const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || 'en'
 const langConfig = getLanguageConfig(LANG_CODE)
 
 const translations = {
