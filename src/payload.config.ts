@@ -8,7 +8,7 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
-import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
+// import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
@@ -94,13 +94,13 @@ export default buildConfig({
         return '/'
       },
     }),
-    vercelBlobStorage({
-      cacheControlMaxAge: 60 * 60 * 24 * 365, // 1 year
-      enabled: true,
-      collections: {
-        media: true,
-      },
-      token: process.env.BLOB_READ_WRITE_TOKEN || '',
-    }),
+    // vercelBlobStorage({
+    //   cacheControlMaxAge: 60 * 60 * 24 * 365, // 1 year
+    //   enabled: true,
+    //   collections: {
+    //     media: true,
+    //   },
+    //   token: process.env.BLOB_READ_WRITE_TOKEN || '',
+    // }),
   ],
 })

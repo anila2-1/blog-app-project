@@ -23,9 +23,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </head>
         <body className="bg-[#fffae8] text-gray-800 relative min-h-screen">
           {/* 🌿 Gradient Grid Background */}
-          <div className="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none bg-[#fffcf0] overflow-hidden">
+          <div className="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none bg-[#fffcf1] overflow-hidden">
             {/* Gradient overlay */}
-            <div className="absolute inset-0 bg-linear-to-br from-[#fffbec] via-[#fffcf0] to-[#fffbf0] opacity-60" />
+            <div className="absolute inset-0 bg-linear-to-br from-[#fffcf4] via-[#fffcf4] to-[#fffcf4] opacity-60" />
 
             {/* Subtle grid pattern */}
             <div
@@ -40,7 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             />
 
             {/* Soft glow highlight */}
-            <div className="absolute top-1/3 left-1/3 w-[600px] h-[600px] rounded-full bg-[#ff9e6d]/20 blur-[120px]" />
+            <div className="absolute top-1/3 left-1/3 w-[600px] h-[600px] rounded-full bg-[rgb(255,237,229)]/30 blur-[120px]" />
           </div>
 
           <Navbar />
