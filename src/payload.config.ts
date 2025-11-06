@@ -94,13 +94,5 @@ export default buildConfig({
         return '/'
       },
     }),
-    // vercelBlobStorage({
-    //   cacheControlMaxAge: 60 * 60 * 24 * 365, // 1 year
-    //   enabled: true,
-    //   collections: {
-    //     media: true,
-    //   },
-    //   token: process.env.BLOB_READ_WRITE_TOKEN || '',
-    // }),
   ],
 })
