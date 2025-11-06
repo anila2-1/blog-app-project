@@ -94,7 +94,6 @@ export default buildConfig({
         return '/'
       },
     }),
-    // storage-adapter-placeholder
     vercelBlobStorage({
       cacheControlMaxAge: 60 * 60 * 24 * 365, // 1 year
       enabled: true,
