@@ -63,12 +63,15 @@ export default buildConfig({
       generateURL: ({ doc, collectionSlug }) => {
         if (collectionSlug === 'posts') {
           const defaultLocale = 'en'
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const docLocale = (doc as any)?.locale || defaultLocale
 
           let slug = ''
           try {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const slugValue = (doc as any)?.slug?.value
             if (!slugValue) {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               slug = (doc as any)?.slug || ''
             } else if (typeof slugValue === 'string') {
               slug = slugValue
@@ -81,6 +84,7 @@ export default buildConfig({
             } else {
               slug = String(slugValue)
             }
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
           } catch (e) {
             slug = ''
           }
