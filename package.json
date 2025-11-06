@@ -18,7 +18,7 @@
     "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts"
   },
   "dependencies": {
-    "@payloadcms/bundler-vite": "3.62.0",
+    "@payloadcms/bundler-webpack": "1.0.7",
     "@payloadcms/db-mongodb": "3.62.0",
     "@payloadcms/next": "3.62.0",
     "@payloadcms/payload-cloud": "3.62.0",
