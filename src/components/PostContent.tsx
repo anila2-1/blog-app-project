@@ -1,9 +1,10 @@
+/* eslint-disable @next/next/no-img-element */
 // src/app/(frontend)/components/PostContent.tsx
 'use client'
 
 import { useEffect } from 'react'
 import { Post } from '@/payload-types'
-import RichText from './RichText'
+import { RichText } from '@payloadcms/richtext-lexical/react'
 import RelatedPosts from './../app/(frontend)/components/RelatedPosts' // ✅ fixed path
 import { getLanguageConfig, LanguageCode, languages } from '@/config/languages'
 
@@ -57,7 +58,7 @@ export default function PostContent({ post }: PostContentProps) {
         )}
 
         <div className="prose max-w-none prose-violet prose-headings:font-extrabold prose-p:text-white leading-relaxed">
-          <RichText data={post.content as any} />
+          <RichText data={post.content} />
         </div>
       </div>
 

@@ -15,6 +15,10 @@ import { Media } from './collections/Media'
 import Posts from './collections/Posts'
 import Categories from './collections/Categories'
 
+import { Code } from './blocks/Code/config'
+import { Content } from './blocks/Content/config'
+import { MediaBlock } from './blocks/MediaBlock/config'
+
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
@@ -26,9 +30,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, Posts, Categories],
-  blocks: [
-    // Add your blocks here
-  ],
+  blocks: [Code, Content, MediaBlock],
   localization: {
     locales: [
       {
@@ -55,6 +57,13 @@ export default buildConfig({
   }),
   sharp,
   plugins: [
+    // vercelBlobStorage({
+    //   enabled: true,
+    //   collections: {
+    //     media: true,
+    //   },
+    //   token: process.env.BLOB_READ_WRITE_TOKEN,
+    // }),
     payloadCloudPlugin(),
     seoPlugin({
       collections: ['posts'],

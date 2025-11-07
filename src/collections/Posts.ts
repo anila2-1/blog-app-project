@@ -1,8 +1,12 @@
 // src/collections/Posts.ts
 
 import { CollectionConfig } from 'payload'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
-
+import {
+  FixedToolbarFeature,
+  // BlocksFeature,
+  lexicalEditor,
+  EXPERIMENTAL_TableFeature,
+} from '@payloadcms/richtext-lexical'
 export const Posts: CollectionConfig = {
   slug: 'posts',
   labels: {
@@ -40,14 +44,16 @@ export const Posts: CollectionConfig = {
     {
       name: 'content',
       type: 'richText',
-      label: 'Content',
       localized: true,
-
-      required: true,
-
       editor: lexicalEditor({
-        features: ({ defaultFeatures }) => defaultFeatures,
+        features: ({ defaultFeatures }) => [
+          ...defaultFeatures,
+          FixedToolbarFeature(),
+          EXPERIMENTAL_TableFeature(),
+          // BlocksFeature(),
+        ],
       }),
+      required: true,
     },
     {
       name: 'image',

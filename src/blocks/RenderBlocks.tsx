@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { Fragment } from 'react'
 
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'

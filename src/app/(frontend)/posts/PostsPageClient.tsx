@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // src/app/(frontend)/components/PostsPageClient.tsx
 'use client'
 

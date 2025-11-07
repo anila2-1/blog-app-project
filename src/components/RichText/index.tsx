@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // src/components/RichText.tsx
 import {
   DefaultNodeTypes,
@@ -14,6 +15,7 @@ import React from 'react'
 import Image from 'next/image'
 import Prism from 'prismjs'
 // load common languages you'll need
+
 // @ts-ignore - prism component side-effect imports do not ship types
 import 'prismjs/components/prism-markup' // html
 // @ts-ignore - prism component side-effect imports do not ship types
@@ -35,6 +37,7 @@ import MediaBlock from './../../blocks/MediaBlock/Component'
 // Define missing types locally since blocks are not registered in payload config
 type BannerBlockProps = {
   style: 'info' | 'warning' | 'error' | 'success'
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   content: any // RichText content
   id?: string
   blockName?: string
