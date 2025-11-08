@@ -132,7 +132,7 @@ body {
 
 /* 💻 Full code blocks (multiline) */
 .prose pre {
-  background-color: #f8fafc !important; /* light neutral base */
+  background-color: #010a13 !important; /* light neutral base */
   border: 1px solid #dbeafe !important; /* soft sky border */
   border-radius: 0.75rem !important;
   padding: 1rem 1.25rem !important;
@@ -144,7 +144,7 @@ body {
 
 /* 🧠 Code text inside blocks */
 .prose pre code {
-  color: #0f172a !important; /* slate-900 text */
+  color: #eaf0ff !important; /* slate-900 text */
   background: transparent !important;
   font-size: 0.9rem !important;
   font-family: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace !important;

@@ -1,6 +1,6 @@
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { defaultLexical } from './fields/defaultLexical'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { buildConfig } from 'payload'
 import { en } from '@payloadcms/translations/languages/en'
@@ -14,6 +14,7 @@ import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import Posts from './collections/Posts'
 import Categories from './collections/Categories'
+import Pages from './collections/Pages'
 
 import { Code } from './blocks/Code/config'
 import { Content } from './blocks/Content/config'
@@ -29,7 +30,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Posts, Categories],
+  collections: [Users, Media, Posts, Categories, Pages], // Add Pages to collections
   blocks: [Code, Content, MediaBlock],
   localization: {
     locales: [
@@ -47,7 +48,7 @@ export default buildConfig({
   },
   // payload.config.ts
 
-  editor: lexicalEditor(),
+  editor: defaultLexical,
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),

@@ -4,7 +4,7 @@
 
 import { useEffect } from 'react'
 import { Post } from '@/payload-types'
-import { RichText } from '@payloadcms/richtext-lexical/react'
+import RichText from '@/components/RichText'
 import RelatedPosts from './../app/(frontend)/components/RelatedPosts' // ✅ fixed path
 import { getLanguageConfig, LanguageCode, languages } from '@/config/languages'
 
@@ -58,7 +58,7 @@ export default function PostContent({ post }: PostContentProps) {
         )}
 
         <div className="prose max-w-none prose-violet prose-headings:font-extrabold prose-p:text-white leading-relaxed">
-          <RichText data={post.content} />
+          <RichText className="max-w-3xl mx-auto" data={post.content} enableGutter={false} />
         </div>
       </div>
 
