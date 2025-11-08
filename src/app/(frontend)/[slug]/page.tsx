@@ -27,9 +27,11 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
 
   // safe category object: only keep it if API returned the relationship as an object
   const category = (() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const rawCat = (post as any)?.category ?? (post as any)?.categories?.[0]
     return typeof rawCat === 'object' && rawCat ? rawCat : undefined
   })()
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const seo = (post as any).seo
   const title = seo?.metaTitle || post.title
   const description = seo?.metaDescription || post.excerpt
@@ -64,7 +66,9 @@ export default async function SinglePostPage(props: { params: Promise<{ slug: st
   const post: Post = data.docs?.[0]
 
   // safe category object: only keep it if the relationship returned an object
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let category: any = (() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const rawCat = (post as any)?.category ?? (post as any)?.categories?.[0]
     return typeof rawCat === 'object' && rawCat ? rawCat : undefined
   })()
@@ -72,6 +76,7 @@ export default async function SinglePostPage(props: { params: Promise<{ slug: st
   // If we don't have a populated category object but we do have an id, fetch it server-side.
   if (!category) {
     try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const rawCatId = (post as any)?.category ?? (post as any)?.categories?.[0]
       if (rawCatId && (typeof rawCatId === 'string' || typeof rawCatId === 'number')) {
         const catRes = await fetch(
