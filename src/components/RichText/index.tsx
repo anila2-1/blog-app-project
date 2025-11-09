@@ -132,7 +132,10 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   html: ({ node }: any) => {
     const raw = node?.value || node?.html || node?.text || ''
-    const code = String(raw)
+    let code = String(raw)
+
+    // Strip out meta tags to prevent SEO issues (meta tags should only be in <head>)
+    code = code.replace(/<meta[^>]*>/gi, '')
 
     // Try to highlight with Prism if available; if not, render plain escaped text (React escapes automatically)
     let highlighted: string | null = null
@@ -346,14 +349,17 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     const prismLang =
       lang === 'html' || lang === 'markup' ? 'markup' : lang === 'js' ? 'javascript' : lang
 
+    // Strip out meta tags from code blocks as well to prevent SEO issues
+    const sanitizedCode = String(codeText).replace(/<meta[^>]*>/gi, '')
+
     // Try Prism highlighting; fall back to plain text rendering
     let highlighted: string | null = null
     try {
       if (typeof Prism !== 'undefined' && Prism.languages) {
         if (Prism.languages[prismLang]) {
-          highlighted = Prism.highlight(String(codeText), Prism.languages[prismLang], prismLang)
+          highlighted = Prism.highlight(sanitizedCode, Prism.languages[prismLang], prismLang)
         } else if (Prism.languages.markup) {
-          highlighted = Prism.highlight(String(codeText), Prism.languages.markup, 'markup')
+          highlighted = Prism.highlight(sanitizedCode, Prism.languages.markup, 'markup')
         }
       }
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -376,7 +382,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
               className={`font-mono text-sm block whitespace-pre`}
               aria-label={languageRaw ? `${languageRaw} code block` : 'code block'}
             >
-              {codeText}
+              {sanitizedCode}
             </code>
           )}
         </pre>
