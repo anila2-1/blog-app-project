@@ -49,20 +49,7 @@ const translations = {
 const t = translations[LANG_CODE] || translations.en
 
 export default function PostCard({ post, locale }: PostCardProps) {
-  let imageUrl = ''
-  if ('FeaturedImage' in post) {
-    if (typeof post.FeaturedImage === 'string') {
-      imageUrl = post.FeaturedImage
-    } else if (
-      post.FeaturedImage &&
-      typeof post.FeaturedImage === 'object' &&
-      post.FeaturedImage.url
-    ) {
-      imageUrl = post.FeaturedImage.url
-    }
-  } else if ('image' in post && post.image) {
-    imageUrl = post.image.url || ''
-  }
+  const imageUrl = typeof post.image === 'string' ? post.image : post.image?.url || ''
   const userLocale = locale || LANG_CODE
 
   const formattedDate = post.publishedAt
