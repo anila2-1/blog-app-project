@@ -41,7 +41,7 @@ export default buildConfig({
         code: 'en',
         rtl: false,
       },
-      { label: 'Hebrew', code: 'he-IL', rtl: true },
+      { label: 'Hebrew', code: 'he', rtl: true },
     ],
     defaultLocale: process.env.NEXT_PUBLIC_DEFAULT_LANG || 'en',
     fallback: true,
