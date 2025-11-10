@@ -71,7 +71,7 @@ const LatestPosts: React.FC<LatestPostsProps> = ({ posts, loading }) => {
   }
 
   return (
-    <div className="space-y-4 mt-5">
+    <div className="flex flex-col gap-3">
       {safePosts.map((post, idx) => {
         // safe fallbacks to avoid runtime errors
         const id = (post as any)?.id ?? (post as any)?.slug ?? idx
@@ -84,7 +84,7 @@ const LatestPosts: React.FC<LatestPostsProps> = ({ posts, loading }) => {
 
         const content = (
           <div className="group relative block p-3 rounded-2xl bg-white border border-black/10 shadow-[2px_2px_0px_#00000066] transition-all duration-200 ease-out hover:-translate-y-[3px] hover:shadow-[2px_2px_0px_#00000066] active:translate-x-0.5 active:translate-y-0.5">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-4">
               <div className="relative w-20 h-20 shrink-0 overflow-hidden rounded-xl border border-black/10 shadow-[2px_2px_0px_#00000066]">
                 {imageUrl ? (
                   <Image

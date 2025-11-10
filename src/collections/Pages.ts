@@ -13,7 +13,6 @@ const Pages: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'updatedAt'],
-    group: 'Page',
   },
   fields: [
     {
@@ -21,6 +20,8 @@ const Pages: CollectionConfig = {
       type: 'text',
       label: 'Page Title',
       required: true,
+      localized: true,
+
       admin: {
         description: 'Page title is very important for SEO',
       },
@@ -43,6 +44,7 @@ const Pages: CollectionConfig = {
       name: 'slug',
       type: 'text',
       label: 'Slug',
+      localized: true,
       required: true,
       unique: true,
       admin: {
@@ -55,11 +57,14 @@ const Pages: CollectionConfig = {
       name: 'seo',
       type: 'group',
       label: 'SEO Settings',
+
       fields: [
         {
           name: 'title',
           type: 'text',
           label: 'Meta Title',
+          localized: true,
+
           admin: {
             description: 'Google search results in Title (60 characters tak)',
           },
@@ -68,6 +73,8 @@ const Pages: CollectionConfig = {
           name: 'description',
           type: 'textarea',
           label: 'Meta Description',
+          localized: true,
+
           admin: {
             description: 'Meta Description (160 characters tak)',
           },

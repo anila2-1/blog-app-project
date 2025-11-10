@@ -3,7 +3,7 @@ import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { defaultLexical } from './fields/defaultLexical'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { buildConfig } from 'payload'
-import { en } from '@payloadcms/translations/languages/en'
+import { he } from '@payloadcms/translations/languages/he'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
@@ -35,16 +35,16 @@ export default buildConfig({
   localization: {
     locales: [
       {
-        label: 'English',
-        code: 'en',
-        rtl: false,
+        label: 'Hebrew',
+        code: 'he',
+        rtl: true,
       },
     ],
-    defaultLocale: 'en',
+    defaultLocale: 'he',
     fallback: true,
   },
   i18n: {
-    supportedLanguages: { en },
+    supportedLanguages: { he },
   },
   // payload.config.ts
 
@@ -58,14 +58,17 @@ export default buildConfig({
   }),
   sharp,
   plugins: [
+    // storage-adapter-placeholder
+
     vercelBlobStorage({
       cacheControlMaxAge: 60 * 60 * 24 * 365, // 1 year
       enabled: true,
       collections: {
         media: true,
       },
-      token: process.env.BLOB_READ_WRITE_TOKEN || '',
+      token: process.env.BLOB_READ_WRITE_TOKEN,
     }),
+
     payloadCloudPlugin(),
     seoPlugin({
       collections: ['posts'],
