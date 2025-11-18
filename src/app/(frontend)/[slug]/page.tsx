@@ -187,8 +187,8 @@ export default async function SinglePostPage(props: { params: Promise<{ slug: st
 
           {/* Follow Us Card */}
           <div
-            className={`bg-linear-to-br from-[#fdf8f0] via-[#fff5cf] to-[#fdf8f0]
-                  border border-black/10 shadow-[2px_2px_0px_#00000066] 
+            className={`bg-linear-to-br from-[#ffffff] via-[#fdfdfb] to-[#ffffff] 
+              border shadow-sm
                   transition-all duration-200 ease-out 
                   hover:-translate-y-1 active:translate-x-0.5 active:translate-y-0.5 
                   relative overflow-hidden rounded-2xl p-6`}
@@ -250,7 +250,7 @@ function SocialIcon({ Icon }: { Icon: React.ElementType }) {
       target="_blank"
       rel="noopener noreferrer"
       className={`group flex items-center justify-center w-12 h-12 rounded-full 
-                  bg-white border border-black shadow-[2px_2px_0px_#000000]
+                  bg-white border shadow-sm
                   transition-all duration-200 ease-out 
                   hover:-translate-y-[3px] active:translate-x-0.5 active:translate-y-0.5`}
     >
