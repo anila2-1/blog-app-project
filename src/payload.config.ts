@@ -4,6 +4,8 @@ import { defaultLexical } from './fields/defaultLexical'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { buildConfig } from 'payload'
 import { en } from '@payloadcms/translations/languages/en'
+import { he } from '@payloadcms/translations/languages/he'
+
 import path from 'path'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
@@ -39,12 +41,13 @@ export default buildConfig({
         code: 'en',
         rtl: false,
       },
+      { label: 'Hebrew', code: 'he', rtl: true },
     ],
-    defaultLocale: 'en',
+    defaultLocale: process.env.NEXT_PUBLIC_DEFAULT_LANG || 'en',
     fallback: true,
   },
   i18n: {
-    supportedLanguages: { en },
+    supportedLanguages: { en, he },
   },
   // payload.config.ts
 
