@@ -137,8 +137,8 @@ export default function PostsPageClient({ initialPage = 1 }: { initialPage?: num
           return (
             <div
               key={post.id}
-              className="group relative block bg-white/80 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-200/50 
-              shadow-[2px_2px_0px_#00000066] hover:shadow-xl active:translate-x-0.5 active:translate-y-0.5 transition-all duration-500 hover:-translate-y-2"
+              className="group relative block bg-white/80 backdrop-blur-sm rounded-2xl overflow-hidden border
+              shadow-sm hover:shadow-xl active:translate-x-0.5 active:translate-y-0.5 transition-all duration-500 hover:-translate-y-2"
             >
               <div className="relative h-52 w-full overflow-hidden">
                 <Image
@@ -175,8 +175,8 @@ export default function PostsPageClient({ initialPage = 1 }: { initialPage?: num
                 {/* ✅ Read More Button */}
                 <Link
                   href={`/${post.slug}`}
-                  className="inline-block mt-3 text-sm font-semibold bg-yellow-300 text-gray-900 px-4 py-2 rounded-full 
-                  border border-black shadow-[2px_2px_0px_#00000066] hover:bg-yellow-400 active:translate-x-0.5 active:translate-y-0.5 transition-all"
+                  className="inline-block mt-3 text-sm font-semibold bg-indigo-600 text-white px-4 py-2 rounded-full 
+                  border shadow-sm hover:bg-indigo-400 active:translate-x-0.5 active:translate-y-0.5 transition-all"
                 >
                   {t.readMore} →
                 </Link>
@@ -194,7 +194,7 @@ export default function PostsPageClient({ initialPage = 1 }: { initialPage?: num
           <button
             onClick={() => goToPage(currentPage - 1)}
             disabled={currentPage === 1}
-            className={`px-4 py-2 rounded-full font-bold border border-black shadow-[2px_2px_0px_#00000066] bg-white hover:bg-gray-100 active:translate-x-0.5 active:translate-y-0.5 transition-all ${
+            className={`px-4 py-2 rounded-full font-bold border shadow-sm bg-white hover:bg-gray-100 active:translate-x-0.5 active:translate-y-0.5 transition-all ${
               currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''
             }`}
           >
@@ -208,8 +208,8 @@ export default function PostsPageClient({ initialPage = 1 }: { initialPage?: num
                 <button
                   key={page}
                   onClick={() => goToPage(page)}
-                  className={`w-10 h-10 flex items-center justify-center rounded-full text-sm font-bold border border-black 
-                  shadow-[2px_2px_0px_#00000066] active:translate-x-0.5 active:translate-y-0.5 transition-all ${
+                  className={`w-10 h-10 flex items-center justify-center rounded-full text-sm font-bold border 
+                  shadow-sm active:translate-x-0.5 active:translate-y-0.5 transition-all ${
                     currentPage === page
                       ? 'bg-purple-600 text-white'
                       : 'bg-white text-gray-700 hover:bg-gray-100'
@@ -224,7 +224,7 @@ export default function PostsPageClient({ initialPage = 1 }: { initialPage?: num
           <button
             onClick={() => goToPage(currentPage + 1)}
             disabled={currentPage === totalPages}
-            className={`px-4 py-2 rounded-full font-bold border border-black shadow-[2px_2px_0px_#00000066] bg-white hover:bg-gray-100 active:translate-x-0.5 active:translate-y-0.5 transition-all ${
+            className={`px-4 py-2 rounded-full font-bold border shadow-sm bg-white hover:bg-gray-100 active:translate-x-0.5 active:translate-y-0.5 transition-all ${
               currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : ''
             }`}
           >
