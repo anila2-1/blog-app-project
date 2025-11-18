@@ -64,14 +64,14 @@ export default function PostCard({ post, locale }: PostCardProps) {
     <Link
       href={`/${post.slug}`}
       className={`group block rounded-xl overflow-hidden border border-black/10
-                  shadow-[2px_2px_0px_#00000066] bg-white/90 dark:bg-gray-900/60 
+                   bg-white/90 dark:bg-gray-900/60 
                   backdrop-blur-xl transition-all duration-200 ease-out 
                   hover:-translate-y-1 active:translate-x-0.5 active:translate-y-0.5`}
       dir={langConfig.direction}
       style={{ fontFamily: langConfig.font }}
     >
       {/* 🖼️ Image Section */}
-      <div className="relative h-52 sm:h-48 overflow-hidden rounded-t-xl">
+      <div className="relative h-42 w-full overflow-hidden rounded-t-xl">
         <Image
           src={imageUrl}
           alt={post.title || 'Post image'}
@@ -83,16 +83,6 @@ export default function PostCard({ post, locale }: PostCardProps) {
 
       {/* 📝 Content Section */}
       <div className="relative z-10 p-4 pt-2">
-        {/* Date Badge */}
-        <div
-          className={`inline-block mb-3 px-3 py-1 border border-black/10
-                      bg-white text-black text-xs font-bold rounded-full 
-                      shadow-[2px_2px_0px_#00000066] transition-all duration-200 ease-out 
-                      active:translate-x-0.5 active:translate-y-0.5`}
-        >
-          {formattedDate}
-        </div>
-
         {/* Title */}
         <h3
           className={`text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 

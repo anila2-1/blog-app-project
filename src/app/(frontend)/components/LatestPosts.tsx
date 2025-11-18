@@ -28,10 +28,10 @@ const LatestPosts: React.FC<LatestPostsProps> = ({ posts, loading }) => {
   const langConfig = getLanguageConfig(DEFAULT_LANG)
 
   const translations = {
-    en: { noPosts: 'No posts found.', label: 'New' },
-    he: { noPosts: 'לא נמצאו פוסטים.', label: 'חדש' },
-    hr: { noPosts: 'Nema pronađenih postova.', label: 'Novo' },
-    tr: { noPosts: 'Gönderi bulunamadı.', label: 'Yeni' },
+    en: { noPosts: 'No posts found.', label: 'New', views: 'views' },
+    he: { noPosts: 'לא נמצאו פוסטים.', label: 'חדש', views: 'צפיות' },
+    hr: { noPosts: 'Nema pronađenih postova.', label: 'Novo', views: 'pregleda' },
+    tr: { noPosts: 'Gönderi bulunamadı.', label: 'Yeni', views: 'görüntülenme' },
   }
   const t = translations[DEFAULT_LANG] || translations.en
 
@@ -43,11 +43,12 @@ const LatestPosts: React.FC<LatestPostsProps> = ({ posts, loading }) => {
             key={i}
             className="block p-3 rounded-2xl bg-white border border-black/10 shadow-[2px_2px_0px_#00000066]"
           >
-            <div className="flex items-center gap-3">
-              <div className="w-20 h-20 bg-gray-200 rounded-xl"></div>
-              <div className="flex-1">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gray-200 rounded-xl shrink-0"></div>
+              <div className="flex-1 min-w-0">
                 <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
                 <div className="h-3 bg-gray-200 rounded w-full"></div>
+                <div className="h-3 bg-gray-200 rounded w-1/2 mt-1"></div>
               </div>
             </div>
           </div>
@@ -61,7 +62,7 @@ const LatestPosts: React.FC<LatestPostsProps> = ({ posts, loading }) => {
   if (safePosts.length === 0) {
     return (
       <p
-        className="text-gray-600 text-center py-6"
+        className="text-gray-600 text-center py-6 text-sm sm:text-base"
         dir={langConfig.direction}
         style={{ fontFamily: langConfig.font }}
       >
@@ -83,16 +84,16 @@ const LatestPosts: React.FC<LatestPostsProps> = ({ posts, loading }) => {
           typeof rawImage === 'string' ? rawImage : (rawImage?.url ?? '/placeholder.png') // placeholder should exist in public/
 
         const content = (
-          <div className="group relative block p-3 rounded-2xl bg-white border border-black/10 shadow-[2px_2px_0px_#00000066] transition-all duration-200 ease-out hover:-translate-y-[3px] hover:shadow-[2px_2px_0px_#00000066] active:translate-x-0.5 active:translate-y-0.5">
-            <div className="flex items-center gap-4">
-              <div className="relative w-20 h-20 shrink-0 overflow-hidden rounded-xl border border-black/10 shadow-[2px_2px_0px_#00000066]">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl bg-white border border-gray-100 hover:bg-gray-50 transition-all duration-300 ease-out hover:-translate-y-1 active:translate-y-0 opacity-0 animate-fadeIn">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
+              <div className="relative w-16 h-16 sm:w-20 sm:h-20 shrink-0 overflow-hidden rounded-xl border border-black/10 shadow-[2px_2px_0px_#00000022]">
                 {imageUrl ? (
                   <Image
                     src={imageUrl}
                     alt={title}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
-                    sizes="80px"
+                    sizes="(max-width: 640px) 64px, (max-width: 768px) 80px, 80px"
                   />
                 ) : (
                   <div className="w-full h-full bg-gray-200" />
@@ -102,7 +103,7 @@ const LatestPosts: React.FC<LatestPostsProps> = ({ posts, loading }) => {
                 <h3 className="font-bold text-gray-900 group-hover:text-indigo-600 line-clamp-2 text-sm sm:text-base transition-colors duration-200">
                   {title}
                 </h3>
-                <p className="text-gray-700 text-xs mt-1 line-clamp-2">{excerpt}</p>
+                <p className="text-gray-700 text-xs sm:text-sm mt-1 line-clamp-2">{excerpt}</p>
               </div>
             </div>
           </div>

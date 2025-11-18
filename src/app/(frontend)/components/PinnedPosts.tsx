@@ -46,10 +46,7 @@ export default function PinnedPosts({ posts, loading }: PinnedPostsProps) {
         }`}
       >
         {[...Array(count)].map((_, i) => (
-          <div
-            key={i}
-            className="block rounded-xl overflow-hidden border border-black/10 shadow-[2px_2px_0px_#00000066] bg-white"
-          >
+          <div key={i} className="block rounded-xl overflow-hidden border bg-white">
             <div className="h-48 bg-gray-200"></div>
             <div className="p-4 pt-2">
               <div className="h-4 bg-gray-200 rounded w-16 mb-3"></div>

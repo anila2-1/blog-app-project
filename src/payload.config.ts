@@ -3,7 +3,7 @@ import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { defaultLexical } from './fields/defaultLexical'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { buildConfig } from 'payload'
-import { he } from '@payloadcms/translations/languages/he'
+import { en } from '@payloadcms/translations/languages/en'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
@@ -35,16 +35,16 @@ export default buildConfig({
   localization: {
     locales: [
       {
-        label: 'Hebrew',
-        code: 'he',
-        rtl: true,
+        label: 'English',
+        code: 'en',
+        rtl: false,
       },
     ],
-    defaultLocale: 'hebrew',
+    defaultLocale: 'en',
     fallback: true,
   },
   i18n: {
-    supportedLanguages: { he },
+    supportedLanguages: { en },
   },
   // payload.config.ts
 

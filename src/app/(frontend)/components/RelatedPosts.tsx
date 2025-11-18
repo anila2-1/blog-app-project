@@ -79,8 +79,8 @@ export default function RelatedPosts({ categorySlug, currentPostId, locale }: Re
           <Link
             key={post.id}
             href={`/${post.slug}`}
-            className="group relative flex flex-col overflow-hidden rounded-3xl border border-gray-200 
-                       bg-[#fff9ec] shadow-[3px_3px_0px_#00000088] hover:-translate-y-1 
+            className="group relative flex flex-col overflow-hidden rounded-2xl border
+                       bg-white shadow-sm hover:-translate-y-1 
                        active:translate-x-0.5 active:translate-y-0.5
                        transition-all duration-300"
           >
@@ -94,7 +94,7 @@ export default function RelatedPosts({ categorySlug, currentPostId, locale }: Re
                 />
               </div>
             ) : (
-              <div className="w-full h-48 bg-[#fff0da] flex items-center justify-center text-gray-400">
+              <div className="w-full h-48 bg-white flex items-center justify-center text-gray-400">
                 <p className="text-sm font-medium">{t.noImage}</p>
               </div>
             )}

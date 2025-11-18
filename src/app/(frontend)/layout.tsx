@@ -3,8 +3,9 @@
 import React from 'react'
 import './styles.css'
 import { languages } from '@/config/languages'
-import Navbar from './components/Navbar'
+import Navbar from './components/Navbar/Navbar1'
 import Footer from './components/Footer'
+import AnimatedBackground from './components/AnimatedBackground/AnimatedBackground' // New client component
 
 export const metadata = {
   title: 'Payload Blog Website',
@@ -16,38 +17,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const activeLang = languages.find((l) => l.code === langCode) || languages[0]
 
   return (
-    <>
-      <html lang={activeLang.locale} dir={activeLang.direction}>
-        <head>
-          <link rel="stylesheet" href={activeLang.css} />
-        </head>
-        <body className="bg-[#fffae8] text-gray-800 relative min-h-screen">
-          {/* 🌿 Gradient Grid Background */}
-          <div className="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none bg-[#fffcf1] overflow-hidden">
-            {/* Gradient overlay */}
-            <div className="absolute inset-0 bg-linear-to-br from-[#fffcf4] via-[#fffcf4] to-[#fffcf4] opacity-60" />
-
-            {/* Subtle grid pattern */}
-            <div
-              className="absolute inset-0 opacity-10"
-              style={{
-                backgroundImage: `
-        linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px)
-      `,
-                backgroundSize: '40px 40px',
-              }}
-            />
-
-            {/* Soft glow highlight */}
-            <div className="absolute top-1/3 left-1/3 w-[600px] h-[600px] rounded-full bg-[rgb(255,237,229)]/30 blur-[120px]" />
-          </div>
-
-          <Navbar />
-          <main className="p-4 relative z-10">{children}</main>
-          <Footer />
-        </body>
-      </html>
-    </>
+    <html lang={activeLang.locale} dir={activeLang.direction}>
+      <head>
+        <link rel="stylesheet" href={activeLang.css} />
+      </head>
+      <body className="bg-[#ffffff] text-gray-800 relative min-h-screen">
+        <AnimatedBackground />
+        <Navbar />
+        <main className="p-4 relative z-10">{children}</main>
+        <Footer />
+      </body>
+    </html>
   )
 }

@@ -84,7 +84,9 @@ export default function CategoryPostsPage() {
   if (loading) {
     return (
       <main
-        className="max-w-4xl mx-auto px-4 py-16 text-center"
+        className={`max-w-4xl mx-auto px-4 py-16 text-center ${
+          langConfig.direction === 'rtl' ? 'text-right' : 'text-left'
+        }`}
         dir={langConfig.direction}
         style={{ fontFamily: langConfig.font }}
       >
@@ -92,7 +94,7 @@ export default function CategoryPostsPage() {
           {[1, 2, 3, 4].map((i) => (
             <div
               key={i}
-              className="bg-white border border-gray-900 rounded-2xl p-6 shadow-[2px_2px_0px_#00000066] animate-pulse h-40"
+              className="bg-white border border-gray-900 rounded-2xl p-6 animate-pulse h-40"
             ></div>
           ))}
         </div>
@@ -102,30 +104,38 @@ export default function CategoryPostsPage() {
 
   return (
     <main
-      className="max-w-4xl mx-auto px-4 py-16"
+      className={`max-w-4xl mx-auto px-4 py-16 ${
+        langConfig.direction === 'rtl' ? 'text-right' : 'text-left'
+      }`}
       dir={langConfig.direction}
       style={{ fontFamily: langConfig.font }}
     >
-      <header className="mb-12 text-center sm:text-left">
+      <header className={`mb-12 ${langConfig.direction === 'rtl' ? 'text-right' : 'text-left'}`}>
         <Link
           href="/categories"
-          className="inline-flex items-center px-5 py-2.5 bg-yellow-300 border border-black/10 rounded-full font-bold text-black shadow-[2px_2px_0px_#00000066] hover:translate-x-0.5 hover:translate-y-0.5 transition-all duration-200"
+          className={`inline-flex items-center px-5 py-2.5 bg-yellow-300 border border-black/10 rounded-full font-bold text-black hover:translate-x-0.5 hover:translate-y-0.5 transition-all duration-200 ${
+            langConfig.direction === 'rtl' ? 'ml-auto' : ''
+          }`}
         >
           {t.allCategories}
         </Link>
 
-        <h1 className="mt-6 text-4xl md:text-5xl font-extrabold text-gray-900 mb-3 drop-shadow-[2px_2px_0px_#00000066]">
+        <h1 className="mt-6 text-4xl md:text-5xl font-extrabold text-gray-900 mb-3">
           {category?.name || 'Category'}
         </h1>
         <p className="text-lg text-gray-600">{t.articleCount(posts.length)}</p>
       </header>
 
       {posts.length === 0 ? (
-        <div className="text-center py-20">
+        <div
+          className={`text-center py-20 ${langConfig.direction === 'rtl' ? 'text-right' : 'text-left'}`}
+        >
           <p className="text-gray-500 text-lg mb-6">{t.noPosts}</p>
           <Link
             href="/categories"
-            className="inline-flex items-center px-6 py-3 bg-yellow-300 border border-black/10 rounded-xl font-bold text-black shadow-[2px_2px_0px_#00000066] hover:translate-x-0.5 hover:translate-y-0.5 transition-all duration-200"
+            className={`inline-flex items-center px-6 py-3 bg-yellow-300 border border-black/10 rounded-xl font-bold text-black hover:translate-x-0.5 hover:translate-y-0.5 transition-all duration-200 ${
+              langConfig.direction === 'rtl' ? 'ml-auto' : ''
+            }`}
           >
             {t.browseOther}
           </Link>
@@ -134,10 +144,10 @@ export default function CategoryPostsPage() {
         <div className="space-y-8">
           {posts.map((post) => (
             <Link key={post.id} href={`/${post.slug}`} className="block group">
-              <article className="bg-white border border-black/10 rounded-2xl overflow-hidden shadow-[2px_2px_0px_#00000066] hover:translate-x-0.5 hover:translate-y-0.5 transition-all duration-200">
+              <article className="bg-white border border-black/10 rounded-2xl overflow-hidden transition-all duration-200">
                 {/* ✅ Optional post image on top */}
                 {post.image && typeof post.image === 'object' && post.image.url && (
-                  <div className="relative w-full h-56 overflow-hidden border-b-2 border-black">
+                  <div className="relative w-full h-56 overflow-hidden border-b">
                     <img
                       src={post.image.url}
                       alt={post.title}

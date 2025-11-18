@@ -3,8 +3,8 @@
 @font-face {
   font-family: 'Outfit';
   src: url('/fonts/Outfit-Regular.woff2') format('woff2');
-  font-weight: 600;
-  font-style: normal;
+  font-weight: 700;
+  font-style: bold;
   font-display: swap;
 }
 

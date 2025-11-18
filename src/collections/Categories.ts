@@ -27,6 +27,12 @@ export const Categories: CollectionConfig = {
       required: true,
       unique: true,
     },
+    {
+      name: 'image',
+      type: 'upload', // This allows uploading images
+      relationTo: 'media', // Assuming you have a 'media' collection for uploads
+      required: false, // Optional, but recommended to make it required if you want all categories to have images
+    },
   ],
 }
 
