@@ -64,7 +64,7 @@ export default function PostCard({ post, locale }: PostCardProps) {
     <Link
       href={`/${post.slug}`}
       className={`group block rounded-xl overflow-hidden border border-black/10
-                   bg-white/90 dark:bg-gray-900/60 
+                   bg-white/90 
                   backdrop-blur-xl transition-all duration-200 ease-out 
                   hover:-translate-y-1 active:translate-x-0.5 active:translate-y-0.5`}
       dir={langConfig.direction}
@@ -85,7 +85,7 @@ export default function PostCard({ post, locale }: PostCardProps) {
       <div className="relative z-10 p-4 pt-2">
         {/* Title */}
         <h3
-          className={`text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 
+          className={`text-xl font-bold text-gray-900  mb-3 line-clamp-2 
                       group-hover:text-transparent group-hover:bg-clip-text 
                       group-hover:bg-linear-to-r group-hover:from-indigo-600 group-hover:to-purple-600 
                       transition-all duration-200 ease-out`}
@@ -94,9 +94,7 @@ export default function PostCard({ post, locale }: PostCardProps) {
         </h3>
 
         {/* Excerpt */}
-        <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed line-clamp-3 mb-3">
-          {post.excerpt}
-        </p>
+        <p className="text-gray-700  text-sm leading-relaxed line-clamp-3 mb-3">{post.excerpt}</p>
 
         {/* Read More Link */}
         <span
