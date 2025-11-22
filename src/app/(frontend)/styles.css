@@ -17,6 +17,7 @@ body {
 .payload-richtext b {
   font-weight: 700 !important;
 }
+
 .prose em,
 .prose i,
 .payload-richtext em,
@@ -122,11 +123,11 @@ body {
   font-weight: 500 !important;
 }
 
-/* Force bold text to be bold */
+/* Force bold text to be bold
 .payload-richtext strong,
 .payload-richtext b {
   font-weight: 700 !important;
-}
+} */
 /* ✨ Inline code inside prose (e.g. within a paragraph) */
 .prose code:not(pre code) {
   background-color: #d0f4ff !important; /* light sky background */
