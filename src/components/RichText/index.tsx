@@ -271,10 +271,24 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     if (format & 8) content = <del className="line-through">{content}</del>
     // Underline
     if (format & 4) content = <u className="underline">{content}</u>
-    // Italic
-    if (format & 2) content = <em className="italic">{content}</em>
-    // Bold
-    if (format & 1) content = <strong className="font-semibold">{content}</strong>
+    // Italic — include inline style to force italic on all platforms
+    if (format & 2)
+      content = (
+        <em className="italic" style={{ fontStyle: 'italic' }}>
+          {content}
+        </em>
+      )
+
+    // Bold — use stronger weight and inline style to ensure visibility on mobile
+    if (format & 1)
+      content = (
+        <strong
+          className="font-extrabold"
+          style={{ fontWeight: 800, WebkitFontSmoothing: 'antialiased' }}
+        >
+          {content}
+        </strong>
+      )
 
     return <span className="text-gray-800">{content}</span>
   },
