@@ -14,7 +14,7 @@ import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
-import Posts from './collections/Posts'
+import Posts from './collections/Posts/Posts'
 import Categories from './collections/Categories'
 import Pages from './collections/Pages'
 

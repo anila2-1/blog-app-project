@@ -11,8 +11,8 @@ import {
   EXPERIMENTAL_TableFeature,
 } from '@payloadcms/richtext-lexical'
 
-import { Banner } from './../blocks/Banner/config'
-import { Code } from './../blocks/Code/config'
+import { Banner } from '../../blocks/Banner/config'
+import { Code } from '../../blocks/Code/config'
 import { MediaBlock } from '@/blocks/MediaBlock/config'
 
 export const Posts: CollectionConfig = {
@@ -23,7 +23,7 @@ export const Posts: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', 'slug', 'featured', 'pinned', 'views', 'publishedAt'],
+    defaultColumns: ['title', 'slug', 'featured', 'pinned', 'views', 'publishedAt', 'author'],
   },
   access: {
     read: () => true,
@@ -116,38 +116,16 @@ export const Posts: CollectionConfig = {
         position: 'sidebar',
       },
     },
-
-    // {
-    //   name: 'seo',
-    //   type: 'group',
-    //   label: 'SEO',
-    //   localized: true,
-    //   admin: {
-    //     position: 'sidebar',
-    //   },
-    //   fields: [
-    //     {
-    //       name: 'metaTitle',
-    //       label: 'Meta Title',
-    //       type: 'text',
-    //       required: false,
-    //       maxLength: 60,
-    //       admin: {
-    //         description: 'Recommended under 60 characters',
-    //       },
-    //     },
-    //     {
-    //       name: 'metaDescription',
-    //       label: 'Meta Description',
-    //       type: 'textarea',
-    //       required: false,
-    //       maxLength: 160,
-    //       admin: {
-    //         description: 'Recommended under 160 characters',
-    //       },
-    //     },
-    //   ],
-    // },
+    {
+      name: 'author',
+      type: 'relationship',
+      relationTo: 'users', // assuming you have a users collection
+      hasMany: false,
+      required: true,
+      admin: {
+        position: 'sidebar',
+      },
+    },
   ],
 }
 export default Posts
