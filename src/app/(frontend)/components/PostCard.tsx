@@ -64,7 +64,7 @@ export default function PostCard({ post, locale }: PostCardProps) {
     <Link
       href={`/${post.slug}`}
       className={`group block rounded-xl overflow-hidden border border-black/10
-           bg-white/90 sm:dark:bg-gray-900/60 
+                   bg-white/90 dark:bg-gray-900/60 
                   backdrop-blur-xl transition-all duration-200 ease-out 
                   hover:-translate-y-1 active:translate-x-0.5 active:translate-y-0.5`}
       dir={langConfig.direction}

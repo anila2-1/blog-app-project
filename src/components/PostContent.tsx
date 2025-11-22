@@ -14,9 +14,10 @@ const langConfig = getLanguageConfig(LANG_CODE)
 interface PostContentProps {
   post: Post
   category?: any
+  author?: any
 }
 
-export default function PostContent({ post, category }: PostContentProps) {
+export default function PostContent({ post, category, author }: PostContentProps) {
   // Increment view count
   useEffect(() => {
     fetch('/api/increment-view', {
@@ -56,9 +57,19 @@ export default function PostContent({ post, category }: PostContentProps) {
         </div>
 
         {/* Title */}
-        <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 leading-snug">
+        <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-2 leading-snug">
           {post.title}
         </h1>
+
+        {/* Author */}
+        {author && (
+          <p className="text-sm text-gray-500 mb-4">
+            By{' '}
+            <span className="font-semibold text-gray-700">
+              {author.name || author.email || 'Unknown Author'}
+            </span>
+          </p>
+        )}
 
         {/* Featured Image */}
         {typeof post.image === 'object' && post.image?.url && (
