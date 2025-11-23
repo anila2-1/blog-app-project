@@ -194,9 +194,9 @@ export default function HomePage() {
       style={{ fontFamily: langConfig.font }}
     >
       {/* Featured Section */}
-      <div className="mb-8 sm:mb-10 md:mb-12 relative">
+      <div className="mb-4 sm:mb-8 md:mb-10 relative">
         <div
-          className="relative rounded-2xl sm:rounded-3xl overflow-hidden bg-white border border-black/10 shadow-sm"
+          className="relative rounded-2xl sm:rounded-3xl overflow-hidden bg-white border border-black/10 shadow-lg"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
@@ -298,136 +298,138 @@ export default function HomePage() {
           {/* All Post */}
           <SectionCard
             label={t.allPosts}
-            padding="p-6"
+            padding="p-4 sm:p-6"
             labelPosition="top-4 left-4"
-            customClasses="mt-12 bg-white shadow-sm backdrop-blur-sm "
+            customClasses="mt-12"
           >
             {loading ? (
-              <div className="space-y-6">
-                {[1, 2, 3].map((i) => (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 sm:gap-6">
+                {[1, 2, 3, 4].map((i) => (
                   <div
                     key={i}
-                    className="animate-pulse flex flex-col sm:flex-row gap-6 p-4 rounded-lg border border-gray-100"
+                    className="animate-pulse bg-white shadow-md rounded-xl overflow-hidden border border-gray-100"
                   >
-                    <div className="w-full sm:w-40 h-40 bg-gray-200 rounded-xl"></div>
-                    <div className="flex-1 space-y-4">
-                      <div className="w-3/4 h-5 bg-gray-200 rounded"></div>
-                      <div className="w-5/6 h-4 bg-gray-200 rounded"></div>
-                      <div className="w-4/6 h-4 bg-gray-200 rounded"></div>
+                    <div className="w-full h-40 sm:h-48 bg-gray-200"></div>
+                    <div className="p-3 sm:p-4 space-y-3">
+                      <div className="w-3/4 h-4 sm:h-5 bg-gray-200 rounded"></div>
+                      <div className="w-5/6 h-3 sm:h-4 bg-gray-200 rounded"></div>
+                      <div className="w-4/6 h-3 bg-gray-200 rounded"></div>
                     </div>
                   </div>
                 ))}
               </div>
             ) : allPosts.length > 0 ? (
-              <div className="space-y-6">
-                {allPosts.slice(0, visibleCount).map((post) => (
-                  <div
-                    key={post.id}
-                    className="flex flex-col sm:flex-row group gap-6 p-4 rounded-lg hover:bg-gray-50 transition-all duration-300"
-                  >
-                    {/* Image - positioned at the top */}
-                    {post.image?.url && (
-                      <div className="shrink-0 w-full sm:w-40 h-40 rounded-xl overflow-hidden shadow-lg bg-gray-100 flex items-center justify-center">
-                        <img
-                          src={post.image.url}
-                          alt={post.title}
-                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                          loading="lazy"
-                        />
+              <>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 sm:gap-6">
+                  {allPosts.slice(0, visibleCount).map((post) => (
+                    <div
+                      key={post.id}
+                      className="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 hover:scale-102 hover:-translate-y-1 flex flex-col h-full border border-gray-50"
+                    >
+                      {/* Image - Full width at top */}
+                      {post.image?.url && (
+                        <div className="w-full h-40 sm:h-48 overflow-hidden bg-linear-to-br from-purple-200 to-indigo-200 flex items-center justify-center">
+                          <img
+                            src={post.image.url}
+                            alt={post.title}
+                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                            loading="lazy"
+                          />
+                        </div>
+                      )}
+
+                      {/* Content */}
+                      <div className="flex-1 flex flex-col justify-between p-3 sm:p-4">
+                        <div>
+                          <h3 className="text-base sm:text-lg font-bold text-gray-900 leading-tight group-hover:text-purple-600 transition-all line-clamp-2 mb-1.5 sm:mb-2">
+                            {post.title}
+                          </h3>
+
+                          {post?.publishedAt && (
+                            <div className="flex items-center text-xs text-slate-500 mb-2 sm:mb-3 opacity-75 group-hover:opacity-100 transition-opacity">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="w-3 h-3 mr-1"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0121 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"
+                                />
+                              </svg>
+                              {new Date(post.publishedAt).toLocaleDateString(langConfig.locale, {
+                                year: 'numeric',
+                                month: 'short',
+                                day: 'numeric',
+                              })}
+                            </div>
+                          )}
+                          <p className="text-gray-600 text-xs sm:text-sm leading-relaxed line-clamp-2 mb-2 sm:mb-3 opacity-90 group-hover:opacity-100 transition-opacity">
+                            {post.excerpt}
+                          </p>
+                        </div>
+
+                        {/* Read More Button */}
+                        <Link href={`/${post.slug}`} className="w-full">
+                          <Button
+                            variant="contained"
+                            sx={{
+                              px: 1.5,
+                              py: 0.4,
+                              borderRadius: '30px',
+                              fontSize: '0.8rem',
+                              fontWeight: '600',
+                              textTransform: 'none',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              gap: '6px',
+                              background: 'linear-gradient(90deg, #7b5cf5, #a74bfa)',
+                              boxShadow: '0 4px 12px rgba(113,92,235,0.4)',
+                              transition: 'all 0.3s ease',
+                              position: 'relative',
+                              overflow: 'hidden',
+
+                              '&:hover': {
+                                animation: `${wave} 0.6s ease-in-out`,
+                                boxShadow: '0 6px 18px rgba(123,92,245,0.6)',
+                                background: 'linear-gradient(90deg, #a78bfa, #7b5cf5)',
+                              },
+
+                              '& .arrow': {
+                                transition: 'transform 0.3s ease',
+                              },
+                              '&:hover .arrow': {
+                                transform: 'translateX(6px)',
+                              },
+                            }}
+                          >
+                            <span>Read More</span>
+                            <span className="arrow">→</span>
+                          </Button>
+                        </Link>
                       </div>
-                    )}
-
-                    {/* Content */}
-                    <div className="flex-1 flex flex-col justify-between">
-                      <div>
-                        <h3 className="text-xl sm:text-2xl font-bold text-gray-900 leading-tight group-hover:text-purple-600 transition-all">
-                          {post.title}
-                        </h3>
-
-                        {post?.publishedAt && (
-                          <div className="flex items-center text-xs text-slate-500 mb-2 sm:mb-3">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              strokeWidth={1.5}
-                              stroke="currentColor"
-                              className="w-3.5 sm:w-4 h-3.5 sm:h-4 mr-1"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"
-                              />
-                            </svg>
-                            {new Date(post.publishedAt).toLocaleDateString(langConfig.locale, {
-                              year: 'numeric',
-                              month: 'short',
-                              day: 'numeric',
-                            })}
-                          </div>
-                        )}
-                        <p className="text-gray-600 text-base sm:text-sm mt-2 leading-relaxed">
-                          {post.excerpt}
-                        </p>
-                      </div>
-
-                      {/* Read More Button - Unique Hover Animation */}
-                      <Link href={`/${post.slug}`} className="mt-4 w-full sm:w-auto">
-                        <Button
-                          variant="contained"
-                          sx={{
-                            px: 3,
-                            py: 1,
-                            borderRadius: '30px',
-                            fontSize: '0.9rem',
-                            fontWeight: '600',
-                            textTransform: 'none',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '8px',
-                            background: 'linear-gradient(90deg, #7b5cf5, #a74bfa)',
-                            boxShadow: '0 4px 12px rgba(113,92,235,0.4)',
-                            transition: 'all 0.3s ease',
-                            position: 'relative',
-                            overflow: 'hidden',
-
-                            '&:hover': {
-                              animation: `${wave} 0.6s ease-in-out`,
-                              boxShadow: '0 6px 18px rgba(123,92,245,0.6)',
-                              background: 'linear-gradient(90deg, #a78bfa, #7b5cf5)',
-                            },
-
-                            // Arrow animation
-                            '& .arrow': {
-                              transition: 'transform 0.3s ease',
-                            },
-                            '&:hover .arrow': {
-                              transform: 'translateX(6px)',
-                            },
-                          }}
-                        >
-                          <span>Read More</span>
-                          <span className="arrow">→</span>
-                        </Button>
-                      </Link>
                     </div>
-                  </div>
-                ))}
-                {/* Load More Button */}
+                  ))}
+                </div>
+                {/* Load More Button
                 {visibleCount < allPosts.length && (
-                  <div className="flex justify-center mt-6">
+                  <div className="flex justify-center mt-6 sm:mt-8">
                     <Link
                       href="/posts"
                       className="px-6 py-2 text-sm font-semibold rounded-full border border-purple-500 text-purple-600 hover:bg-purple-500 hover:text-white transition-all duration-300"
                     >
-                      Load More
+                      {t.loadMore}
                     </Link>
                   </div>
-                )}
-              </div>
+                )} */}
+              </>
             ) : (
-              <p className="text-gray-500 text-center py-8">No posts available</p>
+              <p className="text-gray-500 text-center py-12">No posts available</p>
             )}
           </SectionCard>
           {/* categories */}
@@ -485,7 +487,7 @@ function SectionCard({
       className={`relative rounded-2xl ${padding} mt-12 border-none shadow-none ${customClasses}`}
     >
       <div
-        className={`absolute ${labelPosition} px-4 py-1.5 bg-linear-to-r from-purple-500 to-indigo-600 text-white text-sm font-bold rounded-full shadow-md`}
+        className={`absolute ${labelPosition} px-4 py-0.5 bg-linear-to-r from-purple-500 to-indigo-600 text-white text-sm font-bold rounded-full shadow-md`}
       >
         {label}
       </div>

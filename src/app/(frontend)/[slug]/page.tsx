@@ -168,7 +168,7 @@ export default async function SinglePostPage(props: { params: Promise<{ slug: st
             <div className="absolute inset-0 rounded-2xl bg-linear-to-r from-[#F16363]/10 via-[#ff8a8a]/5 to-transparent opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-700 -z-10"></div>
 
             <div
-              className={`h-40 bg-linear-to-br from-[#fdf8f0] via-[#fff5cf] to-[#fdf8f0] 
+              className={`h-40 bg-linear-to-br from-[#ffffff] via-[#ffffff] to-[#ffffff] 
                           rounded-xl mb-5 flex items-center justify-center relative overflow-hidden 
                           border border-black/10 shadow-[2px_2px_0px_#00000066]
                           transition-all duration-200 ease-out 

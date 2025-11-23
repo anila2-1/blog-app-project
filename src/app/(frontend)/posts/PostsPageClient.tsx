@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react'
 import { useSearchParams, usePathname, useRouter } from 'next/navigation'
 import { Post } from '@/payload-types'
 import { getLanguageConfig, LanguageCode, languages } from '@/config/languages'
-import RichTextPreview from '@/components/RichTextPreview'
 
 const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || languages[0].code
 const langConfig = getLanguageConfig(LANG_CODE)
@@ -168,7 +167,7 @@ export default function PostsPageClient({ initialPage = 1 }: { initialPage?: num
                   {post.excerpt ? (
                     post.excerpt
                   ) : (
-                    <RichTextPreview content={post.content} maxLength={120} />
+                    <span className="italic text-gray-400">No excerpt available.</span>
                   )}
                 </p>
 

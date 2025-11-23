@@ -27,9 +27,9 @@ export default function PostContent({ post, category }: PostContentProps) {
   }, [post.slug])
 
   return (
-    <article className="max-w-4xl mx-auto py-4 px-3 sm:px-4 lg:px-6">
+    <article className=" py-14 px-3 sm:px-4 lg:px-6">
       {/* Main Card */}
-      <div className="bg-white rounded-2xl p-4 sm:p-6 lg:p-10 shadow-md hover:shadow-lg transition-all duration-300 border border-gray-200/60">
+      <div className="bg-white rounded-2xl p-4 -m-6 sm:p-6 lg:p-10 shadow-md hover:shadow-lg transition-all duration-300 border border-gray-200/60">
         {/* Category + Date */}
         <div
           className={`flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-4 text-sm 
@@ -38,7 +38,7 @@ export default function PostContent({ post, category }: PostContentProps) {
           {category?.slug && (
             <Link
               href={`/categories/${category.slug}`}
-              className="px-3 py-1 rounded-lg bg-blue-50 text-blue-700 text-xs sm:text-sm font-medium hover:bg-blue-100 transition"
+              className="px-3 py-1 rounded-lg text-blue-700 text-xs sm:text-sm font-medium hover:bg-blue-100 transition"
             >
               {category?.name || category?.title}
             </Link>

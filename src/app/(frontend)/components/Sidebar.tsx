@@ -46,7 +46,7 @@ export default function Sidebar() {
 
       {/* 🌐 Follow Us Card */}
       <div
-        className={`bg-linear-to-br from-[#ffffff] via-[#fdfdfb] to-[#ffffff] 
+        className={`bg-linear-to-br from-[#ffffff] via-[#ffffff] to-[#ffffff] 
               border shadow-sm
               transition-all duration-200 ease-out 
               hover:-translate-y-1 active:translate-x-0.5 active:translate-y-0.5 

@@ -64,44 +64,82 @@ export default function PostCard({ post, locale }: PostCardProps) {
     <Link
       href={`/${post.slug}`}
       className={`group block rounded-xl overflow-hidden border border-black/10
-                   bg-white/90 
-                  backdrop-blur-xl transition-all duration-200 ease-out 
-                  hover:-translate-y-1 active:translate-x-0.5 active:translate-y-0.5`}
+                   bg-white
+                  backdrop-blur-xl transition-all duration-100 ease-out 
+                  hover:shadow-md hover:scale-1.05 hover:-translate-y-1
+                  active:scale-98`}
       dir={langConfig.direction}
       style={{ fontFamily: langConfig.font }}
     >
       {/* 🖼️ Image Section */}
-      <div className="relative h-42 w-full overflow-hidden rounded-t-xl">
+      <div className="relative h-48 w-full overflow-hidden rounded-t-xl bg-linear-to-br from-purple-200 to-indigo-200">
         <Image
           src={imageUrl}
           alt={post.title || 'Post image'}
           fill
-          className="object-cover transition-transform duration-500 group-hover:scale-110"
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/25 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
 
       {/* 📝 Content Section */}
-      <div className="relative z-10 p-4 pt-2">
+      <div className="relative z-10 p-4 pt-3">
         {/* Title */}
         <h3
-          className={`text-xl font-bold text-gray-900  mb-3 line-clamp-2 
+          className={`text-lg font-bold text-gray-900 mb-2 line-clamp-2 
                       group-hover:text-transparent group-hover:bg-clip-text 
-                      group-hover:bg-linear-to-r group-hover:from-indigo-600 group-hover:to-purple-600 
-                      transition-all duration-200 ease-out`}
+                      group-hover:bg-linear-to-r group-hover:from-purple-600 group-hover:to-indigo-600 
+                      transition-all duration-300 ease-out`}
         >
           {post.title}
         </h3>
 
+        {/* Date */}
+        {post.publishedAt && (
+          <div className="flex items-center text-xs text-slate-500 mb-2 opacity-75 group-hover:opacity-100 transition-opacity duration-300">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-3.5 h-3.5 mr-1"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0121 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"
+              />
+            </svg>
+            {formattedDate}
+          </div>
+        )}
+
         {/* Excerpt */}
-        <p className="text-gray-700  text-sm leading-relaxed line-clamp-3 mb-3">{post.excerpt}</p>
+        <p className="text-gray-700 text-sm leading-relaxed line-clamp-2 mb-3 opacity-90 group-hover:opacity-100 transition-opacity duration-300">
+          {post.excerpt}
+        </p>
 
         {/* Read More Link */}
         <span
-          className="inline-block text-sm font-semibold text-indigo-700 hover:text-purple-700 
-                     transition-colors duration-300"
+          className="inline-flex items-center gap-1.5 text-sm font-semibold text-purple-600 group-hover:text-indigo-600 
+                     transition-all duration-300 group-hover:translate-x-0.5"
         >
-          {t.readMore} →
+          {t.readMore}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={2.5}
+            stroke="currentColor"
+            className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+            />
+          </svg>
         </span>
       </div>
     </Link>
