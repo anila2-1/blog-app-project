@@ -19,7 +19,7 @@ export const MediaBlock = React.forwardRef<HTMLDivElement, MediaBlockProps>(
     return (
       <div
         ref={ref}
-        className={`relative w-full ${enableGutter ? 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8' : ''} ${className}`}
+        className={`relative w-full  ${enableGutter ? 'max-w-3xl mx-auto px-4 sm:px-6 lg:px-8' : ''} ${className}`}
       >
         <figure className="group w-full">
           <div className="relative overflow-hidden rounded-xl bg-gray-100 shadow-lg hover:shadow-xl transition-all duration-300">
@@ -30,7 +30,7 @@ export const MediaBlock = React.forwardRef<HTMLDivElement, MediaBlockProps>(
                   alt: content.alt || '',
                 }}
                 className="w-full h-full"
-                imgClassName={`w-full h-full object-contain object-center transition-transform duration-300 group-hover:scale-105 ${imgClassName}`}
+                imgClassName={`w-3xl h-full object-contain object-center ${imgClassName}`}
               />
             </div>
           </div>

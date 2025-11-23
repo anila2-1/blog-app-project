@@ -126,7 +126,37 @@ const codeBlockInlineStyle: React.CSSProperties = {
 
 const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) => ({
   ...defaultConverters,
-  ...LinkJSXConverter({ internalDocToHref }),
+
+  link: ({ node, nodesToJSX }) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const linkNode = node as any
+    const children = nodesToJSX({ nodes: node.children })
+
+    let href = '#'
+
+    // Handle internal document links
+    if (linkNode.fields?.doc?.value) {
+      const docValue = linkNode.fields.doc.value
+      const slug = typeof docValue === 'object' ? docValue.slug : docValue
+      const relationTo = linkNode.fields.doc.relationTo
+      href = relationTo === 'posts' ? `/posts/${slug}` : `/${slug}`
+    }
+    // Handle external links
+    else if (linkNode.fields?.url) {
+      href = linkNode.fields.url
+    }
+
+    return (
+      <a
+        href={href}
+        className="text-blue-600 hover:text-blue-500 underline hover:underline-offset-4 font-medium transition-colors duration-200"
+        target={linkNode.fields?.newTab ? '_blank' : undefined}
+        rel={linkNode.fields?.newTab ? 'noopener noreferrer' : undefined}
+      >
+        {children}
+      </a>
+    )
+  },
 
   // Render raw HTML nodes (if richtext contains an 'html' node)
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -234,27 +264,27 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     const tag = (node as any).tag
 
     // Common styles for ALL headings — NO prose, explicit Tailwind classes
-    const baseStyles = 'border-b border-indigo-200 pb-1 mb-4 font-black'
+    const baseStyles = 'border-b border-indigo-200 pb-2 mb-4 font-black text-black'
 
     switch (tag) {
       case 'h1':
         return (
-          <h1 className={`${baseStyles} text-5xl sm:text-6xl text-indigo-700 leading-tight`}>
+          <h1 className={`${baseStyles} text-2xl sm:text-3xl lg:text-4xl leading-tight`}>
             {children}
           </h1>
         )
       case 'h2':
-        return <h2 className={`${baseStyles} text-4xl sm:text-6xl text-indigo-600`}>{children}</h2>
+        return <h2 className={`${baseStyles} text-xl sm:text-2xl lg:text-3xl`}>{children}</h2>
       case 'h3':
-        return <h3 className={`${baseStyles} text-4xl sm:text-5xl text-indigo-500`}>{children}</h3>
+        return <h3 className={`${baseStyles} text-lg sm:text-xl lg:text-2xl`}>{children}</h3>
       case 'h4':
-        return <h4 className={`${baseStyles} text-3xl sm:text-4xl text-indigo-600`}>{children}</h4>
+        return <h4 className={`${baseStyles} text-base sm:text-lg lg:text-xl`}>{children}</h4>
       case 'h5':
-        return <h5 className={`${baseStyles} text-2xl sm:text-3xl text-indigo-700`}>{children}</h5>
+        return <h5 className={`${baseStyles} text-sm sm:text-base lg:text-lg`}>{children}</h5>
       case 'h6':
-        return <h6 className={`${baseStyles} text-xl sm:text-2xl text-indigo-800`}>{children}</h6>
+        return <h6 className={`${baseStyles} text-xs sm:text-sm lg:text-base`}>{children}</h6>
       default:
-        return <h2 className={`${baseStyles} text-5xl sm:text-6xl text-indigo-600`}>{children}</h2>
+        return <h2 className={`${baseStyles} text-xl sm:text-2xl lg:text-3xl`}>{children}</h2>
     }
   },
 
@@ -268,9 +298,29 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     let content: React.ReactNode = text
 
     // Strikethrough
-    if (format & 8) content = <del className="line-through">{content}</del>
+    if (format & 8)
+      content = (
+        <u
+          style={{
+            textDecoration: 'underline',
+            textDecorationThickness: '1px',
+          }}
+        >
+          {content}
+        </u>
+      )
     // Underline
-    if (format & 4) content = <u className="underline">{content}</u>
+    if (format & 4)
+      content = (
+        <del
+          style={{
+            textDecoration: 'line-through',
+            textDecorationThickness: '1px',
+          }}
+        >
+          {content}
+        </del>
+      )
     // Italic — include inline style to force italic on all platforms
     if (format & 2)
       content = (
@@ -319,6 +369,15 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
   listitem: ({ node, nodesToJSX }) => {
     const children = nodesToJSX({ nodes: node.children })
     return <li className="text-gray-700 leading-relaxed">{children}</li>
+  },
+
+  quote: ({ node, nodesToJSX }) => {
+    const children = nodesToJSX({ nodes: node.children })
+    return (
+      <blockquote className="border-l-4 border-indigo-500 bg-indigo-50 px-4 py-3 my-6 rounded-r-lg italic text-gray-700 leading-relaxed">
+        {children}
+      </blockquote>
+    )
   },
 
   code: ({ node }) => {
@@ -411,11 +470,11 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     ),
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mediaBlock: ({ node }: { node: SerializedBlockNode<any> }) => {
-      const resource = node.fields?.resource
+      const media = node.fields?.media
       const caption = node.fields?.caption
 
-      if (!resource?.url) {
-        console.warn('MediaBlock: Missing required resource URL')
+      if (!media?.url) {
+        console.warn('MediaBlock: Missing required media URL')
         return null
       }
 
@@ -423,11 +482,11 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
         <div className="flex justify-center my-6">
           <MediaBlock
             content={{
-              url: resource.url,
-              alt: resource.alt || '',
+              url: media.url,
+              alt: media.alt || '',
               caption: caption || '',
             }}
-            className="max-w-4xl w-full"
+            className="max-w-3xl w-full"
             enableGutter={false}
           />
         </div>

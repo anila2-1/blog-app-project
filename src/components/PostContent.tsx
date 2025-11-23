@@ -72,8 +72,8 @@ export default function PostContent({ post, category }: PostContentProps) {
         )}
 
         {/* Content */}
-        <div className="prose max-w-none prose-blue prose-headings:font-bold prose-p:text-gray-700 leading-relaxed text-[15px] sm:text-base">
-          <RichText className="max-w-3xl mx-auto" data={post.content} enableGutter={false} />
+        <div className="max-w-3xl mx-auto">
+          <RichText data={post.content} enableGutter={false} />
         </div>
       </div>
 
