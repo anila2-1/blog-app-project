@@ -1,11 +1,12 @@
 import React from 'react'
 import { Media } from '@/components/Media'
+import RichText from '@/components/RichText'
 
 export interface MediaBlockProps {
   content: {
     url: string
     alt?: string
-    caption?: string
+    caption?: any
   }
   className?: string
   enableGutter?: boolean
@@ -15,6 +16,9 @@ export interface MediaBlockProps {
 export const MediaBlock = React.forwardRef<HTMLDivElement, MediaBlockProps>(
   ({ content, className = '', enableGutter = true, imgClassName = '' }, ref) => {
     if (!content?.url) return null
+
+    const isRichText =
+      typeof content.caption === 'object' && content.caption !== null && 'root' in content.caption
 
     return (
       <div
@@ -36,7 +40,11 @@ export const MediaBlock = React.forwardRef<HTMLDivElement, MediaBlockProps>(
           </div>
           {content.caption && (
             <figcaption className="mt-4 text-center text-sm text-gray-600 font-medium italic px-4">
-              {content.caption}
+              {isRichText ? (
+                <RichText data={content.caption} enableGutter={false} enableProse={false} />
+              ) : (
+                content.caption
+              )}
             </figcaption>
           )}
         </figure>
