@@ -40,13 +40,13 @@ const LatestPosts: React.FC<LatestPostsProps> = memo(({ posts, loading }) => {
         {[1, 2, 3, 4].map((i) => (
           <div
             key={i}
-            className="flex gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl bg-white border border-gray-100 animate-pulse"
+            className="flex gap-3 p-3 rounded-xl bg-white border border-gray-100 animate-pulse"
           >
-            <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 shrink-0 bg-gray-200 rounded-lg"></div>
+            <div className="w-14 h-12 bg-gray-200 rounded-lg shrink-0"></div>
             <div className="flex-1 space-y-2">
-              <div className="h-4 sm:h-5 bg-gray-200 rounded w-3/4"></div>
-              <div className="h-3 sm:h-4 bg-gray-200 rounded w-5/6"></div>
-              <div className="h-3 sm:h-4 bg-gray-200 rounded w-4/6"></div>
+              <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+              <div className="h-3 bg-gray-200 rounded w-5/6"></div>
+              <div className="h-3 bg-gray-200 rounded w-4/6"></div>
             </div>
           </div>
         ))}
@@ -59,7 +59,7 @@ const LatestPosts: React.FC<LatestPostsProps> = memo(({ posts, loading }) => {
   if (safePosts.length === 0) {
     return (
       <p
-        className="text-gray-500 text-center py-6 text-sm sm:text-base"
+        className="text-gray-500 text-center py-6 text-sm"
         dir={langConfig.direction}
         style={{ fontFamily: langConfig.font }}
       >
@@ -70,13 +70,12 @@ const LatestPosts: React.FC<LatestPostsProps> = memo(({ posts, loading }) => {
 
   return (
     <div
-      className="flex flex-col gap-3 sm:gap-4 mt-4"
+      className="flex flex-col gap-3 mt-4"
       dir={langConfig.direction}
       style={{ fontFamily: langConfig.font }}
     >
       {safePosts.map((post, i) => {
-        // safe fallbacks to avoid runtime errors
-        const id = (post as any)?.id ?? (post as any)?.slug ?? i
+        const id = (post as any)?.id ?? i
         const slug = (post as any)?.slug ?? ''
         const title = (post as any)?.title ?? 'Untitled'
         const excerpt = (post as any)?.excerpt ?? ''
@@ -87,33 +86,46 @@ const LatestPosts: React.FC<LatestPostsProps> = memo(({ posts, loading }) => {
 
         const content = (
           <div
-            className="flex flex-col sm:flex-row gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl bg-white border border-gray-100 hover:bg-gray-50 transition-all duration-300 ease-out hover:-translate-y-1 active:translate-y-0 opacity-0 animate-fadeIn"
+            className="flex gap-3 p-3 rounded-xl bg-white border border-gray-100 hover:bg-gray-50 transition-all duration-300 ease-out hover:-translate-y-1 active:translate-y-0 opacity-0 animate-fadeIn"
             style={{
-              animationDelay: `${i * 120}ms`,
+              animationDelay: `${i * 100}ms`,
               animationFillMode: 'forwards',
             }}
           >
-            {/* Image */}
+            {/* Thumbnail Image (MATCHES SCREENSHOT) */}
             {imageUrl ? (
               <img
                 src={imageUrl}
                 alt={title}
-                className="w-full sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 object-cover rounded-lg border border-gray-200 shadow-md shrink-0"
+                className="
+                  w-16 h-12 
+                  sm:w-18 sm:h-14 
+                  rounded-lg 
+                  object-cover 
+                  border border-gray-200 
+                  shadow-sm
+                  shrink-0
+                "
               />
             ) : (
-              <div className="w-full sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 bg-gray-200 rounded-lg shrink-0"></div>
+              <div
+                className="
+                  w-16 h-12 
+                  sm:w-18 sm:h-14 
+                  rounded-lg 
+                  bg-gray-200 
+                  shrink-0
+                "
+              ></div>
             )}
 
-            {/* Content */}
+            {/* Text Section */}
             <div className="flex-1 min-w-0">
-              <h3 className="font-bold text-gray-900 leading-tight line-clamp-2 hover:text-indigo-600 transition-colors duration-200 text-sm sm:text-base">
+              <h3 className="font-bold text-gray-900 line-clamp-2 hover:text-indigo-600 transition text-sm sm:text-base">
                 {title}
               </h3>
 
-              <p className="text-gray-700 text-xs sm:text-sm mt-1 line-clamp-2">{excerpt}</p>
-
-              {/* Meta Info */}
-              <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500 mt-2">
+              <div className="flex flex-wrap items-center gap-3 text-xs text-slate-400 mt-2">
                 {views !== undefined && (
                   <div className="flex items-center">
                     <svg
@@ -138,6 +150,7 @@ const LatestPosts: React.FC<LatestPostsProps> = memo(({ posts, loading }) => {
                     {views} {t.views}
                   </div>
                 )}
+
                 {publishedAt && (
                   <div className="flex items-center">
                     <svg
@@ -162,6 +175,8 @@ const LatestPosts: React.FC<LatestPostsProps> = memo(({ posts, loading }) => {
                   </div>
                 )}
               </div>
+
+              <p className="text-gray-700 text-xs sm:text-sm mt-1 line-clamp-2">{excerpt}</p>
             </div>
           </div>
         )
@@ -179,5 +194,4 @@ const LatestPosts: React.FC<LatestPostsProps> = memo(({ posts, loading }) => {
 })
 
 LatestPosts.displayName = 'LatestPosts'
-
 export default LatestPosts

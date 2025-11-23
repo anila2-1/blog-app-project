@@ -101,7 +101,7 @@ export default function CategoryCards({ categories, loading = false }: CategoryC
         <h2 className="text-lg font-bold text-black flex items-center"></h2>
         <Link
           href="/categories"
-          className="inline-flex items-center px-4 py-2 bg-indigo-600 border-2 rounded-full text-sm font-bold text-white hover:bg-indigo-500 transition-all active:translate-x-0.5 active:translate-y-0.5"
+          className="inline-flex items-center px-2 py-1.5 bg-indigo-600 border-2 rounded-full text-sm font-bold text-white hover:bg-indigo-500 transition-all active:translate-x-0.5 active:translate-y-0.5"
         >
           {t.allCategories}
           {langConfig.direction === 'rtl' ? (
