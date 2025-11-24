@@ -116,16 +116,6 @@ export const Posts: CollectionConfig = {
         position: 'sidebar',
       },
     },
-    {
-      name: 'author',
-      type: 'relationship',
-      relationTo: 'users', // assuming you have a users collection
-      hasMany: false,
-      required: true,
-      admin: {
-        position: 'sidebar',
-      },
-    },
   ],
 }
 export default Posts
