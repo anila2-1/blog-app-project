@@ -29,6 +29,9 @@ export const Posts: CollectionConfig = {
     read: () => true,
     update: () => true,
   },
+  versions: {
+    drafts: true, // <-- Enable drafts
+  },
   fields: [
     {
       name: 'title',
@@ -118,4 +121,5 @@ export const Posts: CollectionConfig = {
     },
   ],
 }
+
 export default Posts
