@@ -382,7 +382,8 @@ export default function HomePage() {
                               py: 0.4,
                               borderRadius: '30px',
                               fontSize: '0.8rem',
-                              fontWeight: '600',
+                              fontWeight: '400',
+                              fontFamily: "'Poppins', sans-serif",
                               textTransform: 'none',
                               display: 'flex',
                               alignItems: 'center',
@@ -487,10 +488,12 @@ function SectionCard({
       className={`relative rounded-2xl ${padding} mt-12 border-none shadow-none ${customClasses}`}
     >
       <div
-        className={`absolute ${labelPosition} px-4 py-0.5 bg-linear-to-r from-purple-500 to-indigo-600 text-white text-sm font-bold rounded-full shadow-md`}
+        style={{ fontFamily: "'Poppins', sans-serif" }}
+        className={`absolute ${labelPosition} px-4 py-0.5 bg-linear-to-r from-purple-500 to-indigo-600 text-white text-sm  rounded-full shadow-md`}
       >
         {label}
       </div>
+
       <div className="pt-8">{children}</div>
     </section>
   )

@@ -174,7 +174,8 @@ export default function PostsPageClient({ initialPage = 1 }: { initialPage?: num
                 {/* ✅ Read More Button */}
                 <Link
                   href={`/${post.slug}`}
-                  className="inline-block mt-3 text-sm font-semibold bg-indigo-600 text-white px-4 py-2 rounded-full 
+                  style={{ fontFamily: "'Poppins', sans-serif" }}
+                  className="inline-block mt-3 text-sm font-bold bg-linear-to-r from-purple-500 to-indigo-600 text-white px-4 py-2 rounded-full 
                   border shadow-sm hover:bg-indigo-400 active:translate-x-0.5 active:translate-y-0.5 transition-all"
                 >
                   {t.readMore} →
@@ -193,6 +194,7 @@ export default function PostsPageClient({ initialPage = 1 }: { initialPage?: num
           <button
             onClick={() => goToPage(currentPage - 1)}
             disabled={currentPage === 1}
+            style={{ fontFamily: "'Poppins', sans-serif" }}
             className={`px-4 py-2 rounded-full font-bold border shadow-sm bg-white hover:bg-gray-100 active:translate-x-0.5 active:translate-y-0.5 transition-all ${
               currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''
             }`}
@@ -207,6 +209,7 @@ export default function PostsPageClient({ initialPage = 1 }: { initialPage?: num
                 <button
                   key={page}
                   onClick={() => goToPage(page)}
+                  style={{ fontFamily: "'Poppins', sans-serif" }}
                   className={`w-10 h-10 flex items-center justify-center rounded-full text-sm font-bold border 
                   shadow-sm active:translate-x-0.5 active:translate-y-0.5 transition-all ${
                     currentPage === page

@@ -2,6 +2,7 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
+import Link from 'next/link'
 import { ArrowUp, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react'
 import { getLanguageConfig, LanguageCode, languages } from '@/config/languages'
 
@@ -10,7 +11,7 @@ const langConfig = getLanguageConfig(LANG_CODE)
 
 const translations = {
   en: {
-    siteName: 'BlogSite',
+    siteName: 'BLOGSITE',
     about:
       'A modern blog platform powered by Payload CMS, designed for content creators who love flexibility, simplicity, and elegant design.',
     quickLinks: 'Quick Links',
@@ -22,7 +23,7 @@ const translations = {
     builtWith: 'Built with love using Next.js & Payload CMS.',
   },
   he: {
-    siteName: 'בלוגסייט',
+    siteName: 'בלוגאתר  ',
     about:
       'פלטפורמת בלוגים מודרנית המופעלת על ידי Payload CMS, שנועדה ליוצרים שאוהבים גמישות, פשטות ועיצוב אלגנטי.',
     quickLinks: 'קישורים מהירים',
@@ -34,7 +35,7 @@ const translations = {
     builtWith: 'נבנה באהבה באמצעות Next.js ו-Payload CMS.',
   },
   hr: {
-    siteName: 'BlogSite',
+    siteName: 'BLOGSTRANICA',
     about:
       'Moderna blog platforma pokretana Payload CMS-om, dizajnirana za stvaratelje sadržaja koji vole fleksibilnost, jednostavnost i elegantan dizajn.',
     quickLinks: 'Brze Poveznice',
@@ -46,7 +47,7 @@ const translations = {
     builtWith: 'Izrađeno s ljubavlju pomoću Next.js i Payload CMS-a.',
   },
   tr: {
-    siteName: 'BlogSite',
+    siteName: 'BLOGSİTESİ',
     about:
       'Payload CMS ile güçlendirilen modern bir blog platformu, esnekliği, basitliği ve zarif tasarımı seven içerik yaratıcıları için tasarlandı.',
     quickLinks: 'Hızlı Bağlantılar',
@@ -87,11 +88,15 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
           {/* Left - Brand Info */}
           <div className="space-y-6">
-            <div className="flex items-center">
-              <h3 className="text-2xl font-extrabold ml-3 text-gray-900 tracking-tight">
+            <Link
+              href="/"
+              className="flex items-center gap-2 group transition-transform duration-300 hover:scale-105"
+            >
+              <span className="navbar-logo text-2xl font-extrabold tracking-tight text-gray-900 group-hover:text-purple-700 transition-colors">
                 {t.siteName}
-              </h3>
-            </div>
+              </span>
+            </Link>
+
             <p className="text-gray-600 leading-relaxed text-sm md:text-base">{t.about}</p>
           </div>
 

@@ -31,7 +31,7 @@ const translations = {
   he: {
     home: 'בית',
     search: 'חפש...',
-    siteName: 'BLOGSITE',
+    siteName: 'בלוגאתר  ',
     searchModalTitle: 'הקלד כדי להתחיל חיפוש',
     searchButton: 'חיפוש',
     close: 'סגור',
@@ -40,7 +40,7 @@ const translations = {
   hr: {
     home: 'Početna',
     search: 'Pretraži...',
-    siteName: 'BLOGSITE',
+    siteName: 'BLOGSTRANICA',
     searchModalTitle: 'Upišite da biste započeli pretragu',
     searchButton: 'Pretraži',
     close: 'Zatvori',
@@ -49,7 +49,7 @@ const translations = {
   tr: {
     home: 'Ana Sayfa',
     search: 'Ara...',
-    siteName: 'BLOGSITE',
+    siteName: 'BLOGSİTESİ',
     searchModalTitle: 'Aramaya başlamak için yazın',
     searchButton: 'Ara',
     close: 'Kapat',
@@ -93,7 +93,7 @@ export default function Navbar() {
           href="/"
           className="flex items-center gap-2 group transition-transform duration-300 hover:scale-105"
         >
-          <span className="text-2xl font-extrabold tracking-tight text-gray-900 group-hover:text-purple-700 transition-colors">
+          <span className="navbar-logo text-2xl font-extrabold tracking-tight text-gray-900 group-hover:text-purple-700 transition-colors">
             {t.siteName}
           </span>
         </Link>

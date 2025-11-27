@@ -1,15 +1,63 @@
 @import "tailwindcss";
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@600&family=Montserrat:wght@500&family=Roboto:wght@400&family=Oswald:wght@600&family=Raleway:wght@500&family=Lobster&display=swap');
+
+/* top of styles.css */
+:root{
+  --font-heading1: 'Playfair Display', serif;
+  --font-heading2: 'Merriweather', serif;
+  --font-heading3: 'Merriweather', serif;
+  --font-heading4: 'Merriweather', serif;
+  --font-heading5: 'Merriweather', serif;
+  --font-heading6: 'Merriweather', serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-logo: 'Poppins', system-ui, -apple-system, sans-serif;
+}
 
 /* 👇 Increase global font size */
 html {
   font-size: 20px;
 }
 
-body {
+/* body {
   font-family: 'Outfit', system-ui, -apple-system, sans-serif;
   line-height: 1.6;
   color: #000000;
+} */
+
+/* Logo / Navbar Brand */
+.navbar-logo, .site-logo {
+  font-family: var(--font-logo);
+  font-weight: 700; /* logo weight */
+  letter-spacing: 0.02em;
 }
+
+/* Headings */
+h1 {
+  font-family: 'Playfair Display', serif !important;
+}
+h2 {
+font-family: 'Playfair Display', serif !important;}
+h3 {
+font-family: 'Playfair Display', serif !important;}
+h4 {
+font-family: 'Playfair Display', serif !important;}
+h5 {
+font-family: 'Playfair Display', serif !important;}
+h6 {
+font-family: 'Playfair Display', serif !important;}
+
+/* Paragraphs */
+p,
+.prose p,
+.payload-richtext p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  font-family: 'Inter', sans-serif !important; /* or any other like 'Roboto' */
+}
+
 
 .prose strong,
 .prose b,
@@ -68,16 +116,6 @@ body {
   direction: ltr;
   text-align: left;
 }
-
-/* Headings inside blog */
-.prose h1, .prose h2, .prose h3 {
-  font-weight: 800;
-  font-size: 1.35rem !important;
-  background: linear-gradient(to right, #4f46e5, #9333ea);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
 
 /* Blockquote stylish */
 .prose blockquote {
@@ -240,13 +278,6 @@ body {
   position: absolute;
   left: 0;
 }
-/* Ensure consistent spacing and font */
-.prose {
-  font-family: 'Inter', sans-serif;
-  color: #1f2937;
-  line-height: 1.6;
-}
-
 
 
 .prose ul,
@@ -265,16 +296,6 @@ body {
   font-weight: 500;
 }
 
-.prose p {
-  margin-bottom: 1rem;
-  line-height: 1.6;
-}
-
-
-.payload-richtext p {
-  line-height: 1.6;
-  margin-bottom: 1rem;
-}
 
 .payload-richtext ul,
 .payload-richtext ol {

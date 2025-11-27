@@ -95,7 +95,10 @@ export default function FeaturedPost({ posts = [], loading, currentIndex = 0 }: 
               {post?.title ?? ''}
             </h2>
             {post?.category?.name && (
-              <div className="absolute top-3 sm:top-4 left-3 sm:left-4 px-2.5 sm:px-3 py-1 bg-linear-to-r from-purple-500 to-indigo-600 text-white text-xs font-bold rounded-full shadow-md">
+              <div
+                style={{ fontFamily: "'Poppins', sans-serif" }}
+                className="absolute top-3 sm:top-4 left-3 sm:left-4 px-2.5 sm:px-3 py-1 bg-linear-to-r from-purple-500 to-indigo-600 text-white text-xs rounded-full shadow-md"
+              >
                 {post.category.name}
               </div>
             )}
@@ -128,6 +131,7 @@ export default function FeaturedPost({ posts = [], loading, currentIndex = 0 }: 
           </div>
           <Link
             href={`/${post?.slug ?? ''}`}
+            style={{ fontFamily: "'Poppins', sans-serif" }}
             className="mt-2 inline-flex items-center justify-start gap-1.5 sm:gap-2 px-3 py-2 sm:py-3 text-sm font-semibold text-blue-700 rounded-full transition-all duration-300 transform hover:-translate-y-0.5 group"
           >
             {t.readMore}

@@ -122,8 +122,9 @@ export default function PostCard({ post, locale }: PostCardProps) {
 
         {/* Read More Link */}
         <span
-          className="inline-flex items-center gap-1.5 text-sm font-semibold text-purple-600 group-hover:text-indigo-600 
+          className="inline-flex items-center gap-1.5 text-sm  text-purple-600 group-hover:text-indigo-600 
                      transition-all duration-300 group-hover:translate-x-0.5"
+          style={{ fontFamily: "'Poppins', sans-serif" }}
         >
           {t.readMore}
           <svg

@@ -124,6 +124,7 @@ export default function RelatedPosts({ categorySlug, currentPostId, locale }: Re
                   opacity-100 md:opacity-0 md:group-hover:opacity-100
                   transition-opacity duration-300
                 "
+                style={{ fontFamily: "'Poppins', sans-serif" }}
               >
                 {t.readMore}
                 <ArrowRight className="w-4 h-4" />

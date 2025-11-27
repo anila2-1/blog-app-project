@@ -88,6 +88,7 @@ export default function CategoryFilterBar() {
             <Link
               key={category.id}
               href={`/categories/${category.slug}`}
+              style={{ fontFamily: "'Poppins', sans-serif" }}
               className={`px-4 py-2 text-sm font-semibold text-gray-800 ${bgColor} ${borderColor} border rounded-full hover:${bgColor.replace('-50', '-100')} transition-all duration-300 w-full text-center`}
             >
               {typeof category.name === 'string' ? category.name.toUpperCase() : ''}
@@ -123,6 +124,7 @@ export default function CategoryFilterBar() {
                 <Link
                   key={category.id}
                   href={`/categories/${category.slug}`}
+                  style={{ fontFamily: "'Poppins', sans-serif" }}
                   className={`px-4 py-2 text-sm font-semibold text-gray-800 ${bgColor} ${borderColor} border rounded-full hover:${bgColor.replace('-50', '-100')} transition-all duration-300 w-full text-center`}
                 >
                   {typeof category.name === 'string' ? category.name.toUpperCase() : ''}
@@ -161,6 +163,7 @@ export default function CategoryFilterBar() {
             <Link
               key={category.id}
               href={`/categories/${category.slug}`}
+              style={{ fontFamily: "'Poppins', sans-serif" }}
               className={`px-4 py-2 text-sm font-semibold text-gray-800 ${bgColor} ${borderColor} border rounded-full hover:${bgColor.replace('-50', '-100')} transition-all duration-300 min-w-20 whitespace-nowrap text-center`}
             >
               {typeof category.name === 'string' ? category.name.toUpperCase() : ''}
