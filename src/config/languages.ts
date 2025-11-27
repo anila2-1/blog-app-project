@@ -32,7 +32,7 @@ export const languages: LanguageConfig[] = [
     name: 'Hebrew',
     code: 'he',
     direction: 'rtl',
-    font: 'David Libre, sans-serif', // ← real Hebrew font
+    font: 'DavidLibre-Bold, Rubik, sans-serif', // ← matches the font-face definition
     locale: 'he-IL',
     css: '/lang/he.css',
   },
