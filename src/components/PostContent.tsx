@@ -38,7 +38,7 @@ export default function PostContent({ post, category }: PostContentProps) {
           {category?.slug && (
             <Link
               href={`/categories/${category.slug}`}
-              className="px-3 py-1 rounded-lg text-blue-700 text-xs sm:text-sm font-medium hover:bg-blue-100 transition"
+              className="px-3 py-1 rounded-lg text-blue-700 text-2xl sm:text-lg font-bold hover:bg-blue-100 transition"
             >
               {category?.name || category?.title}
             </Link>
@@ -56,7 +56,7 @@ export default function PostContent({ post, category }: PostContentProps) {
         </div>
 
         {/* Title */}
-        <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 leading-snug">
+        <h1 className="text-2xl sm:text-2xl lg:text-3xl font-bold mb-4 leading-snug">
           {post.title}
         </h1>
 

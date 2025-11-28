@@ -96,7 +96,7 @@
 :root {
   /* Global Defaults */
   --font-heading: 'Playfair Display', serif;
-  --font-body: 'Inter', system-ui, sans-serif;
+  --font-body: 'Roboto', system-ui, sans-serif;
   --font-logo: 'Poppins', system-ui, sans-serif;
 
   /* Hebrew */
@@ -117,7 +117,7 @@
 
 /* --- Body --- */
 body {
-  font-family: var(--font-body);
+  font-family: var( --font-body);
   font-size: 1.125rem; /* ✅ Base size: 18px */
   line-height: 1.7;
   color: #000000;
@@ -177,7 +177,6 @@ h6 {
   font-size: 1.8rem;
 }
 
-/* --- Paragraphs --- */
 /* --- Paragraphs inherit from body --- */
 p,
 .prose p {
@@ -190,7 +189,6 @@ p,
 /* RichText will inherit from body */
 .payload-richtext p {
   font-family: var(--font-body) !important;
-  /* font-size: inherit; ← implicit */
   line-height: 1.7;
   margin-bottom: 1.25rem;
 }
