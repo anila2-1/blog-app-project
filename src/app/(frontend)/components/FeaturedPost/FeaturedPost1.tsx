@@ -96,12 +96,16 @@ export default function FeaturedPost({ posts = [], loading, currentIndex = 0 }: 
             </h2>
             {post?.category?.name && (
               <div
+                dir={langConfig.direction}
                 style={{ fontFamily: "'Poppins', sans-serif" }}
-                className="absolute top-3 sm:top-4 left-3 sm:left-4 px-2.5 sm:px-3 py-1 bg-linear-to-r from-purple-500 to-indigo-600 text-white text-xs rounded-full shadow-md"
+                className="absolute top-3 sm:top-4 start-3 sm:start-4 px-2.5 sm:px-3 py-1 
+               bg-linear-to-r from-purple-500 to-indigo-600 text-white 
+               text-xs rounded-full shadow-md"
               >
                 {post.category.name}
               </div>
             )}
+
             {post?.publishedAt && (
               <div className="flex items-center text-xs text-slate-500 mb-3 sm:mb-4">
                 <svg

@@ -118,7 +118,8 @@
 /* --- Body --- */
 body {
   font-family: var(--font-body);
-  line-height: 1.6;
+  font-size: 1.125rem; /* ✅ Base size: 18px */
+  line-height: 1.7;
   color: #000000;
 }
 
@@ -128,7 +129,43 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: 1rem;
-  font-size: 1.5rem;
+}
+/* 🎯 DEFAULT HEADINGS FOR NON-RICHTEXT CONTENT (Cards, Sidebar, Titles, etc.) */
+
+h1 {
+  font-size: 1.5rem; /* 24px */
+  @media (min-width: 640px) { font-size: 1.875rem; } /* 30px */
+  @media (min-width: 1024px) { font-size: 2.125rem; } /* 34px */
+}
+
+h2 {
+  font-size: 1.25rem; /* 20px */
+  @media (min-width: 640px) { font-size: 1.625rem; } /* 26px */
+  @media (min-width: 1024px) { font-size: 1.875rem; } /* 30px */
+}
+
+h3 {
+  font-size: 1.125rem; /* 18px */
+  @media (min-width: 640px) { font-size: 1.375rem; } /* 22px */
+  @media (min-width: 1024px) { font-size: 1.5rem; } /* 24px */
+}
+
+h4 {
+  font-size: 1rem; /* 16px */
+  @media (min-width: 640px) { font-size: 1.125rem; } /* 18px */
+  @media (min-width: 1024px) { font-size: 1.25rem; } /* 20px */
+}
+
+h5 {
+  font-size: 0.875rem; /* 14px */
+  @media (min-width: 640px) { font-size: 1rem; } /* 16px */
+  @media (min-width: 1024px) { font-size: 1.125rem; } /* 18px */
+}
+
+h6 {
+  font-size: 0.75rem; /* 12px */
+  @media (min-width: 640px) { font-size: 0.875rem; } /* 14px */
+  @media (min-width: 1024px) { font-size: 1rem; } /* 16px */
 }
 
 /* --- Logo --- */
@@ -141,15 +178,22 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* --- Paragraphs --- */
+/* --- Paragraphs inherit from body --- */
 p,
-.prose p,
-.payload-richtext p {
+.prose p {
   font-family: var(--font-body) !important;
-  line-height: 1.6;
-  margin-bottom: 1rem;
-  font-size: 1.1rem;
+  font-size: 1rem; /* keep for non-rich content */
+  line-height: 1.7;
+  margin-bottom: 1.25rem;
 }
 
+/* RichText will inherit from body */
+.payload-richtext p {
+  font-family: var(--font-body) !important;
+  /* font-size: inherit; ← implicit */
+  line-height: 1.7;
+  margin-bottom: 1.25rem;
+}
 .prose strong,
 .prose b,
 .payload-richtext strong,

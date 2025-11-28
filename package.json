@@ -46,7 +46,7 @@
     "lexical": "0.35.0",
     "lucide-react": "^0.546.0",
     "next": "15.4.7",
-    "payload": "3.62.0",
+    "payload": "3.63.0",
     "prism-react-renderer": "^2.4.1",
     "prismjs": "^1.30.0",
     "react": "19.1.0",
@@ -83,7 +83,7 @@
     "node": "^18.20.2 || >=20.9.0",
     "pnpm": "^9 || ^10"
   },
-  "packageManager": "pnpm@10.20.0",
+  "packageManager": "pnpm@10.24.0",
   "pnpm": {
     "onlyBuiltDependencies": [
       "sharp",
