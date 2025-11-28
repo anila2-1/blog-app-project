@@ -305,28 +305,39 @@ p,
   line-height: inherit !important;
   -webkit-font-smoothing: antialiased !important;
   -moz-osx-font-smoothing: grayscale !important;
-  transform: none !important; /* ❌ Remove skew for correct italic */
-    letter-spacing: 0.02em !important;
+  letter-spacing: 0.02em !important;
+  /* ✅ Enable font synthesis to allow browsers to create italic when font doesn't have it */
+  font-synthesis: style !important;
+  -webkit-font-synthesis: style !important;
+  /* ✅ Use oblique as additional fallback for browsers that struggle with italic synthesis */
+  font-style: oblique 12deg !important;
 }
 
 /* ----------- Mobile Fix ----------- */
 @media screen and (max-width: 768px) {
   .payload-richtext em,
   .prose em {
-    transform: none !important; /* Ensure no skew on mobile */
-    font-style: italic !important;
-        letter-spacing: 0.02em !important;
-
+    font-style: oblique 12deg !important;
+    letter-spacing: 0.02em !important;
+    font-synthesis: style !important;
+    -webkit-font-synthesis: style !important;
+    /* ✅ Force text rendering optimization on mobile */
+    text-rendering: optimizeLegibility !important;
+    -webkit-font-smoothing: subpixel-antialiased !important;
   }
 }
 
-/* ----------- Safari Fix ----------- */
+/* ----------- Safari/iOS Fix ----------- */
 @supports (-webkit-touch-callout: none) {
   .payload-richtext em,
   .prose em {
-    transform: none !important; /* Safari skew fix */
-        letter-spacing: 0.02em !important;
-
+    letter-spacing: 0.02em !important;
+    font-style: oblique 12deg !important;
+    font-synthesis: style !important;
+    -webkit-font-synthesis: style !important;
+    /* ✅ Safari-specific rendering */
+    -webkit-transform: skewX(-8deg) !important;
+    transform: skewX(-8deg) !important;
   }
 }
 
@@ -334,9 +345,10 @@ p,
 @media screen and (-webkit-min-device-pixel-ratio: 1) {
   .payload-richtext em,
   .prose em {
-    transform: none !important; /* Android skew fix */
-        letter-spacing: 0.02em !important;
-
+    letter-spacing: 0.02em !important;
+    font-style: oblique 12deg !important;
+    font-synthesis: style !important;
+    -webkit-font-synthesis: style !important;
   }
 }
 
