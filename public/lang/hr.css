@@ -1,14 +1,12 @@
-@font-face {
-  font-family: 'CroatianFont';
-  src: url('../fonts/croatian-font.woff2') format('woff2');
-  font-weight: 700;
-  font-style: bold;
-  font-display: swap;
+/* lang/hr.css */
+/* body {
+  font-family: var(--font-body);
 }
 
-body {
-  font-family: 'CroatianFont', 'Roboto', sans-serif;
-  direction: ltr;
-  background-color: #ffffff;
-  color: #222;
+h1, h2, h3 {
+  font-family: var(--font-heading);
 }
+
+.navbar-logo {
+  font-family: var(--font-logo);
+} */

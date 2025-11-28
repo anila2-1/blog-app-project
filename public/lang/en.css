@@ -1,21 +1,13 @@
-/* Font definitions for English — register regular and bold weights */
+/* lang/en.css */
 
-@font-face {
-  font-family: 'Outfit';
-  src: url('/fonts/Outfit-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
+/* body {
+  font-family: var(--font-body);
 }
 
-@font-face {
-  font-family: 'Outfit';
-  src: url('/fonts/Outfit-Bold.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
+h1, h2, h3 {
+  font-family: var(--font-heading);
 }
 
-body {
-  font-family: 'Outfit', system-ui, -apple-system, sans-serif;
-}
+.navbar-logo {
+  font-family: var(--font-logo);
+} */

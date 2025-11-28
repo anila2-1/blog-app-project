@@ -16,7 +16,7 @@ export const languages: LanguageConfig[] = [
     name: 'English',
     code: 'en',
     direction: 'ltr',
-    font: 'Outfit, sans-serif', // ← added fallback for safety
+    font: 'Outfit, sans-serif', // ← metadata only
     locale: 'en-US',
     css: '/lang/en.css',
   },
@@ -24,7 +24,7 @@ export const languages: LanguageConfig[] = [
     name: 'Croatian',
     code: 'hr',
     direction: 'ltr',
-    font: 'Outfit, sans-serif', // ← unless you have a real "CroatianFont", use a real one
+    font: 'Roboto, sans-serif', // ← metadata only
     locale: 'hr-HR',
     css: '/lang/hr.css',
   },
@@ -32,7 +32,7 @@ export const languages: LanguageConfig[] = [
     name: 'Hebrew',
     code: 'he',
     direction: 'rtl',
-    font: 'DavidLibre-Bold, Rubik, sans-serif', // ← matches the font-face definition
+    font: 'DavidLibre-Bold, Rubik, sans-serif',
     locale: 'he-IL',
     css: '/lang/he.css',
   },
@@ -40,9 +40,9 @@ export const languages: LanguageConfig[] = [
     name: 'Turkish',
     code: 'tr',
     direction: 'ltr',
-    font: 'Outfit, sans-serif', // Use a suitable font, e.g., Outfit or a Turkish-specific one if available
+    font: 'Outfit, sans-serif',
     locale: 'tr-TR',
-    css: '/lang/tr.css', // Assuming you add this CSS file
+    css: '/lang/tr.css',
   },
 ]
 

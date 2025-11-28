@@ -1,16 +1,17 @@
-@font-face {
-  font-family: 'DavidLibre-Bold';
-  src: url('/fonts/DavidLibre-Bold.woff2') format('woff2'),
-       url('/fonts/DavidLibre-Bold.woff') format('woff');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
+
+/* lang/he.css */
+/* body {
+  font-family: var(--font-body);
 }
 
+h1, h2, h3 {
+  font-family: var(--font-heading);
+}
 
-body {
-  font-family: 'DavidLibre-Bold', 'Rubik', sans-serif;
+.navbar-logo {
+  font-family: var(--font-logo);
+}
+[dir="rtl"] {
   direction: rtl;
-  background-color: #fdfdfd;
-  color: #111;
-}
+  text-align: right;
+} */

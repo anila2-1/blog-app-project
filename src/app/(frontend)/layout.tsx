@@ -13,7 +13,7 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const langCode = process.env.NEXT_PUBLIC_DEFAULT_LANG || languages[0].code
+  const langCode = process.env.NEXT_PUBLIC_DEFAULT_LANG || 'en'
   const activeLang = languages.find((l) => l.code === langCode) || languages[0]
 
   return (
