@@ -197,14 +197,27 @@ p,
 .payload-richtext strong,
 .payload-richtext b {
   font-weight: 700 !important;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  color: inherit !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  letter-spacing: 0.02em !important;
 }
 
 .prose em,
 .prose i,
 .payload-richtext em,
 .payload-richtext i {
-  font-style: italic !important;
+font-style: italic !important;
+  color: inherit !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+  -webkit-font-smoothing: antialiased !important;
+  transform: skew(-12deg) !important;
 }
+
 
 /* Removed global heading size overrides to allow custom RichText styles */
 /* Removed prose heading size overrides to allow custom RichText styles */
