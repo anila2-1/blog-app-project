@@ -206,16 +206,6 @@ p,
   letter-spacing: 0.07em !important;
 }
 
-.payload-richtext em {
-  font-style: italic !important;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-  color: inherit !important;
-  font-size: inherit !important;
-  line-height: inherit !important;
-  -webkit-font-smoothing: antialiased !important;
-  transform: skew(-12deg) !important;
-}
-
 /* Underline */
 .payload-richtext u {
   text-decoration: underline !important;
@@ -248,12 +238,6 @@ p,
     letter-spacing: 0.07em !important;
   }
 
-  .payload-richtext em {
-    font-style: italic !important;
-    font-synthesis: style !important;
-    transform: skew(-15deg) !important;
-    letter-spacing: 0.03em !important;
-  }
 
   .payload-richtext u {
     text-decoration: underline !important;
@@ -279,10 +263,7 @@ p,
     text-shadow: 0.2px 0 0 currentColor, -0.2px 0 0 currentColor !important;
     letter-spacing: 0.07em !important;
   }
-
-  .payload-richtext em {
-    transform: skew(-15deg) !important;
-  }
+  
 
   .payload-richtext u {
     border-bottom: none !important;
@@ -303,9 +284,6 @@ p,
     letter-spacing: 0.07em !important;
   }
 
-  .payload-richtext em {
-    transform: skew(-12deg) !important;
-  }
 
   .payload-richtext u {
     border-bottom: none !important;
@@ -313,6 +291,52 @@ p,
 
   .payload-richtext del {
     text-decoration: line-through !important;
+  }
+}
+
+
+/* ----------- Italic Fix for Payload RichText ----------- */
+.payload-richtext em,
+.prose em {
+  font-style: italic !important;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  color: inherit !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  transform: none !important; /* ❌ Remove skew for correct italic */
+    letter-spacing: 0.02em !important;
+}
+
+/* ----------- Mobile Fix ----------- */
+@media screen and (max-width: 768px) {
+  .payload-richtext em,
+  .prose em {
+    transform: none !important; /* Ensure no skew on mobile */
+    font-style: italic !important;
+        letter-spacing: 0.02em !important;
+
+  }
+}
+
+/* ----------- Safari Fix ----------- */
+@supports (-webkit-touch-callout: none) {
+  .payload-richtext em,
+  .prose em {
+    transform: none !important; /* Safari skew fix */
+        letter-spacing: 0.02em !important;
+
+  }
+}
+
+/* ----------- Android Fix ----------- */
+@media screen and (-webkit-min-device-pixel-ratio: 1) {
+  .payload-richtext em,
+  .prose em {
+    transform: none !important; /* Android skew fix */
+        letter-spacing: 0.02em !important;
+
   }
 }
 
