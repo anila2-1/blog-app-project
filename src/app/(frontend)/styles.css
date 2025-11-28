@@ -192,10 +192,10 @@ p,
   line-height: 1.7;
   margin-bottom: 1.25rem;
 }
-.prose strong,
-.prose b,
-.payload-richtext strong,
-.payload-richtext b {
+
+/* ----------- BASE ----------- */
+
+.payload-richtext strong {
   font-weight: 700 !important;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
   color: inherit !important;
@@ -203,19 +203,117 @@ p,
   line-height: inherit !important;
   -webkit-font-smoothing: antialiased !important;
   -moz-osx-font-smoothing: grayscale !important;
-  letter-spacing: 0.02em !important;
+  letter-spacing: 0.07em !important;
 }
 
-.prose em,
-.prose i,
-.payload-richtext em,
-.payload-richtext i {
-font-style: italic !important;
+.payload-richtext em {
+  font-style: italic !important;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
   color: inherit !important;
   font-size: inherit !important;
   line-height: inherit !important;
   -webkit-font-smoothing: antialiased !important;
   transform: skew(-12deg) !important;
+}
+
+/* Underline */
+.payload-richtext u {
+  text-decoration: underline !important;
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: 3px !important;
+  text-decoration-color: currentColor !important;
+}
+
+/* Strikethrough */
+.payload-richtext del {
+  text-decoration: line-through !important;
+  text-decoration-thickness: 2px !important;
+  text-decoration-color: currentColor !important;
+}
+
+.payload-richtext del::after {
+  content: none !important;
+}
+
+/* ----------- MOBILE FIXES ----------- */
+
+@media screen and (max-width: 768px) {
+
+  .payload-richtext strong {
+    font-weight: 800 !important;
+    font-size: inherit !important;
+    font-synthesis: weight !important;
+    -webkit-text-stroke: 0.2px currentColor !important;
+    text-shadow: 0.2px 0 0 currentColor, -0.2px 0 0 currentColor !important;
+    letter-spacing: 0.07em !important;
+  }
+
+  .payload-richtext em {
+    font-style: italic !important;
+    font-synthesis: style !important;
+    transform: skew(-15deg) !important;
+    letter-spacing: 0.03em !important;
+  }
+
+  .payload-richtext u {
+    text-decoration: underline !important;
+    text-decoration-thickness: 2px !important;
+    text-underline-offset: 4px !important;
+    border-bottom: none !important;
+  }
+
+  .payload-richtext del {
+    text-decoration: line-through !important;
+    text-decoration-thickness: 2px !important;
+    text-decoration-skip-ink: none !important;
+  }
+}
+
+/* ----------- SAFARI FIX ----------- */
+
+@supports (-webkit-touch-callout: none) {
+
+  .payload-richtext strong {
+    font-weight: 800 !important;
+    -webkit-text-stroke: 0.2px currentColor !important;
+    text-shadow: 0.2px 0 0 currentColor, -0.2px 0 0 currentColor !important;
+    letter-spacing: 0.07em !important;
+  }
+
+  .payload-richtext em {
+    transform: skew(-15deg) !important;
+  }
+
+  .payload-richtext u {
+    border-bottom: none !important;
+  }
+
+  .payload-richtext del {
+    text-decoration: line-through !important;
+  }
+}
+
+/* ----------- ANDROID FIX ----------- */
+
+@media screen and (-webkit-min-device-pixel-ratio: 1) {
+
+  .payload-richtext strong {
+    font-weight: 800 !important;
+    text-shadow: 0.2px 0 0 currentColor, -0.2px 0 0 currentColor !important;
+    letter-spacing: 0.07em !important;
+  }
+
+  .payload-richtext em {
+    transform: skew(-12deg) !important;
+  }
+
+  .payload-richtext u {
+    border-bottom: none !important;
+  }
+
+  .payload-richtext del {
+    text-decoration: line-through !important;
+  }
 }
 
 
