@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 // src/components/RichText.tsx
 import {
   DefaultNodeTypes,
