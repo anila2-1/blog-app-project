@@ -13,26 +13,31 @@ const langConfig = getLanguageConfig(LANG_CODE)
 // --- SEO in <head> ---
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }) {
   const { slug } = await props.params
+
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/posts?where[slug][equals]=${slug}&locale=${langConfig.locale}&depth=1`,
+    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/posts?where[slug][equals]=${slug}&locale=${langConfig.locale}&depth=2`,
     { cache: 'no-store' },
   )
   const data = await res.json()
   const post: Post = data.docs?.[0]
 
   if (!post) {
+    const url404 = `${process.env.NEXT_PUBLIC_SITE_URL}/posts/${slug}`
     return {
       title: 'Post Not Found',
       description: 'This post does not exist or was removed.',
+      alternates: { canonical: url404 },
     }
   }
 
-  // safe category object: only keep it if API returned the relationship as an object
+  // safe category
   const category = (() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const rawCat = (post as any)?.category ?? (post as any)?.categories?.[0]
-    return typeof rawCat === 'object' && rawCat ? rawCat : undefined
+    return typeof rawCat === 'object' ? rawCat : undefined
   })()
+
+  // seo fields
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const seo = (post as any).seo
   const title = seo?.metaTitle || post.title
@@ -40,19 +45,45 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
   const categorySuffix = category ? ` | Category: ${category.name || category.title}` : ''
   const fullDescription = `${description}${categorySuffix}`
 
+  // --- IMAGE LOGIC ---
+  // Payload returns featuredImage as { url, alt }, or as an ID.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const imgObj = (post as any).featuredImage
+  const ogImage =
+    typeof imgObj === 'object' && imgObj?.url
+      ? `${process.env.NEXT_PUBLIC_SITE_URL}${imgObj.url}`
+      : `${process.env.NEXT_PUBLIC_SITE_URL}/default-og.jpg` // fallback
+
+  const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/posts/${slug}`
+
   return {
     title,
     description: fullDescription,
+
+    alternates: {
+      canonical: canonicalUrl, // ✅ canonical added
+    },
+
     openGraph: {
       title,
       description: fullDescription,
+      url: canonicalUrl,
       type: 'article',
-      url: `${process.env.NEXT_PUBLIC_SITE_URL}/${post.slug}`,
+      images: [
+        {
+          url: ogImage, // ✅ OG Image added
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
     },
+
     twitter: {
-      card: 'summary',
+      card: 'summary_large_image',
       title,
       description: fullDescription,
+      images: [ogImage], // ✅ Twitter image added
     },
   }
 }

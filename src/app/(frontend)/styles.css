@@ -187,11 +187,11 @@ p,
 }
 
 /* RichText will inherit from body */
-.payload-richtext p {
+/* .payload-richtext p {
   font-family: var(--font-body) !important;
   line-height: 1.7;
   margin-bottom: 1.25rem;
-}
+} */
 
 /* ----------- BASE ----------- */
 
