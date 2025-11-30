@@ -309,15 +309,13 @@ p,
   /* ✅ Enable font synthesis to allow browsers to create italic when font doesn't have it */
   font-synthesis: style !important;
   -webkit-font-synthesis: style !important;
-  /* ✅ Use oblique as additional fallback for browsers that struggle with italic synthesis */
-  font-style: oblique 12deg !important;
 }
 
 /* ----------- Mobile Fix ----------- */
 @media screen and (max-width: 768px) {
   .payload-richtext em,
   .prose em {
-    font-style: oblique 12deg !important;
+    font-style: italic !important;
     letter-spacing: 0.02em !important;
     font-synthesis: style !important;
     -webkit-font-synthesis: style !important;
