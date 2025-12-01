@@ -59,27 +59,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Assistant:wght@400;700&family=Alef:wght@400;700&family=Roboto:wght@400;500;700&family=Poppins:wght@400;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap'); */
 /* --- CSS Variables for Fonts --- */
-:root {
-  /* Global Defaults */
-  --font-heading: 'Playfair Display', serif;
-  --font-body: 'Inter', system-ui, sans-serif;
-  --font-logo: 'Poppins', system-ui, sans-serif;
 
-  /* Hebrew */
-  --font-hebrew-body: 'Rubik', sans-serif;
-  --font-hebrew-heading: 'Alef', sans-serif;
-  --font-logo-hebrew: 'Alef', sans-serif;
-
-  /* Croatian */
-  --font-croatian-body: 'Roboto', system-ui, sans-serif;
-  --font-croatian-heading: 'Poppins', system-ui, sans-serif;
-  --font-logo-croatian: 'Poppins', system-ui, sans-serif;
-
-  /* Turkish */
-  --font-turkish-body: 'Outfit', system-ui, sans-serif;
-  --font-turkish-heading: 'Outfit', system-ui, sans-serif;
-  --font-logo-turkish: 'Poppins', system-ui, sans-serif;
-}
 /* --- Language-Specific Overrides --- */
 [dir='rtl'] {
   direction: rtl;
@@ -96,7 +76,7 @@
 :root {
   /* Global Defaults */
   --font-heading: 'Playfair Display', serif;
-  --font-body: 'Roboto', system-ui, sans-serif;
+  --font-body:  "Rubik", sans-serif;
   --font-logo: 'Poppins', system-ui, sans-serif;
 
   /* Hebrew */
@@ -118,8 +98,8 @@
 /* --- Body --- */
 body {
   font-family: var( --font-body);
-  font-size: 1.125rem; /* ✅ Base size: 18px */
-  line-height: 1.7;
+  font-size: 1.25rem; /* ✅ Base size: 18px */
+  line-height: 1.8;
   color: #000000;
 }
 
@@ -181,7 +161,7 @@ h6 {
 p,
 .prose p {
   font-family: var(--font-body) !important;
-  font-size: 1rem; /* keep for non-rich content */
+  font-size: 1.125rem; /* keep for non-rich content */
   line-height: 1.7;
   margin-bottom: 1.25rem;
 }
