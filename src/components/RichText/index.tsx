@@ -321,13 +321,8 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
           {content}
         </del>
       )
-    // Italic — include inline style to force italic on all platforms
-    if (format & 2)
-      content = (
-        <em className="italic" style={{ fontStyle: 'italic' }}>
-          {content}
-        </em>
-      )
+    // Italic — let CSS handle the styling for better mobile compatibility
+    if (format & 2) content = <em className="italic">{content}</em>
 
     // Bold — use stronger weight and inline style to ensure visibility on mobile
     if (format & 1)
