@@ -54,11 +54,11 @@
   font-display: swap;
 }
 
-/* --- Google Fonts ---
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@600&family=Montserrat:wght@500&family=Roboto:wght@400&family=Oswald:wght@600&family=Raleway:wght@500&family=Lobster&display=swap');
+/* --- Google Fonts --- */
+/* @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@600&family=Montserrat:wght@500&family=Roboto:wght@400&family=Oswald:wght@600&family=Raleway:wght@500&family=Lobster&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Assistant:wght@400;700&family=Alef:wght@400;700&family=Roboto:wght@400;500;700&family=Poppins:wght@400;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap'); */
-/* --- CSS Variables for Fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap'); */ */
+/* --- CSS Variables for Fonts ---
 
 /* --- Language-Specific Overrides --- */
 [dir='rtl'] {
@@ -86,8 +86,8 @@
 
   /* Croatian */
   --font-croatian-body: 'Roboto', system-ui, sans-serif;
-  --font-croatian-heading: 'Poppins', system-ui, sans-serif;
-  --font-logo-croatian: 'Poppins', system-ui, sans-serif;
+  --font-croatian-heading: 'Roboto', system-ui, sans-serif;
+  --font-logo-croatian: 'Roboto', system-ui, sans-serif;
 
   /* Turkish */
   --font-turkish-body: 'Outfit', system-ui, sans-serif;
@@ -149,8 +149,7 @@ h6 {
 }
 
 /* --- Logo --- */
-.navbar-logo,
-.site-logo {
+.navbar-logo {
   font-family: var(--font-logo) !important;
   font-weight: 700;
   letter-spacing: 0.02em;
