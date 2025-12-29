@@ -55,7 +55,7 @@ export default function PostsPageClient({ initialPage = 1 }: { initialPage?: num
       setLoading(true)
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/posts?locale=${langConfig.locale}&limit=${POSTS_PER_PAGE}&page=${currentPage}&sort=-publishedAt&pagination=true`,
+          `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/posts?locale=${langConfig.locale}&limit=${POSTS_PER_PAGE}&page=${currentPage}&sort=-publishedAt&pagination=true&where[_status][equals]=published`,
           { cache: 'no-store' },
         )
         const data = await res.json()

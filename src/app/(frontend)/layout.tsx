@@ -8,8 +8,9 @@ import Footer from './components/Footer'
 import AnimatedBackground from './components/AnimatedBackground/AnimatedBackground' // New client component
 
 export const metadata = {
-  title: 'Payload Blog Website',
-  description: 'A Next.js + Payload CMS blog site.',
+  title: 'Budite u toku s najnovijim trendovima i novostima iz Hrvatske.',
+  description:
+    'Najnovije vijesti iz Hrvatske, cijene na tržištu, tečajevi i dramske serije koje svi gledaju. Ažurira se svaki dan na SaznajHR.com',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

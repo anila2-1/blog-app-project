@@ -22,7 +22,7 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
   const post: Post = data.docs?.[0]
 
   if (!post) {
-    const url404 = `${process.env.NEXT_PUBLIC_SITE_URL}/posts/${slug}`
+    const url404 = `${process.env.NEXT_PUBLIC_SITE_URL}/${slug}`
     return {
       title: 'Post Not Found',
       description: 'This post does not exist or was removed.',
@@ -54,7 +54,7 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
       ? `${process.env.NEXT_PUBLIC_SITE_URL}${imgObj.url}`
       : `${process.env.NEXT_PUBLIC_SITE_URL}/default-og.jpg` // fallback
 
-  const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/posts/${slug}`
+  const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${slug}`
 
   return {
     title,
@@ -283,7 +283,7 @@ function SocialIcon({ Icon }: { Icon: React.ElementType }) {
       className={`group flex items-center justify-center w-12 h-12 rounded-full 
                   bg-white border shadow-sm
                   transition-all duration-200 ease-out 
-                  hover:-translate-y-[3px] active:translate-x-0.5 active:translate-y-0.5`}
+                  hover:-translate-y-0.75 active:translate-x-0.5 active:translate-y-0.5`}
     >
       <Icon
         size={20} // ✅ smaller icon for better fit inside 48x48 circle

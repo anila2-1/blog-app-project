@@ -52,12 +52,12 @@ export default function Sidebar() {
               hover:-translate-y-1 active:translate-x-0.5 active:translate-y-0.5 
               relative overflow-hidden rounded-2xl p-6`}
       >
-        <div className="absolute inset-0 bg-linear-to-tr from-white/10 to-transparent"></div>
+        <div className="absolute  inset-0 bg-linear-to-tr from-white/10 to-transparent"></div>
 
         {/* Title */}
         <h3 className="font-bold text-black text-lg mb-4 text-center relative z-10">
-          <span className="relative z-10">{t.followUs}</span>
-          <span className="absolute left-1/2 -translate-x-1/2 bottom-0 w-12 h-1 bg-black rounded-full"></span>
+          <span className="relative mt-10 z-10">{t.followUs}</span>
+          <span className="absolute left-1/2 -translate-x-1/2 mt-8 w-12 h-1 bg-black rounded-full"></span>
         </h3>
 
         {/* Social Icons Row */}
@@ -82,7 +82,7 @@ function SocialIcon({ Icon }: { Icon: React.ElementType }) {
       className={`group flex items-center justify-center w-12 h-12 rounded-full 
                   bg-white border shadow-sm
                   transition-all duration-200 ease-out 
-                  hover:-translate-y-[3px] active:translate-x-0.5 active:translate-y-0.5`}
+                  hover:-translate-y-0.75 active:translate-x-0.5 active:translate-y-0.5`}
     >
       <Icon
         size={20} // ✅ smaller icon for better fit inside 48x48 circle

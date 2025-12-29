@@ -40,7 +40,7 @@ const translations = {
   hr: {
     home: 'Početna',
     search: 'Pretraži...',
-    siteName: 'BLOGSTRANICA',
+    siteName: 'SaznajHR',
     searchModalTitle: 'Upišite da biste započeli pretragu',
     searchButton: 'Pretraži',
     close: 'Zatvori',

@@ -108,7 +108,7 @@ const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
     throw new Error('Expected value to be an object')
   }
   const slug = value.slug
-  return relationTo === 'posts' ? `/posts/${slug}` : `/${slug}`
+  return relationTo === 'posts' ? `/${slug}` : `/${slug}`
 }
 
 // small helper to escape HTML so it displays correctly inside <code>
@@ -139,7 +139,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
       const docValue = linkNode.fields.doc.value
       const slug = typeof docValue === 'object' ? docValue.slug : docValue
       const relationTo = linkNode.fields.doc.relationTo
-      href = relationTo === 'posts' ? `/posts/${slug}` : `/${slug}`
+      href = relationTo === 'posts' ? `/${slug}` : `/${slug}`
     }
     // Handle external links
     else if (linkNode.fields?.url) {

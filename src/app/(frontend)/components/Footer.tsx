@@ -35,16 +35,16 @@ const translations = {
     builtWith: 'נבנה באהבה באמצעות Next.js ו-Payload CMS.',
   },
   hr: {
-    siteName: 'BLOGSTRANICA',
+    siteName: 'SaznajHR',
     about:
-      'Moderna blog platforma pokretana Payload CMS-om, dizajnirana za stvaratelje sadržaja koji vole fleksibilnost, jednostavnost i elegantan dizajn.',
+      'Najnovije vijesti iz Hrvatske, cijene na tržištu, tečajevi i dramske serije koje svi gledaju. Ažurira se svaki dan na SaznajHR.com.',
     quickLinks: 'Brze Poveznice',
     home: 'Početna',
     posts: 'Objave',
     aboutPage: 'O Nama',
     stayConnected: 'Ostanite Povezani',
-    followText: 'Pratite nas za novosti, inspiraciju za dizajn i Payload CMS savjete.',
-    builtWith: 'Izrađeno s ljubavlju pomoću Next.js i Payload CMS-a.',
+    followText: 'Hrvatske vijesti, cijene, tečajevi i serije – svaki dan ažurirano',
+    builtWith: 'Izrađeno s ljubavlju za informiranje Hrvatske',
   },
   tr: {
     siteName: 'BLOGSİTESİ',
