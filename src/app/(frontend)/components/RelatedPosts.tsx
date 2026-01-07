@@ -50,7 +50,7 @@ export default function RelatedPosts({ categorySlug, currentPostId, locale }: Re
   if (relatedPosts.length === 0) return null
 
   return (
-    <section className="my-12" dir={langConfig.direction} style={{ fontFamily: langConfig.font }}>
+    <section dir={langConfig.direction} style={{ fontFamily: langConfig.font }}>
       {/* ⭐ Section Heading */}
       <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
         {t.relatedPosts}
@@ -58,14 +58,15 @@ export default function RelatedPosts({ categorySlug, currentPostId, locale }: Re
       </h3>
 
       {/* ⭐ Responsive Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6">
+        {' '}
         {relatedPosts.map((post) => (
           <Link
             key={post.id}
             href={`/${post.slug}`}
             className="
-              group bg-white rounded-2xl border border-gray-200 shadow-sm 
-              hover:shadow-md transition-all flex flex-col overflow-hidden
+              group bg-white rounded-2xl border  border-gray-200 shadow-sm 
+              hover:shadow-md transition-all flex flex-col  overflow-hidden 
             "
           >
             {/* ⭐ Responsive Image */}

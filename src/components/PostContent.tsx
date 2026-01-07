@@ -27,7 +27,7 @@ export default function PostContent({ post, category }: PostContentProps) {
   }, [post.slug])
 
   return (
-    <article className=" py-14 px-3 sm:px-4 lg:px-6">
+    <article className=" py-6 px-3 sm:px-4 lg:px-6">
       {/* Main Card */}
       <div className="bg-white rounded-2xl p-4 -m-6 sm:p-6 lg:p-10 shadow-md hover:shadow-lg transition-all duration-300 border border-gray-200/60">
         {/* Category + Date */}

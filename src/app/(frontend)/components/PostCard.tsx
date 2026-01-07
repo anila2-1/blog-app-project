@@ -76,8 +76,11 @@ export default function PostCard({ post, locale }: PostCardProps) {
         <Image
           src={imageUrl}
           alt={post.title || 'Post image'}
-          fill
           className="object-cover transition-transform duration-500 group-hover:scale-105"
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          unoptimized
+          priority={true}
         />
         <div className="absolute inset-0 bg-linear-to-t from-black/25 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>

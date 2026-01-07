@@ -74,10 +74,10 @@ export default function FeaturedPost({ posts = [], loading, currentIndex = 0 }: 
     typeof post?.image === 'string' ? post.image : (post?.image?.url ?? '/placeholder.jpg')
 
   return (
-    <div className="mb-6 relative overflow-hidden rounded-2xl sm:rounded-3xl transition-all duration-300 ease-in-out">
+    <div className="mb-2 max-w-full mx-auto px-2.5 sm:px-4 relative overflow-hidden rounded-2xl sm:rounded-3xl transition-all duration-300 ease-in-out">
       <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 p-4 sm:p-6">
         <div className="sm:w-full sm:max-w-[50%] shrink-0">
-          <div className="relative h-40 sm:h-48 md:h-60 rounded-xl sm:rounded-2xl overflow-hidden border border-slate-200/60 shadow-lg group">
+          <div className="relative h-48 sm:h-58 md:h-70 rounded-xl sm:rounded-2xl overflow-hidden border border-slate-200/60 shadow-lg group">
             <Image
               src={imageUrl}
               alt={post?.title ?? 'Featured Post'}

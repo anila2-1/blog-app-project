@@ -154,7 +154,7 @@ export default async function SinglePostPage(props: { params: Promise<{ slug: st
 
   return (
     <main
-      className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10"
+      className="max-w-7xl mx-auto px-4 sm:px-4 lg:px-4 py-4"
       dir={langConfig.direction}
       style={{ fontFamily: langConfig.font }}
     >
@@ -167,7 +167,7 @@ export default async function SinglePostPage(props: { params: Promise<{ slug: st
         </div>
 
         {/* Right Column: Latest, Popular, Ads, Social Icons */}
-        <div className="space-y-6">
+        <div className="space-y-6 px-0.5 sm:px-1 lg:px-2 py-2">
           {/* Latest */}
           <SectionCard
             label="Latest"
@@ -261,7 +261,7 @@ function SectionCard({
 }) {
   return (
     <section
-      className={`relative rounded-2xl ${padding} mt-12 border-none shadow-none ${customClasses}`}
+      className={`relative rounded-2xl ${padding} mt-1 border-none shadow-none ${customClasses}`}
     >
       <div
         className={`absolute ${labelPosition} px-4 py-1.5 bg-linear-to-r from-purple-500 to-indigo-600 text-white text-sm font-bold rounded-full shadow-md`}

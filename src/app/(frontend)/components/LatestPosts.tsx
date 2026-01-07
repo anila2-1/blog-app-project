@@ -70,7 +70,7 @@ const LatestPosts: React.FC<LatestPostsProps> = memo(({ posts, loading }) => {
 
   return (
     <div
-      className="flex flex-col gap-3 mt-4"
+      className="flex flex-col gap-3 mt-2"
       dir={langConfig.direction}
       style={{ fontFamily: langConfig.font }}
     >
@@ -98,8 +98,8 @@ const LatestPosts: React.FC<LatestPostsProps> = memo(({ posts, loading }) => {
                 src={imageUrl}
                 alt={title}
                 className="
-                  w-16 h-12 
-                  sm:w-18 sm:h-14 
+                  w-16 h-12 mt-6
+                  sm:w-18 sm:h-14
                   rounded-lg 
                   object-cover 
                   border border-gray-200 
@@ -110,7 +110,7 @@ const LatestPosts: React.FC<LatestPostsProps> = memo(({ posts, loading }) => {
             ) : (
               <div
                 className="
-                  w-16 h-12 
+                  w-16 h-12
                   sm:w-18 sm:h-14 
                   rounded-lg 
                   bg-gray-200 
