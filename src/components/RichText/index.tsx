@@ -8,7 +8,6 @@ import {
 } from '@payloadcms/richtext-lexical'
 import {
   JSXConvertersFunction,
-  LinkJSXConverter,
   RichText as ConvertRichText,
 } from '@payloadcms/richtext-lexical/react'
 import React from 'react'
@@ -64,6 +63,11 @@ type MediaBlockProps = {
   imgClassName?: string
 }
 
+type VideoBlockProps = {
+  embedCode: string
+  caption?: string
+}
+
 // Simple class name utility
 const cn = (...args: (string | boolean | Record<string, boolean> | undefined)[]): string => {
   const classes: string[] = []
@@ -100,7 +104,9 @@ type SerializedImageNode = {
 
 type NodeTypes =
   | DefaultNodeTypes
-  | SerializedBlockNode<CTABlockProps | MediaBlockProps | BannerBlockProps | CodeBlockProps>
+  | SerializedBlockNode<
+      CTABlockProps | MediaBlockProps | BannerBlockProps | CodeBlockProps | VideoBlockProps
+    >
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   const { value, relationTo } = linkNode.fields.doc!
@@ -238,7 +244,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
               src={src}
               alt={alt}
               unoptimized
-              className="w-full h-auto object-cover max-h-[600px] transition-opacity duration-300 group-hover:opacity-95"
+              className="w-full h-auto object-cover max-h-150 transition-opacity duration-300 group-hover:opacity-95"
               style={{
                 maxWidth: `${width}px`,
                 maxHeight: `${height}px`,
@@ -493,6 +499,34 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     cta: ({ node }: { node: SerializedBlockNode<CTABlockProps> }) => (
       <CallToActionBlock {...node.fields} />
     ),
+    VideoBlock: ({ node }: { node: SerializedBlockNode<VideoBlockProps> }) => {
+      const { embedCode } = node.fields
+
+      if (!embedCode) {
+        console.warn('VideoBlock: Missing embed code')
+        return null
+      }
+
+      return (
+        <div className="my-8 flex justify-center px-4 sm:px-6 lg:px-8">
+          <figure className="w-full max-w-5xl">
+            <div className="relative w-full overflow-hidden rounded-xl bg-black aspect-video">
+              <div
+                className="
+          absolute inset-0 
+          [&>iframe]:w-full 
+          [&>iframe]:h-full 
+          [&>iframe]:absolute 
+          [&>iframe]:inset-0
+          [&>iframe]:border-0
+        "
+                dangerouslySetInnerHTML={{ __html: embedCode }}
+              />
+            </div>
+          </figure>
+        </div>
+      )
+    },
   },
 })
 

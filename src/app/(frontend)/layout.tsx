@@ -21,6 +21,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang={activeLang.locale} dir={activeLang.direction}>
       <head>
         <link rel="stylesheet" href={activeLang.css} />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1176202912593831"
+          crossOrigin="anonymous"
+        ></script>
       </head>
       <body className="bg-linear-to-br from-[#fff9fa] via-purple-100 to-fuchsia-100 text-gray-800 relative min-h-screen">
         <AnimatedBackground />

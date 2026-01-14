@@ -17,7 +17,9 @@ const translations = {
     quickLinks: 'Quick Links',
     home: 'Home',
     posts: 'Posts',
-    aboutPage: 'About',
+    aboutPage: 'About Us',
+    contactPage: 'Contact Us',
+    privacyPage: 'Privacy Policy',
     stayConnected: 'Stay Connected',
     followText: 'Follow us for updates, design inspiration, and Payload CMS tips.',
     builtWith: 'Built with love using Next.js & Payload CMS.',
@@ -30,6 +32,8 @@ const translations = {
     home: 'בית',
     posts: 'פוסטים',
     aboutPage: 'אודות',
+    contactPage: 'צור קשר',
+    privacyPage: 'מדיניות פרטיות',
     stayConnected: 'הישארו מחוברים',
     followText: 'עקבו אחרינו לעדכונים, השראה בעיצוב וטיפים ל-Payload CMS.',
     builtWith: 'נבנה באהבה באמצעות Next.js ו-Payload CMS.',
@@ -42,6 +46,8 @@ const translations = {
     home: 'Početna',
     posts: 'Objave',
     aboutPage: 'O Nama',
+    contactPage: 'Kontakt',
+    privacyPage: 'Privatnost',
     stayConnected: 'Ostanite Povezani',
     followText: 'Hrvatske vijesti, cijene, tečajevi i serije – svaki dan ažurirano',
     builtWith: 'Izrađeno s ljubavlju za informiranje Hrvatske',
@@ -54,6 +60,8 @@ const translations = {
     home: 'Ana Sayfa',
     posts: 'Gönderiler',
     aboutPage: 'Hakkında',
+    contactPage: 'İletişim',
+    privacyPage: 'Gizlilik Politikası',
     stayConnected: 'Bağlantıda Kalın',
     followText: 'Güncellemeler, tasarım ilhamı ve Payload CMS ipuçları için bizi takip edin.',
     builtWith: 'Next.js ve Payload CMS kullanarak sevgiyle yapıldı.',
@@ -103,11 +111,15 @@ export default function Footer() {
           {/* Middle - Quick Links */}
           <div>
             <h4 className="text-xl font-bold text-gray-900 mb-6">{t.quickLinks}</h4>
-            <ul className="space-y-3">
+
+            <ul className="grid grid-cols-2 gap-y-3 gap-x-6">
               {[
                 { name: t.home, href: '/' },
+                { name: t.aboutPage, href: '/about-us' },
                 { name: t.posts, href: '/posts' },
-                { name: t.aboutPage, href: '/about' },
+
+                { name: t.contactPage, href: '/contact-us' },
+                { name: t.privacyPage, href: '/privacy-policy' },
               ].map((link, index) => (
                 <li key={index}>
                   <a
@@ -130,7 +142,9 @@ export default function Footer() {
                         />
                       </svg>
                     </span>
+
                     {link.name}
+
                     <span className="ml-2 w-0 group-hover:w-4 h-0.5 bg-purple-400 rounded-full transition-all duration-300"></span>
                   </a>
                 </li>

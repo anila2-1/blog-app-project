@@ -4,7 +4,7 @@ import { defaultLexical } from './fields/defaultLexical'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { buildConfig } from 'payload'
 import { en } from '@payloadcms/translations/languages/en'
-// import { he } from '@payloadcms/translations/languages/he'
+import { he } from '@payloadcms/translations/languages/he'
 
 import path from 'path'
 import { fileURLToPath } from 'url'
@@ -16,11 +16,11 @@ import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import Posts from './collections/Posts/Posts'
 import Categories from './collections/Categories'
-import Pages from './collections/Pages'
 
 import { Code } from './blocks/Code/config'
 import { Content } from './blocks/Content/config'
 import { MediaBlock } from './blocks/MediaBlock/config'
+import { VideoBlock } from './blocks/VideoBlock/config'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -32,8 +32,8 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Posts, Categories, Pages], // Add Pages to collections
-  blocks: [Code, Content, MediaBlock],
+  collections: [Users, Media, Posts, Categories], // Add Pages to collections
+  blocks: [Code, Content, MediaBlock, VideoBlock],
   localization: {
     locales: [
       {
