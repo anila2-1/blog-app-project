@@ -4,13 +4,10 @@ import { defaultLexical } from './fields/defaultLexical'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { buildConfig } from 'payload'
 import { en } from '@payloadcms/translations/languages/en'
-import { he } from '@payloadcms/translations/languages/he'
 
 import path from 'path'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
-
-import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
@@ -21,6 +18,8 @@ import { Code } from './blocks/Code/config'
 import { Content } from './blocks/Content/config'
 import { MediaBlock } from './blocks/MediaBlock/config'
 import { VideoBlock } from './blocks/VideoBlock/config'
+
+import SiteSettings from './globals/SiteSettings'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -33,6 +32,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, Posts, Categories], // Add Pages to collections
+  globals: [SiteSettings],
   blocks: [Code, Content, MediaBlock, VideoBlock],
   localization: {
     locales: [
@@ -41,7 +41,6 @@ export default buildConfig({
         code: 'en',
         rtl: false,
       },
-      // { label: 'Hebrew', code: 'he', rtl: true },
     ],
     defaultLocale: process.env.NEXT_PUBLIC_DEFAULT_LANG || 'en',
     fallback: true,
@@ -62,13 +61,6 @@ export default buildConfig({
   sharp,
   plugins: [
     // storage-adapter-placeholder
-
-    vercelBlobStorage({
-      cacheControlMaxAge: 60 * 60 * 24 * 365, // 1 year
-      enabled: true,
-      collections: {},
-      token: process.env.BLOB_READ_WRITE_TOKEN,
-    }),
 
     payloadCloudPlugin(),
     seoPlugin({

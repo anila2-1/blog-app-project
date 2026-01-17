@@ -6,6 +6,12 @@ import { languages } from '@/config/languages'
 import Navbar from './components/Navbar/Navbar1'
 import Footer from './components/Footer'
 import AnimatedBackground from './components/AnimatedBackground/AnimatedBackground' // New client component
+import { getPayload } from 'payload'
+import config from '../../payload.config'
+import HeadInjector from '../../components/HeadInjector'
+
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
 
 export const metadata = {
   title: 'Budite u toku s najnovijim trendovima i novostima iz Hrvatske.',
@@ -13,20 +19,20 @@ export const metadata = {
     'Najnovije vijesti iz Hrvatske, cijene na tržištu, tečajevi i dramske serije koje svi gledaju. Ažurira se svaki dan na SaznajHR.com',
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const langCode = process.env.NEXT_PUBLIC_DEFAULT_LANG || 'en'
   const activeLang = languages.find((l) => l.code === langCode) || languages[0]
+  const payload = await getPayload({ config })
+  const siteSettings = await payload.findGlobal({ slug: 'site-setting' })
+  const siteCode = siteSettings.code as string | undefined
 
   return (
     <html lang={activeLang.locale} dir={activeLang.direction}>
       <head>
         <link rel="stylesheet" href={activeLang.css} />
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1176202912593831"
-          crossOrigin="anonymous"
-        ></script>
+        {siteCode && <HeadInjector html={siteCode} />}
       </head>
+
       <body className="bg-linear-to-br from-[#fff9fa] via-purple-100 to-fuchsia-100 text-gray-800 relative min-h-screen">
         <AnimatedBackground />
         <Navbar />

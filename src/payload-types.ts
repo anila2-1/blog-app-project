@@ -96,8 +96,12 @@ export interface Config {
     defaultIDType: string;
   };
   fallbackLocale: ('false' | 'none' | 'null') | false | null | 'en' | 'en'[];
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    'site-setting': SiteSetting;
+  };
+  globalsSelect: {
+    'site-setting': SiteSettingSelect<false> | SiteSettingSelect<true>;
+  };
   locale: 'en';
   user: User & {
     collection: 'users';
@@ -513,6 +517,26 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-setting".
+ */
+export interface SiteSetting {
+  id: string;
+  code?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-setting_select".
+ */
+export interface SiteSettingSelect<T extends boolean = true> {
+  code?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

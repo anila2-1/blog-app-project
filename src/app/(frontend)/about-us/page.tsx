@@ -180,6 +180,8 @@ const bounceIn = keyframes`
   }
 `
 
+export const dynamic = 'force-dynamic'
+
 const page = () => {
   return (
     <main

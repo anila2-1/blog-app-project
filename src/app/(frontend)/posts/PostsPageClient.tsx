@@ -35,7 +35,7 @@ const translations = {
 }
 
 const t = translations[LANG_CODE as keyof typeof translations] || translations.en
-const POSTS_PER_PAGE = 6
+const POSTS_PER_PAGE = 12
 
 export default function PostsPageClient({ initialPage = 1 }: { initialPage?: number }) {
   const searchParams = useSearchParams()
@@ -87,7 +87,7 @@ export default function PostsPageClient({ initialPage = 1 }: { initialPage?: num
       >
         <div className="animate-pulse space-y-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[...Array(6)].map((_, i) => (
+            {[...Array(8)].map((_, i) => (
               <div
                 key={i}
                 className="bg-white/80 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-200/50 shadow-[2px_2px_0px_#00000066]"

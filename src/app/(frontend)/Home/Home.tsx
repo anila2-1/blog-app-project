@@ -117,7 +117,7 @@ export default function HomePage() {
   const [allPosts, setAllPosts] = useState<SimplifiedPost[]>([])
   const [loading, setLoading] = useState(true)
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [visibleCount, setVisibleCount] = useState(4)
+  const [visibleCount] = useState(8)
 
   // Individual loading states for each section
   const [loadingStates, setLoadingStates] = useState({
@@ -347,7 +347,7 @@ export default function HomePage() {
           >
             {loadingStates.allPosts ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 sm:gap-6">
-                {[1, 2, 3, 4].map((i) => (
+                {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
                   <div
                     key={i}
                     className="animate-pulse bg-white shadow-md rounded-xl overflow-hidden border border-gray-100"
@@ -464,17 +464,6 @@ export default function HomePage() {
                     </div>
                   ))}
                 </div>
-                {/* Load More Button
-                {visibleCount < allPosts.length && (
-                  <div className="flex justify-center mt-6 sm:mt-8">
-                    <Link
-                      href="/posts"
-                      className="px-6 py-2 text-sm font-semibold rounded-full border border-purple-500 text-purple-600 hover:bg-purple-500 hover:text-white transition-all duration-300"
-                    >
-                      {t.loadMore}
-                    </Link>
-                  </div>
-                )} */}
               </>
             ) : (
               <p className="text-gray-500 text-center py-12">No posts available</p>
