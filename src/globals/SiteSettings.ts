@@ -10,13 +10,11 @@ const SiteSettings: GlobalConfig = {
       label: 'Head Code Snippet',
       admin: {
         language: 'html',
+        editorOptions: {
+          tabSize: 8,
+        },
       },
     },
-    // {
-    //   name: 'isActive',
-    //   type: 'checkbox',
-    //   defaultValue: true,
-    // },
   ],
 }
 

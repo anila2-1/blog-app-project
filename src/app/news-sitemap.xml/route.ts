@@ -1,3 +1,5 @@
+// src/app/news-sitemap.xml/route.ts
+
 export const dynamic = 'force-dynamic'
 
 import { NextRequest } from 'next/server'
@@ -23,7 +25,7 @@ export async function GET(request: NextRequest) {
     },
   })
 
-  const baseUrl = process.env.NEXT_PUBLIC_URL || 'http://localhost:3000'
+  const baseUrl = process.env.NEXT_PUBLIC_URL || 'https://saznajhr.com'
 
   const newsSitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
@@ -33,13 +35,15 @@ export async function GET(request: NextRequest) {
       (post: any) => `
   <url>
     <loc>${baseUrl}/${post.slug}</loc>
+    <lastmod>${new Date(post.publishedAt).toISOString()}</lastmod>
     <news:news>
       <news:publication>
-        <news:name>Your Blog Name</news:name>
-        <news:language>en</news:language>
+        <news:name>${baseUrl}</news:name>
+        <news:language>hr</news:language>
       </news:publication>
-      <news:publication_date>${new Date(post.publishedAt).toISOString()}</news:publication_date>
       <news:title>${post.title}</news:title>
+      <news:publication_date>${new Date(post.publishedAt).toISOString()}</news:publication_date>
+      <news:genres>Blog</news:genres>
     </news:news>
   </url>`,
     )
