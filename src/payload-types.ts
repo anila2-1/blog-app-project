@@ -524,7 +524,10 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface SiteSetting {
   id: string;
-  code?: string | null;
+  adsenseEnabled?: boolean | null;
+  adsenseClientId?: string | null;
+  gaEnabled?: boolean | null;
+  gaMeasurementId?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -533,7 +536,10 @@ export interface SiteSetting {
  * via the `definition` "site-setting_select".
  */
 export interface SiteSettingSelect<T extends boolean = true> {
-  code?: T;
+  adsenseEnabled?: T;
+  adsenseClientId?: T;
+  gaEnabled?: T;
+  gaMeasurementId?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

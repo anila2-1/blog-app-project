@@ -5,14 +5,32 @@ const SiteSettings: GlobalConfig = {
   label: 'Site Settings',
   fields: [
     {
-      name: 'code',
-      type: 'code',
-      label: 'Head Code Snippet',
+      name: 'adsenseEnabled',
+      label: 'Enable AdSense',
+      type: 'checkbox',
+      defaultValue: false,
+    },
+    {
+      name: 'adsenseClientId',
+      label: 'AdSense Client ID',
+      type: 'text',
       admin: {
-        language: 'html',
-        editorOptions: {
-          tabSize: 8,
-        },
+        condition: (_, siblingData) => siblingData.adsenseEnabled,
+      },
+    },
+    {
+      name: 'gaEnabled',
+      label: 'Enable Google Analytics',
+      type: 'checkbox',
+      defaultValue: false,
+    },
+    {
+      name: 'gaMeasurementId',
+      label: 'GA4 Measurement ID',
+      type: 'text',
+      admin: {
+        placeholder: 'G-XXXXXXXXXX',
+        condition: (_, siblingData) => siblingData.gaEnabled,
       },
     },
   ],

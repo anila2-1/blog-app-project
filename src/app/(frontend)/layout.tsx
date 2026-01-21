@@ -5,10 +5,12 @@ import './styles.css'
 import { languages } from '@/config/languages'
 import Navbar from './components/Navbar/Navbar1'
 import Footer from './components/Footer'
-import AnimatedBackground from './components/AnimatedBackground/AnimatedBackground' // New client component
+import AnimatedBackground from './components/AnimatedBackground/AnimatedBackground'
 import { getPayload } from 'payload'
 import config from '../../payload.config'
-import HeadInjector from '../../components/HeadInjector'
+import AdSenseAuto from '../../components/AdSenseAuto'
+import GoogleAnalytics from '../../components/GoogleAnalytics'
+import { getSiteSettings } from '@/lib/getSiteSettings'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
@@ -22,15 +24,25 @@ export const metadata = {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const langCode = process.env.NEXT_PUBLIC_DEFAULT_LANG || 'en'
   const activeLang = languages.find((l) => l.code === langCode) || languages[0]
+
   const payload = await getPayload({ config })
-  const siteSettings = await payload.findGlobal({ slug: 'site-setting' })
-  const siteCode = siteSettings.code as string | undefined
+  const settings = await getSiteSettings()
+
+  const siteSettings = await payload.findGlobal({
+    slug: 'site-setting',
+  })
 
   return (
     <html lang={activeLang.locale} dir={activeLang.direction}>
       <head>
-        <link rel="stylesheet" href={activeLang.css} />
-        {siteCode && <HeadInjector html={siteCode} />}
+        {/* Google Analytics */}
+        {settings.gaEnabled && settings.gaMeasurementId && (
+          <GoogleAnalytics measurementId={settings.gaMeasurementId} />
+        )}
+        {/* Google AdSense */}
+        {siteSettings?.adsenseEnabled && siteSettings?.adsenseClientId && (
+          <AdSenseAuto clientId={siteSettings.adsenseClientId} />
+        )}
       </head>
 
       <body className="bg-linear-to-br from-[#fff9fa] via-purple-100 to-fuchsia-100 text-gray-800 relative min-h-screen">
