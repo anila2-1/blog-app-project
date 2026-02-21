@@ -16,9 +16,9 @@ export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
 export const metadata = {
-  title: 'Budite u toku s najnovijim trendovima i novostima iz Hrvatske.',
+  title: ' זגורי אימפריה',
   description:
-    'Najnovije vijesti iz Hrvatske, cijene na tržištu, tečajevi i dramske serije koje svi gledaju. Ažurira se svaki dan na SaznajHR.com',
+    'זגורי אימפריה עונה 3 לצפייה ישירה באיכות גבוהה. קבלו גישה לכל הפרקים המלאים לאחר תשלום חד פעמי, לצפייה והורדה מכל מכשיר בצורה קלה ובטוחה.',
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

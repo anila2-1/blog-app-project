@@ -19,7 +19,7 @@ const nextConfig = {
   serverExternalPackages: ['@payloadcms/db-mongodb'],
 
   env: {
-    NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL || 'http://localhost:3000',
+    NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL || 'https://zaguriempire.net',
   },
 }
 

@@ -29,9 +29,9 @@ const translations = {
     pressEsc: 'Press ESC to close',
   },
   he: {
-    home: 'בית',
+    home: 'Zaguriempire',
     search: 'חפש...',
-    siteName: 'בלוגאתר  ',
+    siteName: 'Zaguriempire',
     searchModalTitle: 'הקלד כדי להתחיל חיפוש',
     searchButton: 'חיפוש',
     close: 'סגור',

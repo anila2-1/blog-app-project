@@ -58,7 +58,24 @@
 [dir='rtl'] {
   direction: rtl;
   text-align: right;
-  font-family: var(--font-hebrew-body);
+  font-family: var(--font-hebrew-body) !important;
+}
+
+[dir='rtl'] h1,
+[dir='rtl'] h2,
+[dir='rtl'] h3,
+[dir='rtl'] h4,
+[dir='rtl'] h5,
+[dir='rtl'] h6 {
+  font-family: var(--font-hebrew-heading) !important;
+}
+
+[dir='rtl'] p,
+[dir='rtl'] span,
+[dir='rtl'] a,
+[dir='rtl'] li,
+[dir='rtl'] div {
+  font-family: var(--font-hebrew-body) !important;
 }
 
 [dir='ltr'] {
@@ -74,9 +91,9 @@
   --font-logo: 'Poppins', system-ui, sans-serif;
 
   /* Hebrew */
-  --font-hebrew-body: 'Rubik', sans-serif;
-  --font-hebrew-heading: 'Alef', sans-serif;
-  --font-logo-hebrew: 'Alef', sans-serif;
+  --font-hebrew-body: 'DavidLibre-Bold', 'Rubik', sans-serif;
+  --font-hebrew-heading: 'DavidLibre-Bold', 'Rubik', sans-serif;
+  --font-logo-hebrew: 'DavidLibre-Bold', 'Rubik', sans-serif;
 
   /* Croatian */
   --font-croatian-body: 'Roboto', system-ui, sans-serif;

@@ -25,9 +25,8 @@ const translations = {
     builtWith: 'Built with love using Next.js & Payload CMS.',
   },
   he: {
-    siteName: 'בלוגאתר  ',
-    about:
-      'פלטפורמת בלוגים מודרנית המופעלת על ידי Payload CMS, שנועדה ליוצרים שאוהבים גמישות, פשטות ועיצוב אלגנטי.',
+    siteName: 'Zaguriempire',
+    about: 'זגורי אימפריה עונה 3 לצפייה ישירה',
     quickLinks: 'קישורים מהירים',
     home: 'בית',
     posts: 'פוסטים',
@@ -35,8 +34,8 @@ const translations = {
     contactPage: 'צור קשר',
     privacyPage: 'מדיניות פרטיות',
     stayConnected: 'הישארו מחוברים',
-    followText: 'עקבו אחרינו לעדכונים, השראה בעיצוב וטיפים ל-Payload CMS.',
-    builtWith: 'נבנה באהבה באמצעות Next.js ו-Payload CMS.',
+    followText: 'חדשות, מחירים, קורסים וסדרות של Zaguriempire - מתעדכנים מדי יום',
+    builtWith: 'נוצר באהבה למידע על ידי Zaguriempire',
   },
   hr: {
     siteName: 'SaznajHR',

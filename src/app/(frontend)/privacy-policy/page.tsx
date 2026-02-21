@@ -58,7 +58,7 @@ const translations = {
   he: {
     heroTitle: 'מדיניות פרטיות',
     heroDesc: 'הפרטיות שלך חשובה לנו.',
-    learnMore: 'למידע נוסף',
+    learnMore: 'גלה עוד',
     contact: 'צור קשר',
 
     infoTitle: 'מידע שאנו אוספים',

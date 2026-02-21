@@ -25,7 +25,7 @@ export async function GET(request: NextRequest) {
     },
   })
 
-  const baseUrl = process.env.NEXT_PUBLIC_URL || 'https://saznajhr.com'
+  const baseUrl = process.env.NEXT_PUBLIC_URL || 'https://zaguriempire.net'
 
   const newsSitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
