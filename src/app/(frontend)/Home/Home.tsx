@@ -29,6 +29,7 @@ const translations = {
     exploreButton: 'View All Articles',
     allPosts: 'All Posts',
     loadMore: 'Load More',
+    readMore: 'Read More',
   },
   hr: {
     featured: 'Istaknuto',
@@ -42,6 +43,7 @@ const translations = {
     exploreButton: 'Pogledaj sve članke',
     allPosts: 'Svi članci',
     loadMore: 'Učitaj više',
+    readMore: 'Pročitaj više',
   },
   he: {
     featured: 'מומלץ',
@@ -55,6 +57,7 @@ const translations = {
     exploreButton: 'ראו את כל המאמרים',
     allPosts: 'כל המאמרים',
     loadMore: 'טען עוד',
+    readMore: 'קרא עוד',
   },
   tr: {
     featured: 'Öne Çıkan',
@@ -68,6 +71,7 @@ const translations = {
     exploreButton: 'Tüm Yazıları Görüntüle',
     allPosts: 'Tüm Yazılar',
     loadMore: 'Daha Fazla Yükle',
+    readMore: 'Devamını Oku',
   },
 }
 
@@ -456,7 +460,7 @@ export default function HomePage() {
                               },
                             }}
                           >
-                            <span>Read More</span>
+                            <span>{t.readMore}</span>
                             <span className="arrow">→</span>
                           </Button>
                         </Link>

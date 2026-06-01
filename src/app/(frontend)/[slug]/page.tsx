@@ -10,6 +10,27 @@ import { LucideFacebook, LucideTwitter, LucideInstagram, LucideYoutube } from 'l
 const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || languages[0].code
 const langConfig = getLanguageConfig(LANG_CODE)
 
+const translations = {
+  en: {
+    latest: 'Latest',
+    popular: 'Popular',
+  },
+  he: {
+    latest: 'אחרונים',
+    popular: 'פופולרי',
+  },
+  hr: {
+    latest: 'Najnovije',
+    popular: 'Popularno',
+  },
+  tr: {
+    latest: 'En Son',
+    popular: 'Popüler',
+  },
+}
+
+const t = translations[LANG_CODE as keyof typeof translations] || translations.en
+
 // --- SEO in <head> ---
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }) {
   const { slug } = await props.params
@@ -30,29 +51,25 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
     }
   }
 
-  // safe category
-  const category = (() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const rawCat = (post as any)?.category ?? (post as any)?.categories?.[0]
-    return typeof rawCat === 'object' ? rawCat : undefined
-  })()
-
-  // seo fields
+  // seo fields - use seoPlugin's meta fields
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const seo = (post as any).seo
-  const title = seo?.metaTitle || post.title
-  const description = seo?.metaDescription || post.excerpt
-  const categorySuffix = category ? ` | Category: ${category.name || category.title}` : ''
-  const fullDescription = `${description}${categorySuffix}`
+  const seo = (post as any).meta
+  const title = seo?.title || post.title
+  const description = seo?.description || post.excerpt
+  const fullDescription = description
 
   // --- IMAGE LOGIC ---
-  // Payload returns featuredImage as { url, alt }, or as an ID.
+  // Check for SEO image first, then fallback to featured image
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const seoImgObj = (post as any).meta?.image
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const imgObj = (post as any).featuredImage
   const ogImage =
-    typeof imgObj === 'object' && imgObj?.url
-      ? `${process.env.NEXT_PUBLIC_SITE_URL}${imgObj.url}`
-      : `${process.env.NEXT_PUBLIC_SITE_URL}/default-og.jpg` // fallback
+    seoImgObj && typeof seoImgObj === 'object' && seoImgObj?.url
+      ? `${process.env.NEXT_PUBLIC_SITE_URL}${seoImgObj.url}`
+      : typeof imgObj === 'object' && imgObj?.url
+        ? `${process.env.NEXT_PUBLIC_SITE_URL}${imgObj.url}`
+        : `${process.env.NEXT_PUBLIC_SITE_URL}/default-og.jpg` // fallback
 
   const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${slug}`
 
@@ -170,7 +187,7 @@ export default async function SinglePostPage(props: { params: Promise<{ slug: st
         <div className="space-y-6 px-0.5 sm:px-1 lg:px-2 py-2">
           {/* Latest */}
           <SectionCard
-            label="Latest"
+            label={t.latest}
             padding="p-5"
             labelPosition="top-3 left-3"
             customClasses="bg-white shadow-sm border border-black/10"
@@ -180,7 +197,7 @@ export default async function SinglePostPage(props: { params: Promise<{ slug: st
 
           {/* Popular */}
           <SectionCard
-            label="Popular"
+            label={t.popular}
             padding="p-3"
             labelPosition="top-4 left-4"
             customClasses="bg-white shadow-sm border border-black/10"
@@ -189,13 +206,13 @@ export default async function SinglePostPage(props: { params: Promise<{ slug: st
           </SectionCard>
 
           {/* Advertisement Card */}
-          <div
+          {/* <div
             className={`relative group rounded-2xl overflow-hidden bg-white p-6 
                         border border-black/10 shadow-[2px_2px_0px_#00000066] 
                         transition-all duration-200 ease-out 
                         hover:-translate-y-1 active:translate-x-0.5 active:translate-y-0.5`}
           >
-            {/* Subtle Glow on Hover */}
+            Subtle Glow on Hover
             <div className="absolute inset-0 rounded-2xl bg-linear-to-r from-[#F16363]/10 via-[#ff8a8a]/5 to-transparent opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-700 -z-10"></div>
 
             <div
@@ -214,7 +231,7 @@ export default async function SinglePostPage(props: { params: Promise<{ slug: st
             <p className="text-sm text-black font-semibold text-center tracking-wide">
               Advertisement
             </p>
-          </div>
+          </div> */}
 
           {/* Follow Us Card */}
           <div

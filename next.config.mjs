@@ -19,9 +19,9 @@ const nextConfig = {
   serverExternalPackages: ['@payloadcms/db-mongodb'],
 
   env: {
-    NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL || 'https://zaguriempire.net',
+    NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL || '',
   },
-}
+
 
 export default withPayload(nextConfig, {
   devBundleServerPackages: false,

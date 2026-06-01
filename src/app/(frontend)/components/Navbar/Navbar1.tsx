@@ -1,5 +1,16 @@
 'use client'
 
+// =============================================================================
+// NAVBAR COMPONENT - Main navigation bar
+// =============================================================================
+// Features:
+// - Language-aware translations
+// - Responsive mobile menu
+// - Search modal with keyboard support (ESC to close)
+// - Social media icons
+// - Category filter navigation
+// =============================================================================
+
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import {
@@ -18,6 +29,8 @@ import CategoryFilterBar from '../CategoryFilterBar/CategoryFilterBar1'
 const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || languages[0].code
 const langConfig = getLanguageConfig(LANG_CODE)
 
+// Translations object - contains all UI text for each supported language
+// Edit these values to customize text for each language
 const translations = {
   en: {
     home: 'Home',
@@ -29,9 +42,9 @@ const translations = {
     pressEsc: 'Press ESC to close',
   },
   he: {
-    home: 'Zaguriempire',
+    home: 'ZaguriEmpire',
     search: 'חפש...',
-    siteName: 'Zaguriempire',
+    siteName: 'ZaguriEmpire',
     searchModalTitle: 'הקלד כדי להתחיל חיפוש',
     searchButton: 'חיפוש',
     close: 'סגור',

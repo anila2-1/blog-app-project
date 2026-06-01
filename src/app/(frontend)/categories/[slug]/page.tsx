@@ -1,7 +1,8 @@
+//src/app/(frontend)/categories/[slug]/page.tsx
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useParams, useRouter } from 'next/navigation'
+import { useParams, useRouter, useSearchParams, usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { Post } from '@/payload-types'
 import { getLanguageConfig, LanguageCode, languages } from '@/config/languages'
@@ -14,41 +15,67 @@ const translations = {
     allCategories: '← All Categories',
     noPosts: 'No posts found in this category.',
     browseOther: 'Browse other topics',
+    readmore: 'Read more',
+    previous: 'Previous',
+    next: 'Next',
     articleCount: (count: number) => `${count} article${count !== 1 ? 's' : ''} in this category`,
   },
   he: {
     allCategories: '← כל הקטגוריות',
     noPosts: 'לא נמצאו פוסטים בקטגוריה זו.',
     browseOther: 'עיין בנושאים אחרים',
+    readmore: 'קרא עוד',
+    previous: 'הקודם',
+    next: 'הבא',
     articleCount: (count: number) => `${count} מאמרים בקטגוריה זו`,
   },
   hr: {
     allCategories: '← Sve kategorije',
     noPosts: 'Nema pronađenih postova u ovoj kategoriji.',
     browseOther: 'Pregledajte druge teme',
+    readmore: 'Čitaj više',
+    previous: 'Prethodni',
+    next: 'Sljedeći',
     articleCount: (count: number) => `${count} članaka u ovoj kategoriji`,
   },
   tr: {
     allCategories: '← Tüm Kategoriler',
     noPosts: 'Bu kategoride gönderi bulunamadı.',
     browseOther: 'Diğer konuları göz atın',
+    readmore: 'Devamını Oku',
+    previous: 'Önceki',
+    next: 'Sonraki',
     articleCount: (count: number) => `${count} makale bu kategoride`,
   },
 }
 
 const t = translations[LANG_CODE] || translations.en
+const POSTS_PER_PAGE = 9
 
 export default function CategoryPostsPage() {
   const { slug } = useParams()
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+
+  const currentPage = parseInt(searchParams.get('page') || '1', 10)
+
   const [category, setCategory] = useState<{ name: string; id: string } | null>(null)
   const [posts, setPosts] = useState<Post[]>([])
+  const [totalPosts, setTotalPosts] = useState(0)
+  const [totalPages, setTotalPages] = useState(1)
   const [loading, setLoading] = useState(true)
+
+  const goToPage = (page: number) => {
+    if (page < 1 || page > totalPages) return
+    router.push(`${pathname}?page=${page}`)
+  }
 
   useEffect(() => {
     if (!slug) return
 
     async function fetchCategoryAndPosts() {
+      setLoading(true)
       try {
         const catRes = await fetch(
           `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/categories?where[slug][equals]=${slug}&locale=${langConfig.locale}`,
@@ -63,13 +90,15 @@ export default function CategoryPostsPage() {
         const cat = catData.docs[0]
         setCategory(cat)
 
-        // Fetch posts filtered by category
+        // Fetch posts filtered by category with pagination
         const postsRes = await fetch(
-          `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/posts?where[category][in]=${cat.id}&sort=-publishedAt&locale=${langConfig.locale}`,
+          `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/posts?where[category][in]=${cat.id}&sort=-publishedAt&locale=${langConfig.locale}&limit=${POSTS_PER_PAGE}&page=${currentPage}&pagination=true`,
         )
         const postsData = await postsRes.json()
 
         setPosts(postsData.docs || [])
+        setTotalPosts(postsData.totalDocs || 0)
+        setTotalPages(postsData.totalPages || 1)
       } catch (err) {
         console.error('Error:', err)
         router.push('/categories')
@@ -79,7 +108,7 @@ export default function CategoryPostsPage() {
     }
 
     fetchCategoryAndPosts()
-  }, [slug, router])
+  }, [slug, router, currentPage, pathname, searchParams])
 
   if (loading) {
     return (
@@ -123,7 +152,7 @@ export default function CategoryPostsPage() {
         <h1 className="mt-6 text-4xl md:text-5xl font-extrabold text-gray-900 mb-3">
           {category?.name || 'Category'}
         </h1>
-        <p className="text-lg text-gray-600">{t.articleCount(posts.length)}</p>
+        <p className="text-lg text-gray-600">{t.articleCount(totalPosts)}</p>
       </header>
 
       {posts.length === 0 ? (
@@ -175,12 +204,59 @@ export default function CategoryPostsPage() {
                           })
                         : ''}
                     </span>
-                    <span className="font-semibold text-blue-700">Read more →</span>
+                    <span className="font-semibold text-blue-700">{t.readmore} →</span>
                   </div>
                 </div>
               </article>
             </Link>
           ))}
+        </div>
+      )}
+
+      {/* ✅ Pagination */}
+      {totalPages > 1 && (
+        <div className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <button
+            onClick={() => goToPage(currentPage - 1)}
+            disabled={currentPage === 1}
+            style={{ fontFamily: "'Poppins', sans-serif" }}
+            className={`px-4 py-2 rounded-full font-bold border shadow-sm bg-white hover:bg-gray-100 active:translate-x-0.5 active:translate-y-0.5 transition-all ${
+              currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
+          >
+            ← {t.previous}
+          </button>
+
+          <div className="flex flex-wrap justify-center gap-3">
+            {[...Array(totalPages)].map((_, i) => {
+              const page = i + 1
+              return (
+                <button
+                  key={page}
+                  onClick={() => goToPage(page)}
+                  style={{ fontFamily: "'Poppins', sans-serif" }}
+                  className={`w-10 h-10 flex items-center justify-center rounded-full text-sm font-bold border 
+                  shadow-sm active:translate-x-0.5 active:translate-y-0.5 transition-all ${
+                    currentPage === page
+                      ? 'bg-purple-600 text-white'
+                      : 'bg-white text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
+                  {page}
+                </button>
+              )
+            })}
+          </div>
+
+          <button
+            onClick={() => goToPage(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className={`px-4 py-2 rounded-full font-bold border shadow-sm bg-white hover:bg-gray-100 active:translate-x-0.5 active:translate-y-0.5 transition-all ${
+              currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
+          >
+            {t.next} →
+          </button>
         </div>
       )}
     </main>

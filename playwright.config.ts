@@ -36,6 +36,6 @@ export default defineConfig({
   webServer: {
     command: 'pnpm dev',
     reuseExistingServer: true,
-    url: 'https://zaguriempire.net',
+    url: 'http://example.com',
   },
 })

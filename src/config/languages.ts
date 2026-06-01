@@ -1,5 +1,20 @@
-// src/lib/languages.ts
+// =============================================================================
+// INTERNATIONALIZATION (i18n) CONFIGURATION
+// =============================================================================
+// This file defines all supported languages for the frontend application.
+// Each language has:
+// - name: Display name
+// - code: ISO 639-1 code (used in URLs and environment variables)
+// - direction: 'ltr' (left-to-right) or 'rtl' (right-to-left)
+// - font: Font family for this language
+// - locale: Full locale string for browser/API
+// - css: Path to language-specific CSS file
+//
+// TO CHANGE LANGUAGE: Edit NEXT_PUBLIC_DEFAULT_LANG in your .env file
+// Supported values: 'en', 'he', 'hr', 'tr'
+// =============================================================================
 
+// Type definition for language codes
 export type LanguageCode = 'en' | 'he' | 'hr' | 'tr'
 
 export interface LanguageConfig {
@@ -12,22 +27,25 @@ export interface LanguageConfig {
 }
 
 export const languages: LanguageConfig[] = [
+  // English - Default language, Left-to-Right
   {
     name: 'English',
     code: 'en',
     direction: 'ltr',
-    font: 'Outfit, sans-serif', // ← metadata only
+    font: 'Outfit, sans-serif',
     locale: 'en-US',
     css: '/lang/en.css',
   },
+  // Croatian - European language, Left-to-Right
   {
     name: 'Croatian',
     code: 'hr',
     direction: 'ltr',
-    font: 'Roboto, sans-serif', // ← metadata only
+    font: 'Roboto, sans-serif',
     locale: 'hr-HR',
     css: '/lang/hr.css',
   },
+  // Hebrew - Middle Eastern language, Right-to-Left (RTL)
   {
     name: 'Hebrew',
     code: 'he',
@@ -36,6 +54,7 @@ export const languages: LanguageConfig[] = [
     locale: 'he-IL',
     css: '/lang/he.css',
   },
+  // Turkish - European language, Left-to-Right
   {
     name: 'Turkish',
     code: 'tr',
@@ -46,7 +65,7 @@ export const languages: LanguageConfig[] = [
   },
 ]
 
-// Helper: get config by code
+// Helper function: Get language configuration by code
 export const getLanguageConfig = (code: LanguageCode) => {
   return languages.find((lang) => lang.code === code) || languages[0]
 }

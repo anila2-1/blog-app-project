@@ -1,4 +1,15 @@
-// src/collections/Posts.ts
+// =============================================================================
+// POSTS COLLECTION - Blog Posts Content Model
+// =============================================================================
+// This defines the schema for blog posts in the CMS.
+// Each post has:
+// - title, slug, excerpt, content (localized for multi-language support)
+// - image (featured image from Media collection)
+// - publishedAt (publication date)
+// - featured, pinned (flags for display priority)
+// - views (view counter)
+// - category (relationship to Categories collection)
+// =============================================================================
 
 import { CollectionConfig } from 'payload'
 import {
@@ -40,6 +51,7 @@ export const Posts: CollectionConfig = {
       required: true,
       localized: true,
     },
+    // URL-friendly identifier - unique across all posts
     {
       name: 'slug',
       type: 'text',
@@ -47,12 +59,15 @@ export const Posts: CollectionConfig = {
       unique: true,
       localized: true,
     },
+    // Short summary for SEO and previews
     {
       name: 'excerpt',
       type: 'textarea',
       required: true,
       localized: true,
     },
+    // Main content - Rich Text Editor (Lexical) with blocks support
+    // Supports: Headings, Code blocks, Media, Video, Tables
     {
       name: 'content',
       type: 'richText',
@@ -70,6 +85,7 @@ export const Posts: CollectionConfig = {
       }),
       required: true,
     },
+    // Featured image - uploaded to Media collection
     {
       name: 'image',
       type: 'upload',
@@ -79,12 +95,14 @@ export const Posts: CollectionConfig = {
         position: 'sidebar',
       },
     },
+    // Publication date
     {
       name: 'publishedAt',
       type: 'date',
       localized: true,
       admin: { position: 'sidebar' },
     },
+    // Featured flag - shows post in featured section
     {
       name: 'featured',
       type: 'checkbox',
@@ -93,6 +111,7 @@ export const Posts: CollectionConfig = {
         position: 'sidebar',
       },
     },
+    // Pinned flag - keeps post at top of lists
     {
       name: 'pinned',
       type: 'checkbox',
@@ -101,6 +120,7 @@ export const Posts: CollectionConfig = {
         position: 'sidebar',
       },
     },
+    // View counter - tracks popularity
     {
       name: 'views',
       type: 'number',
@@ -110,6 +130,7 @@ export const Posts: CollectionConfig = {
         readOnly: true,
       },
     },
+    // Category - organizes posts
     {
       name: 'category',
       type: 'relationship',

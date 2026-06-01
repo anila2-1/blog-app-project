@@ -1,3 +1,14 @@
+// =============================================================================
+// PAYLOAD CMS CONFIGURATION
+// =============================================================================
+// This file configures the entire CMS including:
+// - Database connection (MongoDB)
+// - Collections (Posts, Categories, Media, Users)
+// - Localization settings
+// - SEO plugin
+// - Admin panel settings
+// =============================================================================
+
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { defaultLexical } from './fields/defaultLexical'
@@ -31,15 +42,18 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Posts, Categories], // Add Pages to collections
-  globals: [SiteSettings],
+  collections: [Users, Media, Posts, Categories], // CMS Collections: Users, Media (images), Blog Posts, Categories
+  globals: [SiteSettings], // Global settings like AdSense, GA
   blocks: [Code, Content, MediaBlock, VideoBlock],
+  // LOCALIZATION CONFIGURATION
+  // - Hebrew is the only locale configured in CMS backend
+  // - Frontend supports 4 languages (en, he, hr, tr) via NEXT_PUBLIC_DEFAULT_LANG env
   localization: {
     locales: [
       {
         label: 'Hebrew',
         code: 'he',
-        rtl: true,
+        rtl: true, // RTL = Right-to-Left language
       },
     ],
     defaultLocale: process.env.NEXT_PUBLIC_DEFAULT_LANG || 'he',

@@ -25,7 +25,7 @@ const translations = {
     builtWith: 'Built with love using Next.js & Payload CMS.',
   },
   he: {
-    siteName: 'Zaguriempire',
+    siteName: 'ZaguriEmpire',
     about: 'זגורי אימפריה עונה 3 לצפייה ישירה',
     quickLinks: 'קישורים מהירים',
     home: 'בית',
@@ -34,8 +34,8 @@ const translations = {
     contactPage: 'צור קשר',
     privacyPage: 'מדיניות פרטיות',
     stayConnected: 'הישארו מחוברים',
-    followText: 'חדשות, מחירים, קורסים וסדרות של Zaguriempire - מתעדכנים מדי יום',
-    builtWith: 'נוצר באהבה למידע על ידי Zaguriempire',
+    followText: 'זגורי אימפריה עונה 3 לצפייה ישירה',
+    builtWith: 'נוצר באהבה למידע על ידי זגוריאמפייר',
   },
   hr: {
     siteName: 'SaznajHR',

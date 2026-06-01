@@ -20,10 +20,10 @@ const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || lang
 const langConfig = getLanguageConfig(LANG_CODE)
 
 const translations = {
-  en: { noPosts: 'No posts found.', views: 'views' },
-  he: { noPosts: 'לא נמצאו פוסטים.', views: 'צפיות' },
-  hr: { noPosts: 'Nema pronađenih postova.', views: 'pregleda' },
-  tr: { noPosts: 'Gönderi bulunamadı.', views: 'görüntülenme' },
+  en: { noPosts: 'No posts found.', views: 'views', readMore: 'Read More' },
+  he: { noPosts: 'לא נמצאו פוסטים.', views: 'צפיות', readMore: 'קרא עוד' },
+  hr: { noPosts: 'Nema pronađenih postova.', views: 'pregleda', readMore: 'Pročitaj više' },
+  tr: { noPosts: 'Gönderi bulunamadı.', views: 'görüntülenme', readMore: 'Devamını Oku' },
 }
 
 const t = translations[LANG_CODE] || translations.en
@@ -177,6 +177,28 @@ const LatestPosts: React.FC<LatestPostsProps> = memo(({ posts, loading }) => {
               </div>
 
               <p className="text-gray-700 text-xs sm:text-sm mt-1 line-clamp-2">{excerpt}</p>
+
+              {/* Read More Link */}
+              <span
+                className="inline-flex items-center gap-1 text-xs text-purple-600 mt-2 hover:text-indigo-600 transition-colors"
+                style={{ fontFamily: "'Poppins', sans-serif" }}
+              >
+                {t.readMore}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                  className="w-3 h-3"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                  />
+                </svg>
+              </span>
             </div>
           </div>
         )

@@ -7,10 +7,10 @@ const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || lang
 const langConfig = getLanguageConfig(LANG_CODE)
 
 const translations = {
-  en: { advertisement: 'Advertisement', followUs: 'Follow Us' },
-  he: { advertisement: 'פרסום', followUs: 'עקבו אחרינו' },
-  hr: { advertisement: 'Oglašavanje', followUs: 'Pratite nas' },
-  tr: { advertisement: 'Reklam', followUs: 'Bizi Takip Edin' },
+  en: { advertisement: 'Advertisement', followUs: 'Follow Us', readMore: 'Read More' },
+  he: { advertisement: 'פרסום', followUs: 'עקבו אחרינו', readMore: 'קרא עוד' },
+  hr: { advertisement: 'Oglašavanje', followUs: 'Pratite nas', readMore: 'Pročitaj više' },
+  tr: { advertisement: 'Reklam', followUs: 'Bizi Takip Edin', readMore: 'Daha Fazla Oku' },
 }
 
 const t = translations[LANG_CODE] || translations.en
@@ -19,13 +19,13 @@ export default function Sidebar() {
   return (
     <div className="space-y-8" dir={langConfig.direction} style={{ fontFamily: langConfig.font }}>
       {/* 🖼️ Advertisement Card */}
-      <div
+      {/* <div
         className={`relative group rounded-2xl overflow-hidden bg-white p-6 
                     border shadow-sm 
                     transition-all duration-200 ease-out 
                     hover:-translate-y-1 active:translate-x-0.5 active:translate-y-0.5`}
       >
-        {/* Subtle Glow on Hover */}
+        Subtle Glow on Hover
         <div className="absolute inset-0 rounded-2xl bg-linear-to-r from-[#F16363]/10 via-[#ff8a8a]/5 to-transparent opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-700 -z-10"></div>
 
         <div
@@ -42,7 +42,7 @@ export default function Sidebar() {
         <p className="text-sm text-black font-semibold text-center tracking-wide">
           {t.advertisement}
         </p>
-      </div>
+      </div> */}
 
       {/* 🌐 Follow Us Card */}
       <div

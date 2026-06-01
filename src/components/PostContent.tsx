@@ -1,14 +1,17 @@
 /* eslint-disable @next/next/no-img-element */
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Post } from '@/payload-types'
 import Link from 'next/link'
 import RichText from '@/components/RichText'
 import RelatedPosts from './../app/(frontend)/components/RelatedPosts'
 import { getLanguageConfig, LanguageCode, languages } from '@/config/languages'
 
-const LANG_CODE = (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || languages[0].code
+const LANG_CODE =
+  typeof window !== 'undefined'
+    ? (process.env.NEXT_PUBLIC_DEFAULT_LANG as LanguageCode) || languages[0].code
+    : languages[0].code
 const langConfig = getLanguageConfig(LANG_CODE)
 
 interface PostContentProps {
@@ -17,14 +20,20 @@ interface PostContentProps {
 }
 
 export default function PostContent({ post, category }: PostContentProps) {
+  const [mounted, setMounted] = useState(false)
+
   // Increment view count
   useEffect(() => {
+    setMounted(true)
     fetch('/api/increment-view', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ slug: post.slug, locale: langConfig.locale }),
     }).catch(() => null)
   }, [post.slug])
+
+  // Use mounted state to avoid hydration mismatch
+  const displayCategory = mounted ? category : null
 
   return (
     <article className=" py-6 px-3 sm:px-4 lg:px-6">
@@ -35,18 +44,18 @@ export default function PostContent({ post, category }: PostContentProps) {
           className={`flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-4 text-sm 
           ${langConfig.direction === 'rtl' ? 'sm:justify-end text-right' : 'sm:justify-start'}`}
         >
-          {category?.slug && (
+          {displayCategory?.slug && (
             <Link
-              href={`/categories/${category.slug}`}
+              href={`/categories/${displayCategory.slug}`}
               className="px-3 py-1 rounded-lg text-blue-700 text-2xl sm:text-lg font-bold hover:bg-blue-100 transition"
             >
-              {category?.name || category?.title}
+              {displayCategory?.name || displayCategory?.title || 'Category'}
             </Link>
           )}
 
           {post.publishedAt && (
-            <span className="text-gray-600 text-xs sm:text-sm">
-              {new Date(post.publishedAt).toLocaleDateString(langConfig.locale, {
+            <span className="text-gray-600 text-xs sm:text-sm" suppressHydrationWarning>
+              {new Date(post.publishedAt).toLocaleDateString('en-US', {
                 month: 'short',
                 day: 'numeric',
                 year: 'numeric',
@@ -66,7 +75,7 @@ export default function PostContent({ post, category }: PostContentProps) {
             <img
               src={post.image.url}
               alt={post.title}
-              className="w-full h-[220px] sm:h-80 lg:h-[430px] object-cover transition-transform duration-700 group-hover:scale-105"
+              className="w-full h-55 sm:h-80 lg:h-107.5 object-cover transition-transform duration-700 group-hover:scale-105"
             />
           </div>
         )}
@@ -81,11 +90,14 @@ export default function PostContent({ post, category }: PostContentProps) {
       <div className="my-10 border-t border-gray-300" />
 
       {/* Related Posts */}
-      {typeof post.category === 'object' && post.category !== null && post.category.slug && (
-        <section>
-          <RelatedPosts categorySlug={post.category.slug} currentPostId={post.id} />
-        </section>
-      )}
+      {mounted &&
+        typeof post.category === 'object' &&
+        post.category !== null &&
+        post.category.slug && (
+          <section>
+            <RelatedPosts categorySlug={post.category.slug} currentPostId={post.id} />
+          </section>
+        )}
     </article>
   )
 }
