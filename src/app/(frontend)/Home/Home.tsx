@@ -376,15 +376,14 @@ export default function HomePage() {
                       {/* Image - Full width at top */}
                       {post.image?.url && (
                         <div className="relative h-48 w-full overflow-hidden rounded-t-xl bg-linear-to-br from-purple-200 to-indigo-200">
-                          <Image
-                            src={post.image.url}
-                            alt={post.title}
-                            className="object-cover transition-transform duration-500 group-hover:scale-105"
-                            fill
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                            unoptimized
-                            priority={true}
-                          />
+                           <Image
+                             src={post.image.url}
+                             alt={post.title}
+                             className="object-cover transition-transform duration-500 group-hover:scale-105"
+                             fill
+                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                             loading="lazy"
+                           />
                           <div className="absolute inset-0 bg-linear-to-t from-black/25 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                         </div>
                       )}

@@ -144,6 +144,8 @@ export default function PostsPageClient({ initialPage = 1 }: { initialPage?: num
                   src={imageUrl}
                   alt={post.title || 'Post image'}
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  loading="lazy"
                   style={{ objectFit: 'cover' }}
                   className="transition-transform duration-700 group-hover:scale-110"
                 />

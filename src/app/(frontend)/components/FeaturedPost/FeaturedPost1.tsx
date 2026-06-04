@@ -82,6 +82,7 @@ export default function FeaturedPost({ posts = [], loading, currentIndex = 0 }: 
               src={imageUrl}
               alt={post?.title ?? 'Featured Post'}
               fill
+              sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover transition-transform duration-700 group-hover:scale-105"
               priority
             />

@@ -97,6 +97,8 @@ const LatestPosts: React.FC<LatestPostsProps> = memo(({ posts, loading }) => {
               <img
                 src={imageUrl}
                 alt={title}
+                loading="lazy"
+                decoding="async"
                 className="
                   w-16 h-12 mt-6
                   sm:w-18 sm:h-14

@@ -2,7 +2,6 @@ import { withPayload } from '@payloadcms/next/withPayload'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Payload does NOT support Turbopack in production
   turbopack: false,
 
   webpack: (webpackConfig) => {
@@ -21,7 +20,7 @@ const nextConfig = {
   env: {
     NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL || '',
   },
-
+}
 
 export default withPayload(nextConfig, {
   devBundleServerPackages: false,

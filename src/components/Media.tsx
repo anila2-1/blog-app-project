@@ -10,7 +10,15 @@ export interface MediaProps {
 }
 
 export const Media: React.FC<MediaProps> = ({ resource, imgClassName }) => {
-  return <img src={resource.url} alt={resource.alt} className={imgClassName} />
+  return (
+    <img
+      src={resource.url}
+      alt={resource.alt}
+      className={imgClassName}
+      loading="lazy"
+      decoding="async"
+    />
+  )
 }
 
 export default Media

@@ -132,6 +132,8 @@ export default function CategoriesPage() {
                     <img
                       src={category.image.url}
                       alt={category.name}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-40 object-cover"
                     />
                   )}
