@@ -51,12 +51,12 @@ export default buildConfig({
   localization: {
     locales: [
       {
-        label: 'Hebrew',
-        code: 'he',
-        rtl: true, // RTL = Right-to-Left language
+        label: 'Greek',
+        code: 'el',
+        rtl: false, // RTL = Right-to-Left language
       },
     ],
-    defaultLocale: process.env.NEXT_PUBLIC_DEFAULT_LANG || 'he',
+    defaultLocale: process.env.NEXT_PUBLIC_DEFAULT_LANG || 'el',
     fallback: true,
   },
   i18n: {

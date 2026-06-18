@@ -95,14 +95,14 @@ export interface Config {
   db: {
     defaultIDType: string;
   };
-  fallbackLocale: ('false' | 'none' | 'null') | false | null | 'he' | 'he'[];
+  fallbackLocale: ('false' | 'none' | 'null') | false | null | 'el' | 'el'[];
   globals: {
     'site-setting': SiteSetting;
   };
   globalsSelect: {
     'site-setting': SiteSettingSelect<false> | SiteSettingSelect<true>;
   };
-  locale: 'he';
+  locale: 'el';
   user: User & {
     collection: 'users';
   };
