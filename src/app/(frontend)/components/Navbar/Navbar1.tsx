@@ -68,6 +68,15 @@ const translations = {
     close: 'Kapat',
     pressEsc: "Kapatmak için ESC'ye basın",
   },
+  el: {
+    home: 'Αρχική',
+    search: 'Αναζήτηση...',
+    siteName: 'SpoilerGr',
+    searchModalTitle: 'Πληκτρολογήστε για να ξεκινήσει η αναζήτηση',
+    searchButton: 'Αναζήτηση',
+    close: 'Κλείσιμο',
+    pressEsc: 'Πατήστε ESC για κλείσιμο',
+  },
 }
 
 const t = translations[LANG_CODE] || translations.en

@@ -24,6 +24,7 @@ const translations = {
   he: { noPosts: 'לא נמצאו פוסטים.', views: 'צפיות', readMore: 'קרא עוד' },
   hr: { noPosts: 'Nema pronađenih postova.', views: 'pregleda', readMore: 'Pročitaj više' },
   tr: { noPosts: 'Gönderi bulunamadı.', views: 'görüntülenme', readMore: 'Devamını Oku' },
+  el: { noPosts: 'Δεν βρέθηκαν δημοσιεύσεις.', views: 'προβολές', readMore: 'Διάβασε περισσότερα' },
 }
 
 const t = translations[LANG_CODE] || translations.en

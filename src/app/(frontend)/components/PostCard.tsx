@@ -44,6 +44,10 @@ const translations = {
     readMore: 'Devamını Oku',
     noDate: 'Tarih Yok',
   },
+  el: {
+    readMore: 'Διάβασε περισσότερα',
+    noDate: 'Μη διαθέσιμη',
+  },
 }
 
 const t = translations[LANG_CODE] || translations.en
@@ -73,14 +77,14 @@ export default function PostCard({ post, locale }: PostCardProps) {
     >
       {/* 🖼️ Image Section */}
       <div className="relative h-48 w-full overflow-hidden rounded-t-xl bg-linear-to-br from-purple-200 to-indigo-200">
-         <Image
-           src={imageUrl}
-           alt={post.title || 'Post image'}
-           className="object-cover transition-transform duration-500 group-hover:scale-105"
-           fill
-           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-           loading="lazy"
-         />
+        <Image
+          src={imageUrl}
+          alt={post.title || 'Post image'}
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          loading="lazy"
+        />
         <div className="absolute inset-0 bg-linear-to-t from-black/25 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
 

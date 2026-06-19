@@ -11,6 +11,7 @@ const translations = {
   he: { advertisement: 'פרסום', followUs: 'עקבו אחרינו', readMore: 'קרא עוד' },
   hr: { advertisement: 'Oglašavanje', followUs: 'Pratite nas', readMore: 'Pročitaj više' },
   tr: { advertisement: 'Reklam', followUs: 'Bizi Takip Edin', readMore: 'Daha Fazla Oku' },
+  el: { advertisement: 'Διαφήμιση', followUs: 'Ακολουθήστε μας', readMore: 'Διαβάστε περισσότερα' },
 }
 
 const t = translations[LANG_CODE] || translations.en

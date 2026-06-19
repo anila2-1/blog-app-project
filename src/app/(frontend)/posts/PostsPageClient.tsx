@@ -32,6 +32,13 @@ const translations = {
     next: 'Sljedeći',
     readMore: 'Pročitaj više',
   },
+  el: {
+    noPostsTitle: 'Δεν βρέθηκαν δημοσιεύσεις',
+    noPostsMessage: 'Δεν υπάρχουν διαθέσιμες δημοσιεύσεις για την επιλεγμένη γλώσσα.',
+    previous: 'Προηγούμενο',
+    next: 'επόμενος',
+    readMore: 'Διάβασε περισσότερα',
+  },
 }
 
 const t = translations[LANG_CODE as keyof typeof translations] || translations.en

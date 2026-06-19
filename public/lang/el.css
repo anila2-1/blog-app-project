@@ -1,0 +1,12 @@
+/* lang/el.css */
+/* Greek language styles (LTR) */
+
+/* Body/H tags already handled by Tailwind + styles.css.
+   Keep this file for potential future per-language tweaks. */
+
+/* Ensure LTR layout for Greek */
+[dir="ltr"] {
+  direction: ltr;
+  text-align: left;
+}
+

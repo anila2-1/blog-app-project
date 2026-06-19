@@ -24,6 +24,7 @@ const translations = {
   he: { readMore: 'המשך קריאה', noPosts: 'אין פוסטים בתג המומלצים.' },
   hr: { readMore: 'Nastavi čitanje', noPosts: 'Nema istaknutih postova.' },
   tr: { readMore: 'Devamını Oku', noPosts: 'Öne çıkan gönderi yok.' },
+  el: { readMore: 'Διάβασε περισσότερα', noPosts: 'Δεν υπάρχουν διαθέσιμα δημοσιεύματα.' },
 }
 
 const t = translations[LANG_CODE] || translations.en

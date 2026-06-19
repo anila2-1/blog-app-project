@@ -23,6 +23,11 @@ const translations = {
   he: { noPosts: 'אין פוסטים פופולריים עדיין.', views: 'צפיות', readMore: 'קרא עוד' },
   hr: { noPosts: 'Još nema popularnih postova.', views: 'pregleda', readMore: 'Pročitaj više' },
   tr: { noPosts: 'Henüz popüler gönderi yok.', views: 'görüntülenme', readMore: 'Devamını Oku' },
+  el: {
+    noPosts: 'Δεν υπάρχουν ακόμη δημοφιλή άρθρα.',
+    views: 'προβολές',
+    readMore: 'Διάβασε περισσότερα',
+  },
 }
 
 const t = translations[LANG_CODE] || translations.en

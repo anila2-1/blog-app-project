@@ -13,6 +13,7 @@ const translations = {
   hr: { relatedPosts: 'Povezani članci', readMore: 'Pročitaj više', noImage: 'Nema slike' },
   he: { relatedPosts: 'פוסטים קשורים', readMore: 'קרא עוד', noImage: 'אין תמונה' },
   tr: { relatedPosts: 'İlgili Gönderiler', readMore: 'Devamını Oku', noImage: 'Resim Yok' },
+  el: { relatedPosts: 'Σχετικά Άρθρα', readMore: 'Διάβασε περισσότερα', noImage: 'Χωρίς εικόνα' },
 }
 
 interface RelatedPostsProps {
@@ -70,16 +71,16 @@ export default function RelatedPosts({ categorySlug, currentPostId, locale }: Re
             "
           >
             {/* ⭐ Responsive Image */}
-             {typeof post.image !== 'string' && post.image?.url ? (
-               <div className="w-full h-40 sm:h-44 md:h-48 overflow-hidden">
-                 <img
-                   src={post.image.url}
-                   alt={post.title}
-                   loading="lazy"
-                   decoding="async"
-                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                 />
-               </div>
+            {typeof post.image !== 'string' && post.image?.url ? (
+              <div className="w-full h-40 sm:h-44 md:h-48 overflow-hidden">
+                <img
+                  src={post.image.url}
+                  alt={post.title}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
             ) : (
               <div className="w-full h-40 flex items-center justify-center bg-gray-50 text-gray-400 text-sm">
                 {t.noImage}

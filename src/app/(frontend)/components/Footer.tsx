@@ -65,9 +65,24 @@ const translations = {
     followText: 'Güncellemeler, tasarım ilhamı ve Payload CMS ipuçları için bizi takip edin.',
     builtWith: 'Next.js ve Payload CMS kullanarak sevgiyle yapıldı.',
   },
+  el: {
+    siteName: 'SpoilerGr',
+    about:
+      'Το απόλυτο σημείο για spoilers και τηλεοπτικές σειρές! Μάθετε πρώτοι τις καταιγιστικές και περιλήψεις για όλα τα ελληνικά σίριαλ.',
+    quickLinks: 'Γρήγοροι Σύνδεσμοι',
+    home: 'Αρχική',
+    posts: 'Άρθρα',
+    aboutPage: 'Σχετικά',
+    contactPage: 'Επικοινωνία',
+    privacyPage: 'Πολιτική Απορρήτου',
+    stayConnected: 'Μείνετε Συνδεδεμένοι',
+    followText:
+      'Ακολουθήστε το SpoilerGr για τις πιο hot εξελίξεις, spoilers και αποκλειστικά νέα για όλες τις τηλεοπτικές σειρές!',
+    builtWith: ' Με την επιφύλαξη παντός δικαιώματος.',
+  },
 }
 
-const t = translations[LANG_CODE] || translations.en
+const t = (translations as Record<string, typeof translations.en>)[LANG_CODE] || translations.en
 
 export default function Footer() {
   const [isVisible, setIsVisible] = useState(false)

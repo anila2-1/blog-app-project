@@ -27,6 +27,10 @@ const translations = {
     latest: 'En Son',
     popular: 'Popüler',
   },
+  el: {
+    latest: 'Τελευταία',
+    popular: 'Δημοφιλή',
+  },
 }
 
 const t = translations[LANG_CODE as keyof typeof translations] || translations.en
@@ -245,8 +249,7 @@ export default async function SinglePostPage(props: { params: Promise<{ slug: st
 
             {/* Title */}
             <h3 className="font-bold text-black text-lg mb-4 text-center relative z-10">
-              <span className="relative z-10">Follow Us</span>
-              <span className="absolute left-1/2 -translate-x-1/2 bottom-0 w-12 h-1 bg-black rounded-full"></span>
+              <span className="relative z-10">Ακολουθήστε μας</span>
             </h3>
 
             {/* Social Icons Row */}

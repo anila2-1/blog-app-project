@@ -32,9 +32,15 @@ const translations = {
     noCategories: 'Kategori bulunamadı.',
     loading: 'Yükleniyor...',
   },
+  el: {
+    exploreTopics: 'Εξερευνήστε Θέματα',
+    allCategories: 'Όλες οι κατηγορίες',
+    noCategories: 'Δεν βρέθηκαν κατηγορίες.',
+    loading: 'Φόρτωση...',
+  },
 }
 
-const t = translations[LANG_CODE] || translations.en
+const t = (translations as Record<string, typeof translations.en>)[LANG_CODE] || translations.en
 
 interface Category {
   id: string

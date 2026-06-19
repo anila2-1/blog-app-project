@@ -16,9 +16,9 @@ export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
 export const metadata = {
-  title: ' זגורי אימפריה',
+  title: 'Spoilers & Επόμενα Επεισόδια για Τηλεοπτικές Σειρές',
   description:
-    'זגורי אימפריה עונה 3 לצפייה ישירה באיכות גבוהה. קבלו גישה לכל הפרקים המלאים לאחר תשלום חד פעמי, לצפייה והורדה מכל מכשיר בצורה קלה ובטוחה.',
+    'Το απόλυτο σημείο για spoilers και τηλεοπτικές σειρές! Μάθετε πρώτοι τις καταιγιστικές και περιλήψεις για όλα τα ελληνικά σίριαλ.',
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

@@ -47,6 +47,18 @@ const translations = {
     next: 'Sonraki',
     articleCount: (count: number) => `${count} makale bu kategoride`,
   },
+  el: {
+    allCategories: '← Όλες οι κατηγορίες',
+    noPosts: 'Δεν βρέθηκαν δημοσιεύσεις σε αυτήν την κατηγορία.',
+    browseOther: 'Δείτε άλλα θέματα',
+    readmore: 'Διαβάστε περισσότερα',
+    previous: 'Προηγούμενο',
+    next: 'Επόμενο',
+    articleCount: (count: number) => {
+      // Simple pluralization: use the same suffix for all counts
+      return `${count} άρθρα σε αυτήν την κατηγορία`
+    },
+  },
 }
 
 const t = translations[LANG_CODE] || translations.en

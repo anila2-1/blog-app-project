@@ -15,7 +15,7 @@
 // =============================================================================
 
 // Type definition for language codes
-export type LanguageCode = 'en' | 'he' | 'hr' | 'tr'
+export type LanguageCode = 'en' | 'he' | 'hr' | 'tr' | 'el'
 
 export interface LanguageConfig {
   css?: string
@@ -62,6 +62,15 @@ export const languages: LanguageConfig[] = [
     font: 'Outfit, sans-serif',
     locale: 'tr-TR',
     css: '/lang/tr.css',
+  },
+  // Greek - European language, Left-to-Right
+  {
+    name: 'Greek',
+    code: 'el',
+    direction: 'ltr',
+    font: 'Outfit, sans-serif',
+    locale: 'el-GR',
+    css: '/lang/el.css',
   },
 ]
 

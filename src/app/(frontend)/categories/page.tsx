@@ -32,6 +32,12 @@ const translations = {
     noCategories: 'Kategori mevcut değil.',
     backToHome: '← Ana Sayfaya Dön',
   },
+  el: {
+    pageTitle: 'Εξερεύνηση Θεμάτων',
+    pageSubtitle: 'Περιηγηθείτε στα άρθρα ανά κατηγορία',
+    noCategories: 'Δεν υπάρχουν διαθέσιμες κατηγορίες.',
+    backToHome: '← Επιστροφή στην Αρχική Σελίδα',
+  },
 }
 
 const t = translations[LANG_CODE] || translations.en

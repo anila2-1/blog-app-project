@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from 'react'
 import Link from 'next/link'
 import FeaturedPost from './../components/FeaturedPost/FeaturedPost1'
 import MostViewedPosts from './../components/MostViewedPosts'
-import PinnedPosts from './../components/PinnedPosts'
+// import PinnedPosts from './../components/PinnedPosts'
 import LatestPosts from './../components/LatestPosts'
 import CategoryCards from './../components/CategoryCards'
 import Sidebar from './../components/Sidebar'
@@ -72,6 +72,20 @@ const translations = {
     allPosts: 'Tüm Yazılar',
     loadMore: 'Daha Fazla Yükle',
     readMore: 'Devamını Oku',
+  },
+  el: {
+    featured: 'Προτεινόμενα',
+    popular: 'Δημοφιλή',
+    pinned: 'Καρφιτσωμένα',
+    categories: 'Κατηγορίες',
+    latest: 'Τα πιο πρόσφατα',
+    explore: 'Ανακάλυψη',
+    exploreHeading: ' ανακαλύψτε περισσότερες εμπνευσμένες δημοσιεύσεις',
+    exploreDescription: 'Μείνετε εμπνευσμένοι και εξερευνήστε ολόκληρη τη συλλογή των άρθρων μας.',
+    exploreButton: 'Δείτε όλα τα άρθρα',
+    allPosts: 'Όλες οι δημοσιεύσεις',
+    loadMore: 'Φόρτωση περισσότερων',
+    readMore: 'Διαβάστε περισσότερα',
   },
 }
 
@@ -333,14 +347,14 @@ export default function HomePage() {
       {/* Content Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 animate-fadeUp">
         <div className="lg:col-span-2 space-y-8">
-          <SectionCard
+          {/* <SectionCard
             label={t.pinned}
             padding="p-3"
             labelPosition="top-4 left-4"
             customClasses="bg-white shadow-sm backdrop-blur-sm"
           >
             <PinnedPosts posts={pinnedPosts} loading={loadingStates.pinned} />
-          </SectionCard>
+          </SectionCard> */}
 
           {/* All Post */}
           <SectionCard
@@ -351,7 +365,7 @@ export default function HomePage() {
           >
             {loadingStates.allPosts ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 sm:gap-6">
-                {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => (
                   <div
                     key={i}
                     className="animate-pulse bg-white shadow-md rounded-xl overflow-hidden border border-gray-100"
@@ -376,14 +390,14 @@ export default function HomePage() {
                       {/* Image - Full width at top */}
                       {post.image?.url && (
                         <div className="relative h-48 w-full overflow-hidden rounded-t-xl bg-linear-to-br from-purple-200 to-indigo-200">
-                           <Image
-                             src={post.image.url}
-                             alt={post.title}
-                             className="object-cover transition-transform duration-500 group-hover:scale-105"
-                             fill
-                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                             loading="lazy"
-                           />
+                          <Image
+                            src={post.image.url}
+                            alt={post.title}
+                            className="object-cover transition-transform duration-500 group-hover:scale-105"
+                            fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            loading="lazy"
+                          />
                           <div className="absolute inset-0 bg-linear-to-t from-black/25 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                         </div>
                       )}

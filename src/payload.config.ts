@@ -14,7 +14,8 @@ import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { defaultLexical } from './fields/defaultLexical'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { buildConfig } from 'payload'
-import { he } from '@payloadcms/translations/languages/he'
+
+// import { el } from './i18n/el'
 
 import path from 'path'
 import { fileURLToPath } from 'url'
@@ -59,9 +60,13 @@ export default buildConfig({
     defaultLocale: process.env.NEXT_PUBLIC_DEFAULT_LANG || 'el',
     fallback: true,
   },
-  i18n: {
-    supportedLanguages: { he },
-  },
+  // DELETE THIS FULL BLOCK
+  // i18n: {
+  //   supportedLanguages: {
+  //     el: el,
+  //   } as any,
+  // },
+
   // payload.config.ts
 
   editor: defaultLexical,
