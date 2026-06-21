@@ -37,6 +37,12 @@ const translations = {
     noResults: 'Sorgunuzla eşleşen gönderi bulunamadı.',
     error: 'Sonuçlar yüklenemedi',
   },
+  el: {
+    resultsFor: 'Αποτελέσματα για',
+    searching: 'Αναζήτηση...',
+    noResults: 'Δεν βρέθηκαν δημοσιεύσεις που ταιριάζουν με το ερώτημά σας.',
+    error: 'Αποτυχία φόρτωσης αποτελεσμάτων',
+  },
 }
 
 function SearchResultsPageContent({ locale = LANG_CODE }: { locale?: string }) {

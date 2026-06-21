@@ -23,6 +23,7 @@ const translations = {
   he: { noPosts: 'לא נמצאו פוסטים מוצמדים.' },
   hr: { noPosts: 'Nema prikvačenih postova.' },
   tr: { noPosts: 'Sabitlenmiş gönderi bulunamadı.' },
+  el: { noPosts: 'Δεν βρέθηκαν καρφιτσωμένες δημοσιεύσεις.' },
 }
 
 const t = translations[LANG_CODE] || translations.en

@@ -14,6 +14,7 @@ const translations = {
   he: { all: 'הכול', categories: 'קטגוריות' },
   hr: { all: 'SVE', categories: 'KATEGORIJE' },
   tr: { all: 'HEPSİ', categories: 'KATEGORİLER' },
+  el: { all: 'ΟΛΑ', categories: 'ΚΑΤΗΓΟΡΙΕΣ' },
 }
 
 const t = translations[LANG_CODE] || translations.en
