@@ -35,7 +35,7 @@ export default function RelatedPosts({ categorySlug, currentPostId, locale }: Re
     const fetchPosts = async () => {
       try {
         const res = await fetch(
-          `/api/posts?where[category.slug][equals]=${categorySlug}&where[id][not_equals]=${currentPostId}&limit=3&depth=1`,
+          `/api/posts?where[category.slug][equals]=${categorySlug}&where[id][not_equals]=${currentPostId}&limit=3&depth=1&where[_status][equals]=published`,
         )
 
         const data = await res.json()

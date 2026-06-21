@@ -68,7 +68,7 @@ function SearchResultsPageContent({ locale = LANG_CODE }: { locale?: string }) {
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/posts?where[or][0][title][like]=${encodeURIComponent(
             query,
-          )}&where[or][1][excerpt][like]=${encodeURIComponent(query)}&locale=${locale}&limit=20`,
+          )}&where[or][1][excerpt][like]=${encodeURIComponent(query)}&locale=${locale}&limit=20&where[_status][equals]=published`,
           { cache: 'no-store' },
         )
 

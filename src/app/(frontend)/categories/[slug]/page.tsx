@@ -104,7 +104,7 @@ export default function CategoryPostsPage() {
 
         // Fetch posts filtered by category with pagination
         const postsRes = await fetch(
-          `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/posts?where[category][in]=${cat.id}&sort=-publishedAt&locale=${langConfig.locale}&limit=${POSTS_PER_PAGE}&page=${currentPage}&pagination=true`,
+          `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/posts?where[category][in]=${cat.id}&sort=-publishedAt&locale=${langConfig.locale}&limit=${POSTS_PER_PAGE}&page=${currentPage}&pagination=true&where[_status][equals]=published`,
         )
         const postsData = await postsRes.json()
 

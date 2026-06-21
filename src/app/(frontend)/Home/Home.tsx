@@ -172,11 +172,11 @@ export default function HomePage() {
 
         const endpoints = [
           `/api/categories?limit=6&locale=${locale}&depth=1`,
-          `/api/posts?where[pinned][equals]=true&limit=3&locale=${locale}&depth=1`,
-          `/api/posts?sort=-publishedAt&limit=4&locale=${locale}&depth=1`,
-          `/api/posts?sort=-views&limit=4&locale=${locale}&depth=1`,
-          `/api/posts?where[featured][equals]=true&sort=-publishedAt&limit=3&locale=${locale}&depth=1`,
-          `/api/posts?sort=-publishedAt&limit=6&locale=${locale}&depth=1`,
+          `/api/posts?where[pinned][equals]=true&limit=3&locale=${locale}&depth=1&where[_status][equals]=published`,
+          `/api/posts?sort=-publishedAt&limit=4&locale=${locale}&depth=1&where[_status][equals]=published`,
+          `/api/posts?sort=-views&limit=4&locale=${locale}&depth=1&where[_status][equals]=published`,
+          `/api/posts?where[featured][equals]=true&sort=-publishedAt&limit=3&locale=${locale}&depth=1&where[_status][equals]=published`,
+          `/api/posts?sort=-publishedAt&limit=6&locale=${locale}&depth=1&where[_status][equals]=published`,
         ]
 
         const baseUrl = process.env.NEXT_PUBLIC_PAYLOAD_URL

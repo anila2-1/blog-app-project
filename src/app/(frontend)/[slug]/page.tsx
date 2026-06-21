@@ -40,7 +40,7 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
   const { slug } = await props.params
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/posts?where[slug][equals]=${slug}&locale=${langConfig.locale}&depth=2`,
+    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/posts?where[slug][equals]=${slug}&locale=${langConfig.locale}&depth=2&where[_status][equals]=published`,
     { cache: 'no-store' },
   )
   const data = await res.json()
@@ -113,7 +113,7 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
 export default async function SinglePostPage(props: { params: Promise<{ slug: string }> }) {
   const { slug } = await props.params
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/posts?where[slug][equals]=${slug}&locale=${langConfig.locale}&depth=1&fallback-locale=none`,
+    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/posts?where[slug][equals]=${slug}&locale=${langConfig.locale}&depth=1&fallback-locale=none&where[_status][equals]=published`,
     { cache: 'no-store' },
   )
   const data = await res.json()
@@ -149,10 +149,10 @@ export default async function SinglePostPage(props: { params: Promise<{ slug: st
   // Fetch latest and most viewed posts for sidebar
   const [latestRes, mostViewedRes] = await Promise.all([
     fetch(
-      `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/posts?sort=-publishedAt&limit=4&locale=${langConfig.locale}&depth=1&fallback-locale=none`,
+      `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/posts?sort=-publishedAt&limit=4&locale=${langConfig.locale}&depth=1&fallback-locale=none&where[_status][equals]=published`,
     ),
     fetch(
-      `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/posts?sort=-views&limit=4&locale=${langConfig.locale}&depth=1&fallback-locale=none`,
+      `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/posts?sort=-views&limit=4&locale=${langConfig.locale}&depth=1&fallback-locale=none&where[_status][equals]=published`,
     ),
   ])
 
